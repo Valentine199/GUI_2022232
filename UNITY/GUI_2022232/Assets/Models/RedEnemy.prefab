@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6351544853197852199}
   - component: {fileID: -6897966218844316511}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: RedEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 82790e6ec9867f24b943806039a0a1bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -164,8 +164,8 @@ MonoBehaviour:
   m_PlayOnAwake: 1
   m_LoopMode: 1
   m_Method: 1
-  m_Duration: 4.114849
-  m_MaxSpeed: 100
+  m_Duration: 20.574245
+  m_MaxSpeed: 20
   m_EasingMode: 0
   m_AlignmentMode: 1
   m_ObjectForwardAxis: 2
