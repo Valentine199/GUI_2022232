@@ -9,14 +9,25 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         Instantiate(_spline);
-        InvokeRepeating(SPAWN_METHOD, _spawnTime, _spawnDelay);
+        StartCoroutine(StartWave());
     }
 
-    private void SpawnEnemy()
+    private IEnumerator StartWave()
     {
-        Instantiate(_enemies[0], transform.position, transform.rotation);
-        if (_stopSpawning)
-            CancelInvoke(SPAWN_METHOD);
+        for (int i = 0; i < _packs.Count; i++)
+        {
+            yield return StartCoroutine(SpawnPack(_packs[i]));
+        }
+    }
+
+    private IEnumerator SpawnPack(Pack pack)
+    {
+        for (int i = 0; i < pack.count; i++)
+        {
+            Instantiate(_enemies[(int)pack.type], transform.position, transform.rotation);
+            yield return new WaitForSeconds(pack.cooldown);
+        }
+        yield return null;
     }
 
     private enum EnemyType
