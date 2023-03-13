@@ -414,9 +414,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemies:
   - {fileID: 1580579747645807087, guid: c9a5346f38eecb54a986ce0b7b4a244d, type: 3}
+  - {fileID: 1580579747645807087, guid: a52e10a9a9ee7ec4bad1a17717f6610a, type: 3}
+  - {fileID: 1580579747645807087, guid: 4c4f5c7b66d96e2449e763a3486e4e90, type: 3}
+  - {fileID: 1580579747645807087, guid: 493c4740f7161a846a389be2eebef529, type: 3}
   _spline: {fileID: 2938776415960335733, guid: 58977a4c601bb7e4296732c282f25f44, type: 3}
   _stopSpawning: 0
-  _spawnTime: 2
+  _spawnTime: 0
   _spawnDelay: 2
 --- !u!4 &1807263730
 Transform:

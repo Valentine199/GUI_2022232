@@ -24,7 +24,7 @@ public class TurretTargeting : MonoBehaviour
 
     private void GetTarget()
     {
-        //min value search
+        // Min value search
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         target = null;
         float maxDistance = Mathf.Infinity;
@@ -50,8 +50,6 @@ public class TurretTargeting : MonoBehaviour
             head.LookAt(target);
             Shoot(true);
         }
-
-        
     }
 
     private void Shoot(bool isActive)
