@@ -19,10 +19,20 @@ public class WaveManager : MonoBehaviour
             CancelInvoke(SPAWN_METHOD);
     }
 
-    private const string SPAWN_METHOD = "SpawnEnemy";
+    private enum EnemyType
+    {
+        red,
+        blue,
+        green,
+        yellow
+    }
 
-    // Enemy spawn pattern, a wave is always the same
-    private string _pattern;
+    private struct Pack
+    {
+        public EnemyType type;
+        public int count;
+        public float cooldown;
+    }
 
     [SerializeField] private List<Enemy> _enemies;
     [SerializeField] private SplineContainer _spline;
