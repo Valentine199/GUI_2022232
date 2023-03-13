@@ -37,8 +37,12 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private List<Enemy> _enemies;
     [SerializeField] private SplineContainer _spline;
 
-
-    [SerializeField] private bool _stopSpawning;
-    [SerializeField] private float _spawnTime;
-    [SerializeField] private float _spawnDelay;
+    // For testing purposes
+    private readonly List<Pack> _packs = new List<Pack>()
+    {
+        new Pack() { type = EnemyType.green, count = 10, cooldown = 0.8f },
+        new Pack() { type = EnemyType.red, count = 11, cooldown = 0.9f },
+        new Pack() { type = EnemyType.blue, count = 5, cooldown = 0.5f },
+        new Pack() { type = EnemyType.yellow, count = 3, cooldown = 0.9f }
+    };
 }
