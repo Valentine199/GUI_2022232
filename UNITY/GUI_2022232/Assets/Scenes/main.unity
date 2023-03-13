@@ -383,6 +383,53 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 4756863587688148284}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1807263728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1807263730}
+  - component: {fileID: 1807263729}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1807263729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807263728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89cd096c7a2fc744da6f453f84ba19c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemies:
+  - {fileID: 1580579747645807087, guid: c9a5346f38eecb54a986ce0b7b4a244d, type: 3}
+  _spline: {fileID: 2938776415960335733, guid: 58977a4c601bb7e4296732c282f25f44, type: 3}
+--- !u!4 &1807263730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807263728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -31.239363, y: 35.184635, z: 2.9511266}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2008825907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -489,7 +536,7 @@ PrefabInstance:
     - target: {fileID: 7553983041913495306, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -9.18
       objectReference: {fileID: 0}
     - target: {fileID: 7553983041913495306, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
         type: 3}
@@ -499,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 7553983041913495306, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -33.82
       objectReference: {fileID: 0}
     - target: {fileID: 7553983041913495306, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
         type: 3}
@@ -570,4 +617,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 1995891857679514023}
   particleSys: {fileID: 1704581939}
-  range: 30
+  range: 100
