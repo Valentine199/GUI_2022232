@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760b0cd2fe1f99d49944619c1c876ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseHealth: 0
 --- !u!54 &6351544853197852199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -164,8 +165,8 @@ MonoBehaviour:
   m_PlayOnAwake: 1
   m_LoopMode: 1
   m_Method: 1
-  m_Duration: 10.287123
-  m_MaxSpeed: 40
+  m_Duration: 16.254576
+  m_MaxSpeed: 20
   m_EasingMode: 0
   m_AlignmentMode: 1
   m_ObjectForwardAxis: 2
