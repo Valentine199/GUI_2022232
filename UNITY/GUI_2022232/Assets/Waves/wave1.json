@@ -1,0 +1,27 @@
+[
+    {
+        "type": "3",
+        "amount": 10,
+        "spacing": 1
+    },
+    {
+        "type": "1",
+        "amount": 5,
+        "spacing": 1.2
+    },
+    {
+        "type": "2",
+        "amount": 8,
+        "spacing": 1.5
+    },
+    {
+        "type": "3",
+        "amount": 3,
+        "spacing": 1.4
+    },
+    {
+        "type": "4",
+        "amount": 4,
+        "spacing": 1.8
+    }
+]
