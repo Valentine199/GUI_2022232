@@ -131,10 +131,35 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 939181682104346764, guid: 8288268f8bd158247b15daac53426670,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 939181682104346764, guid: 8288268f8bd158247b15daac53426670,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -37.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917729698232360547, guid: 8288268f8bd158247b15daac53426670,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917729698232360547, guid: 8288268f8bd158247b15daac53426670,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -50.94
+      objectReference: {fileID: 0}
     - target: {fileID: 7359243875965101863, guid: 8288268f8bd158247b15daac53426670,
         type: 3}
       propertyPath: m_Name
       value: PlayerArmature
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591399672678796174, guid: 8288268f8bd158247b15daac53426670,
+        type: 3}
+      propertyPath: GroundCheck.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8194737651041843252, guid: 8288268f8bd158247b15daac53426670,
         type: 3}
@@ -144,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 8194737651041843252, guid: 8288268f8bd158247b15daac53426670,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.4
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 8194737651041843252, guid: 8288268f8bd158247b15daac53426670,
         type: 3}
@@ -154,7 +179,7 @@ PrefabInstance:
     - target: {fileID: 8194737651041843252, guid: 8288268f8bd158247b15daac53426670,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 48.2
+      value: 48.97
       objectReference: {fileID: 0}
     - target: {fileID: 8194737651041843252, guid: 8288268f8bd158247b15daac53426670,
         type: 3}
@@ -738,7 +763,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
