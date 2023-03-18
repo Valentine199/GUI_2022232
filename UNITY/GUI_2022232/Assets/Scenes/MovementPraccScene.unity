@@ -158,6 +158,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7591399672678796174, guid: 8288268f8bd158247b15daac53426670,
         type: 3}
+      propertyPath: AirResistance
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591399672678796174, guid: 8288268f8bd158247b15daac53426670,
+        type: 3}
+      propertyPath: DistanceToGround
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591399672678796174, guid: 8288268f8bd158247b15daac53426670,
+        type: 3}
       propertyPath: GroundCheck.m_Bits
       value: 4294967295
       objectReference: {fileID: 0}
