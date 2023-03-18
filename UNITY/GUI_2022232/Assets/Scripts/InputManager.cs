@@ -19,6 +19,10 @@ namespace UnityT.Manager
 
         public bool Run { get; private set; }
 
+        public bool Jump { get; private set; }
+
+
+
 
         private InputActionMap _currentMap;
 
@@ -28,6 +32,8 @@ namespace UnityT.Manager
 
         private InputAction _runAction;
 
+        private InputAction _jumpAction;
+
         private void Awake()
         {
 
@@ -36,14 +42,17 @@ namespace UnityT.Manager
             _moveAction = _currentMap.FindAction("Move");
             _lookAction = _currentMap.FindAction("Look");
             _runAction = _currentMap.FindAction("Run");
+            _jumpAction = _currentMap.FindAction("Jump");
 
             _moveAction.performed += onMove;
             _lookAction.performed += onLook;
             _runAction.performed += onRun;
+            _jumpAction.performed += onJump;
 
             _moveAction.canceled += onMove;
             _lookAction.canceled += onLook;
             _runAction.canceled += onRun;
+            _jumpAction.canceled += onJump;
         }
 
         private void HideCursor()
@@ -63,6 +72,10 @@ namespace UnityT.Manager
         private void onRun(InputAction.CallbackContext context)
         {
             Run = context.ReadValueAsButton();
+        }
+        private void onJump(InputAction.CallbackContext context)
+        {           
+            Jump = context.ReadValueAsButton();
         }
 
         private void OnEnable()
