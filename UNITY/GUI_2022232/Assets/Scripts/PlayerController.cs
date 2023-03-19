@@ -35,6 +35,8 @@ namespace UnityT.PlayerControl
 
         private int _zVelHash;
 
+        private int _crouchVelHash;
+
         private int _jumpHash;
 
         private bool _grounded = false;
@@ -64,6 +66,7 @@ namespace UnityT.PlayerControl
             _groundHash = Animator.StringToHash("Grounded");
             _fallingHash = Animator.StringToHash("Falling");
             _zVelHash = Animator.StringToHash("Z_Velocity");
+            _crouchVelHash = Animator.StringToHash("Crouch");
         }
 
         private void FixedUpdate()
@@ -71,6 +74,7 @@ namespace UnityT.PlayerControl
             SampleGround();
             Move();
             HandleJump();
+            HandleCrouch();
         }
 
         private void LateUpdate()
@@ -83,6 +87,8 @@ namespace UnityT.PlayerControl
             if (!_hasAnimator) return;
 
             float tartgetSpeed = _inputManager.Run ? _runSpeed : _walkSpeed;
+            if (_inputManager.Crouch) tartgetSpeed = 1.5f;
+            
             if (_inputManager.Move == Vector2.zero) tartgetSpeed = 0;
 
             if (_grounded)
@@ -119,6 +125,11 @@ namespace UnityT.PlayerControl
 
             Camera.localRotation = Quaternion.Euler(_xRotation,0,0);
             _playerRigidbody.MoveRotation(_playerRigidbody.rotation * Quaternion.Euler(0, Mouse_X * MouseSensitivity * Time.smoothDeltaTime, 0));
+        }
+
+        private void HandleCrouch()
+        {
+            _animator.SetBool(_crouchVelHash, _inputManager.Crouch);
         }
 
         private void HandleJump()
