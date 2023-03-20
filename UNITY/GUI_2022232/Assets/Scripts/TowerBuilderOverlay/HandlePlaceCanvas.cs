@@ -32,6 +32,15 @@ public class HandlePlaceCanvas : MonoBehaviour
 
     public void ToggleBuildingsCanvas()
     {
+        if (_toggle)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         _toggle = !_toggle;
         _selectionCanvas.gameObject.SetActive(_toggle);
     }
