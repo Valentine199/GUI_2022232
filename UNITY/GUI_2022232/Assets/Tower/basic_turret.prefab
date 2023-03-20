@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7553983041913495306}
   - component: {fileID: 1968812150912138636}
   - component: {fileID: 3476719079545547765}
+  - component: {fileID: 336871443429214131}
   m_Layer: 0
   m_Name: basic_turret
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 2808319839613088140}
   - {fileID: 3949834569855518708}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1968812150912138636
 MonoBehaviour:
@@ -48,7 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5309561add2854547b158ebd443dae96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetsInRange: []
   currentTarget: {fileID: 0}
   currentTargetingStyle: 0
 --- !u!114 &3476719079545547765
@@ -66,6 +66,27 @@ MonoBehaviour:
   head: {fileID: 7077566244027247688}
   targeting: {fileID: 1968812150912138636}
   bullet: {fileID: 2985553403891672782}
+--- !u!65 &336871443429214131
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2215512835269905292}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.271175, y: 8.406297, z: 6.182538}
+  m_Center: {x: -0.091477156, y: 3.7031488, z: 0.036768913}
 --- !u!1 &4352946700444527682
 GameObject:
   m_ObjectHideFlags: 0
