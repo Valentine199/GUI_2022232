@@ -27,7 +27,6 @@ public class PlaceTower : MonoBehaviour
 
 
 
-    private Camera _camera;
-    [SerializeField] private GameObject _towerToPlace;
+    [SerializeField]private Camera _camera;
     //[SerializeField] private LayerMask placeableMask = new LayerMask();
 }
