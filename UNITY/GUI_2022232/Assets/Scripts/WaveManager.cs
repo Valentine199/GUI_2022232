@@ -1,13 +1,23 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.Splines;
 
 public class WaveManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        ImportWaveJSON();
+    }
+
     private void Start()
     {
+        _enemiesGO = GameObject.Find(ENEMIES_GAMEOBJECT);
         Instantiate(_spline);
         StartCoroutine(StartWave());
     }
@@ -22,38 +32,49 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnPack(Pack pack)
     {
-        for (int i = 0; i < pack.count; i++)
+        for (int i = 0; i < pack.amount; i++)
         {
-            Instantiate(_enemies[(int)pack.type], transform.position, transform.rotation);
-            yield return new WaitForSeconds(pack.cooldown);
+            Enemy enemy = Instantiate(_enemies[(int)pack.type], transform.position, transform.rotation);
+            enemy.transform.parent = _enemiesGO.transform;
+            yield return new WaitForSeconds(pack.spacing);
         }
-        yield return null;
+    }
+
+    private void ImportWaveJSON()
+    {
+        using (StreamReader sr = new StreamReader(_path))
+        {
+            string json = sr.ReadToEnd();
+            _packs = JsonConvert.DeserializeObject<List<Pack>>(json);
+        }
     }
 
     private enum EnemyType
     {
-        red,
-        blue,
-        green,
-        yellow
+        rockhopper,
+        chinstrap,
+        adelie,
+        macaroni,
+        magellanic,
+        gentoo,
+        king,
+        emperor
     }
-
     private struct Pack
     {
         public EnemyType type;
-        public int count;
-        public float cooldown;
+        public int amount;
+        public float spacing;   // seconds between two enemies
     }
+
+    private const string ENEMIES_GAMEOBJECT = "Enemies";
+
+    private GameObject _enemiesGO;
 
     [SerializeField] private List<Enemy> _enemies;
     [SerializeField] private SplineContainer _spline;
 
-    // For testing purposes
-    private readonly List<Pack> _packs = new List<Pack>()
-    {
-        new Pack() { type = EnemyType.green, count = 10, cooldown = 0.8f },
-        new Pack() { type = EnemyType.red, count = 11, cooldown = 0.9f },
-        new Pack() { type = EnemyType.blue, count = 5, cooldown = 0.5f },
-        new Pack() { type = EnemyType.yellow, count = 3, cooldown = 0.9f }
-    };
+    [SerializeField] private string _path;
+
+    private List<Pack> _packs;
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6351544853197852199}
   - component: {fileID: -6897966218844316511}
   m_Layer: 0
-  m_Name: RedEnemy
+  m_Name: Magellanic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 9123732952586004592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.5, y: 0, z: -37.2}
-  m_LocalScale: {x: 5, y: 5, z: 5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.5, y: 4.5, z: 4.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82790e6ec9867f24b943806039a0a1bf, type: 2}
+  - {fileID: 2100000, guid: 5d2e3de727565c34b895bf7bf302a7c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,13 +159,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a074d529cf945029ef7cf40540c9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Target: {fileID: 2938776415960335733, guid: 58977a4c601bb7e4296732c282f25f44,
+  m_Target: {fileID: 3587575137635061957, guid: 41e8840b9c73435478e78129502d63f6,
     type: 3}
   m_PlayOnAwake: 1
   m_LoopMode: 1
   m_Method: 1
-  m_Duration: 20.574245
-  m_MaxSpeed: 20
+  m_Duration: 54.67076
+  m_MaxSpeed: 50
   m_EasingMode: 0
   m_AlignmentMode: 1
   m_ObjectForwardAxis: 2
