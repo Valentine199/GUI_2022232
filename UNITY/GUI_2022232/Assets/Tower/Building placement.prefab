@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1819600336651238380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -249,8 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d821a3e68b0654fab331f82391c6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _towerToPlace: {fileID: 2215512835269905292, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
-    type: 3}
+  _camera: {fileID: 0}
 --- !u!114 &8153225698407951069
 MonoBehaviour:
   m_ObjectHideFlags: 0
