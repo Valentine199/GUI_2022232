@@ -21,7 +21,7 @@ namespace UnityT.Manager
 
         public bool Jump { get; private set; }
 
-        public bool Crouch {get;private set;}
+        public bool Crouch {get; private set;}
 
 
 
