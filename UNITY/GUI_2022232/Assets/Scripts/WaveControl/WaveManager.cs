@@ -18,6 +18,9 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         _enemiesGO = GameObject.Find(ENEMIES_GAMEOBJECT);
+        if (_enemiesGO == null )
+            _enemiesGO = new GameObject(ENEMIES_GAMEOBJECT);
+
         Instantiate(_path);
         StartCoroutine(StartWave());
     }
