@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityT.PlayerControl;
 
 public class HandlePlaceCanvas : MonoBehaviour
 {
@@ -22,26 +23,25 @@ public class HandlePlaceCanvas : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-           ToggleBuildingsCanvas();
-        }
-    }
+
 
     public void ToggleBuildingsCanvas()
     {
+        _toggle = !_toggle;
+        GetComponent<PlayerController>().IsBuildModeOn = _toggle;
+
         if (_toggle)
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
-        _toggle = !_toggle;
+        
         _selectionCanvas.gameObject.SetActive(_toggle);
     }
 
