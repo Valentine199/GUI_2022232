@@ -29,6 +29,8 @@ namespace UnityT.PlayerControl
 
         private bool _hasAnimator;
 
+        private bool isBuildModeOn = false;
+
         private int _xVelHash;
 
         private int _yVelHash;
@@ -53,6 +55,8 @@ namespace UnityT.PlayerControl
         private const float _runSpeed = 6f;
 
         private Vector2 _currentVelocity;
+
+        public bool IsBuildModeOn { get { return isBuildModeOn; } set { isBuildModeOn = value; } }
 
         private void Start()
         {
@@ -115,6 +119,7 @@ namespace UnityT.PlayerControl
         private void CamMovements()
         {
             if (!_hasAnimator) return;
+            if (isBuildModeOn)  return; 
 
             var Mouse_X = _inputManager.Look.x;
             var Mouse_Y = _inputManager.Look.y;
