@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2487010731530592731}
   - component: {fileID: 1580579747645807087}
   - component: {fileID: 6351544853197852199}
-  - component: {fileID: -6897966218844316511}
+  - component: {fileID: -969418173440972012}
   m_Layer: 0
   m_Name: Emperor
   m_TagString: Untagged
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760b0cd2fe1f99d49944619c1c876ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseHealth: 0
 --- !u!54 &6351544853197852199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -147,7 +148,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6897966218844316511
+--- !u!114 &-969418173440972012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,18 +157,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9123732952586004592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a074d529cf945029ef7cf40540c9df, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cf5655489f195e4a83a428610f10ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Target: {fileID: 3587575137635061957, guid: 41e8840b9c73435478e78129502d63f6,
-    type: 3}
-  m_PlayOnAwake: 1
-  m_LoopMode: 1
-  m_Method: 1
-  m_Duration: 78.10109
-  m_MaxSpeed: 35
-  m_EasingMode: 0
-  m_AlignmentMode: 1
-  m_ObjectForwardAxis: 2
-  m_ObjectUpAxis: 1
-  m_StartOffset: 0
+  _path: {fileID: 1384521050039851127, guid: a39e62917d7b1e04da8f1ef97ffbaef4, type: 3}
+  _moveSpeed: 17
+  _distanceThreshold: 0.1
