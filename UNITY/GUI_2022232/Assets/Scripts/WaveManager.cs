@@ -18,7 +18,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         _enemiesGO = GameObject.Find(ENEMIES_GAMEOBJECT);
-        Instantiate(_spline);
+        Instantiate(_path);
         StartCoroutine(StartWave());
     }
 
@@ -42,7 +42,7 @@ public class WaveManager : MonoBehaviour
 
     private void ImportWaveJSON()
     {
-        using (StreamReader sr = new StreamReader(_path))
+        using (StreamReader sr = new StreamReader(_filepath))
         {
             string json = sr.ReadToEnd();
             _packs = JsonConvert.DeserializeObject<List<Pack>>(json);
@@ -71,10 +71,9 @@ public class WaveManager : MonoBehaviour
 
     private GameObject _enemiesGO;
 
+    [SerializeField] private Path _path;
     [SerializeField] private List<Enemy> _enemies;
-    [SerializeField] private SplineContainer _spline;
-
-    [SerializeField] private string _path;
+    [SerializeField] private string _filepath;
 
     private List<Pack> _packs;
 }
