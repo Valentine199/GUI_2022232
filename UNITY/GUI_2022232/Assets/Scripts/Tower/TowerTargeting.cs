@@ -70,6 +70,7 @@ public class TowerTargeting : MonoBehaviour
 
     private void HandleTargetDeath()
     {
+        RemoveTargetFromInRangeList(currentTarget);
         currentTarget.OnDeath -= HandleTargetDeath;
         GetCurrentTarget();
     }
