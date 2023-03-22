@@ -28,7 +28,7 @@ public class HandlePlaceCanvas : MonoBehaviour
     public void ToggleBuildingsCanvas()
     {
         _toggle = !_toggle;
-        GetComponent<PlayerController>().IsBuildModeOn = _toggle;
+        GetComponent<PlayerController>().CameraFreezed = _toggle;
 
         if (_toggle)
         {

@@ -29,7 +29,7 @@ namespace UnityT.PlayerControl
 
         private bool _hasAnimator;
 
-        private bool isBuildModeOn = false;
+        private bool _cameraFreezed = false;
 
         private int _xVelHash;
 
@@ -50,13 +50,13 @@ namespace UnityT.PlayerControl
         private float _xRotation;
 
 
-        private const float _walkSpeed = 2f;
+        private const float _walkSpeed = 3f;
 
-        private const float _runSpeed = 6f;
+        private const float _runSpeed = 9f;
 
         private Vector2 _currentVelocity;
 
-        public bool IsBuildModeOn { get { return isBuildModeOn; } set { isBuildModeOn = value; } }
+        public bool CameraFreezed { get { return _cameraFreezed; } set { _cameraFreezed = value; } }
 
         private void Start()
         {
@@ -119,7 +119,7 @@ namespace UnityT.PlayerControl
         private void CamMovements()
         {
             if (!_hasAnimator) return;
-            if (isBuildModeOn)  return; 
+            if (_cameraFreezed)  return; 
 
             var Mouse_X = _inputManager.Look.x;
             var Mouse_Y = _inputManager.Look.y;
