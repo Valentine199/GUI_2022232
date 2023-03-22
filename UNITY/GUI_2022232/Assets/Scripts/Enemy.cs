@@ -3,13 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyCollisionDetector))]
 public class Enemy : MonoBehaviour
 {
-    private void OnParticleCollision(GameObject other)
+    private void Start()
     {
-        if (other.TryGetComponent<Bullet>(out Bullet bullet))
+        _currentHealth = _baseHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
         {
-            Debug.Log("I got hit for " + bullet.damage + " damage.");
+            StartCoroutine(DeathRoutine());
         }
     }
 
@@ -18,10 +26,13 @@ public class Enemy : MonoBehaviour
         OnDeath?.Invoke();
         //Play animation
         yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 
-    [SerializeField] private int _baseHealth;
+    [SerializeField] private int _baseHealth = 100;
+    [SerializeField] private int _currentHealth;
     public int BaseHealth { get { return _baseHealth; } set { _baseHealth = value; } }
+    
 
     public event Action OnDeath;
 }
