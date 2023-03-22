@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1968812150912138636}
   - component: {fileID: 3476719079545547765}
   - component: {fileID: 336871443429214131}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: basic_turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,14 +28,14 @@ Transform:
   m_GameObject: {fileID: 2215512835269905292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7077566244027247688}
   - {fileID: 2808319839613088140}
   - {fileID: 3949834569855518708}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1968812150912138636
 MonoBehaviour:
@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5309561add2854547b158ebd443dae96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetsInRange: []
   currentTarget: {fileID: 0}
   currentTargetingStyle: 0
 --- !u!114 &3476719079545547765
@@ -66,6 +67,7 @@ MonoBehaviour:
   head: {fileID: 7077566244027247688}
   targeting: {fileID: 1968812150912138636}
   bullet: {fileID: 2985553403891672782}
+  _target: {fileID: 0}
 --- !u!65 &336871443429214131
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -98,7 +100,7 @@ GameObject:
   - component: {fileID: 7077566244027247688}
   - component: {fileID: 1659143011218019926}
   - component: {fileID: 1396616649008492855}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +185,7 @@ GameObject:
   - component: {fileID: 2808319839613088140}
   - component: {fileID: 5983586404502281907}
   - component: {fileID: 1676264799967483562}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +270,7 @@ GameObject:
   - component: {fileID: 8119160716249796425}
   - component: {fileID: 3298971472504620925}
   - component: {fileID: 2985553403891672782}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4049,7 +4051,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 63
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -5114,7 +5116,7 @@ GameObject:
   - component: {fileID: 5970926615978272727}
   - component: {fileID: 90724788841272060}
   - component: {fileID: 8055093475059207196}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
