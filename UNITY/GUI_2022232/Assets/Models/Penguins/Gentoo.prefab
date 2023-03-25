@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 3682961662649165953}
   - component: {fileID: 2994283261150059315}
   - component: {fileID: 2487010731530592731}
-  - component: {fileID: 1580579747645807087}
   - component: {fileID: 6351544853197852199}
-  - component: {fileID: -3650320254910811074}
   m_Layer: 0
   m_Name: Gentoo
   m_TagString: Untagged
@@ -35,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3682961662649165953
 MeshFilter:
@@ -108,19 +106,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1580579747645807087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123732952586004592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 760b0cd2fe1f99d49944619c1c876ef3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseHealth: 0
 --- !u!54 &6351544853197852199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -148,18 +133,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-3650320254910811074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123732952586004592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cf5655489f195e4a83a428610f10ba8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _path: {fileID: 1384521050039851127, guid: a39e62917d7b1e04da8f1ef97ffbaef4, type: 3}
-  _moveSpeed: 17
-  _distanceThreshold: 0.1
