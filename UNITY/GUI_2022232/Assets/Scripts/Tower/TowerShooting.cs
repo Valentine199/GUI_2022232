@@ -18,7 +18,7 @@ public class TowerShooting : MonoBehaviour
 
         if (targeting != null)
         {
-            targeting.OnTargetFound += SetTarget;
+            //targeting.OnTargetFound += SetTarget;
             targeting.OnTargetLost += SetTargetToNull;
         }
     }
@@ -27,15 +27,15 @@ public class TowerShooting : MonoBehaviour
     {
         if (targeting != null)
         {
-            targeting.OnTargetFound -= SetTarget;
+            //targeting.OnTargetFound -= SetTarget;
             targeting.OnTargetLost -= SetTargetToNull;
         }
     }
 
-    public void SetTarget(Enemy enemy)
-    {
-        _target = enemy.transform;
-    }
+    //public void SetTarget(Enemy enemy)
+    //{
+    //    _target = enemy.transform;
+    //}
     public void SetTargetToNull()
     {
         _target = null;
