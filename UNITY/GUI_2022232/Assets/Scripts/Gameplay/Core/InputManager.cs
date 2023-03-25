@@ -5,9 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
-using UnityT.PlayerControl;
 
-namespace UnityT.Manager
+namespace TowerDefense.Gameplay.Core
 {
     public class InputManager : MonoBehaviour
     {

@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityT.Manager;
+using TowerDefense.Gameplay.Core;
 
-namespace UnityT.PlayerControl
+namespace TowerDefense.Gameplay.Core
 {
     public class PlayerController : MonoBehaviour
     {
