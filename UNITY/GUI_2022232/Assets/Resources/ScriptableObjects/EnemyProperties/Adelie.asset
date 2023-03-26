@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 3
   _moneyWhenKilled: 3
-  _moveSpeed: 3
+  _moveSpeed: 8
   _enemiesToSpawnWhenKilled: []
   _enemyType: 2
