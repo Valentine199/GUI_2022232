@@ -1831,8 +1831,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80ee4fb48364bb4d92f14ac68b0aecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 9123732952586004592, guid: 35e31248189dfab469e1dee77163a52a,
-    type: 3}
+  _enemyPrefabs:
+  - {fileID: 9123732952586004592, guid: d8121cce7035f4543bc117246ddc09b2, type: 3}
+  - {fileID: 9123732952586004592, guid: b2860c93da7a43a4e82cac8da82c8ee5, type: 3}
+  - {fileID: 9123732952586004592, guid: 35e31248189dfab469e1dee77163a52a, type: 3}
+  - {fileID: 9123732952586004592, guid: 766dc545a28a17b41af3d415ce349ae9, type: 3}
+  - {fileID: 9123732952586004592, guid: b7f21bf65ecb99149967435f53e21edf, type: 3}
+  - {fileID: 9123732952586004592, guid: 90e339739f088cb42b58c38105e7dee4, type: 3}
+  - {fileID: 9123732952586004592, guid: c2319ba1662e735468f62aa746e2085e, type: 3}
+  - {fileID: 9123732952586004592, guid: bf17317a92e61f4439c82c46ba9f33a4, type: 3}
   _pathController: {fileID: 762179127}
 --- !u!4 &2045313231
 Transform:
