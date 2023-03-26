@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Path;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace TowerDefense.Gameplay.Enemies
 {
@@ -130,7 +129,7 @@ namespace TowerDefense.Gameplay.Enemies
             for (int i = 0; i < _enemyProperties.EnemiesToSpawnWhenKilled.Count; i++)
             {
                 var enemyToSpawn = _enemyProperties.EnemiesToSpawnWhenKilled[i];
-                var newEnemy = EnemySpawner.GetInstance().SpawnEnemy(enemyToSpawn, transform.position, _targetWaypointIndex);
+                var newEnemy = EnemySpawner.Instance.SpawnEnemy(enemyToSpawn, transform.position, _targetWaypointIndex);
                 children[i] = newEnemy;
             }
             return children;
@@ -141,8 +140,28 @@ namespace TowerDefense.Gameplay.Enemies
             float speed = _enemyProperties.MoveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);
 
+            if (PercentToNextWaypoint <= PERCENT_THRESHOLD || (100.0f - PercentToNextWaypoint) <= PERCENT_THRESHOLD)
+                RotateSmooth();
             if (Vector3.Distance(transform.position, _targetWaypointPosition) <= DIST_THRESHOLD)
                 SetNextTargetPosition();
+        }
+
+        /// <summary>
+        /// Left in for testing purposes.
+        /// </summary>
+        private void RotateInstant()
+        {
+            var relativePos = _targetWaypointPosition - transform.position;
+            transform.rotation = Quaternion.LookRotation(relativePos);
+        }
+
+        private void RotateSmooth()
+        {
+            if (_targetWaypointPosition - transform.position != Vector3.zero)
+            {
+                var targetRot = Quaternion.LookRotation(_targetWaypointPosition - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, _enemyProperties.MoveSpeed * Time.deltaTime);
+            }
         }
 
         private void SetNextTargetPosition()
@@ -162,13 +181,14 @@ namespace TowerDefense.Gameplay.Enemies
             _targetWaypointPosition = _path[_targetWaypointIndex];
         }
 
+        private const float DIST_THRESHOLD = 0.1f;
+        private const float PERCENT_THRESHOLD = 5.0f;
+
         private EnemyProperties _enemyProperties;
         private PathController _path;
 
         private int _targetWaypointIndex;
         private int _healthRemaining;
-
-        private const float DIST_THRESHOLD = 0.1f;
 
         private Vector3 _targetWaypointPosition;
 
