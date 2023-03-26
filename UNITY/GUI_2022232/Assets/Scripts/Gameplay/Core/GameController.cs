@@ -65,29 +65,25 @@ namespace TowerDefense.Gameplay.Core
 
         private void Awake()
         {
-            // InputController.ResetMainCamera();
+            _instance = this;
         }
 
         private void Start()
         {
             InitStatistics();
             InitUI();
-
-            // To be done via buttons
-            SetupNewGame();
-            StartNewWave();
-            //StartNewWave();
         }
 
         private void OnEnable()
         {
-            EnemySpawner.Instance.OnEnemySpawned += SubscribeToEnemyEvents;
+            _enemySpawner = EnemySpawner.Instance;
+            _enemySpawner.OnEnemySpawned += SubscribeToEnemyEvents;
             _waveController.OnWaveCompleted += WaveCompleted;
         }
 
         private void OnDisable()
         {
-            EnemySpawner.Instance.OnEnemySpawned -= SubscribeToEnemyEvents;
+            _enemySpawner.OnEnemySpawned -= SubscribeToEnemyEvents;
             _waveController.OnWaveCompleted -= WaveCompleted;
         }
 
