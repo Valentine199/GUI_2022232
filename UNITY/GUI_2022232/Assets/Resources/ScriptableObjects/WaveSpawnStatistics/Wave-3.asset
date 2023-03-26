@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b093fdee451c2b34f9554ea45e852530, type: 3}
   m_Name: Wave-3
   m_EditorClassIdentifier: 
-  _spawnPacks: []
+  _spawnPacks:
+  - _enemyType: 0
+    _amountInGroup: 10
+    _timeBetweenEnemies: 1.4
+    _initialSpawnDelay: 0
+  - _enemyType: 1
+    _amountInGroup: 4
+    _timeBetweenEnemies: 0.6
+    _initialSpawnDelay: 0
+  - _enemyType: 0
+    _amountInGroup: 7
+    _timeBetweenEnemies: 0.2
+    _initialSpawnDelay: 0
