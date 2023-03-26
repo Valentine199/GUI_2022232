@@ -29,13 +29,13 @@ namespace TowerDefense.Gameplay.Core
         private void OnEnable()
         {
             _enemySpawner = EnemySpawner.Instance;
-            _enemySpawner.OnEnemySpawned += SubscribeToEvents;
+            _enemySpawner.OnEnemySpawned += SubscribeToEnemyEvents;
             _gameController.OnGameBegin += PrepareNextRound;
         }
 
         private void OnDisable()
         {
-            _enemySpawner.OnEnemySpawned -= SubscribeToEvents;
+            _enemySpawner.OnEnemySpawned -= SubscribeToEnemyEvents;
             _gameController.OnGameBegin -= PrepareNextRound;
         }
 
@@ -50,15 +50,14 @@ namespace TowerDefense.Gameplay.Core
 
         private IEnumerator SpawnEnemiesInPack(SpawnPack spawnPack)
         {
-            WaitForSeconds timeBetweenSpawns = new WaitForSeconds(spawnPack.TimeBetweenEnemies);
             for (int i = 0; i < spawnPack.AmountInGroup; i++)
             {
                 _enemySpawner.SpawnEnemyOfType(spawnPack.EnemyType);
-                yield return timeBetweenSpawns;
+                yield return new WaitForSeconds(spawnPack.TimeBetweenEnemies);
             }
         }
 
-        private void SubscribeToEvents(EnemyController enemyController)
+        private void SubscribeToEnemyEvents(EnemyController enemyController)
         {
             enemyController.OnEnemyKilled += EnemyKilled;
             enemyController.OnEnemyReachedEnd += EnemyReachedEnd;
@@ -99,6 +98,7 @@ namespace TowerDefense.Gameplay.Core
 
             _currWave = _waves[CurrWaveIndex];
             _enemiesLeft = _currWave.TotalEnemyCount;
+
             OnPrepareNextRound?.Invoke(_currWave);
         }
 
@@ -106,9 +106,9 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private GameController _gameController;
 
         private int _enemiesLeft;
-        private EnemySpawner _enemySpawner;
         private WaveProperties _currWave;
         private GameStatistics _currGameStatistics;
+        private EnemySpawner _enemySpawner;
 
         private int CurrWaveIndex
         {
