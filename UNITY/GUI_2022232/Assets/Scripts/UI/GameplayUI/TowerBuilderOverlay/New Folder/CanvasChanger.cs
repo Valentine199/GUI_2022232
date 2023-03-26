@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CanvasChanger : MonoBehaviour
+{
+    [SerializeField] GameObject main;
+    [SerializeField] GameObject options;
+
+    private void Start()
+    {
+        options.SetActive(false);
+    }
+
+    public void SwitchToMain()
+    {        
+        options.SetActive(false);
+        main.SetActive(true);
+    }
+    public void SwitchToOptions()
+    {
+        main.SetActive(false);
+        options.SetActive(true);
+    }
+
+}
