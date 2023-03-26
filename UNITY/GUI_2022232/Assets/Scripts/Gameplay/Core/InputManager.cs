@@ -23,8 +23,6 @@ namespace TowerDefense.Gameplay.Core
         public bool Crouch {get; private set;}
 
 
-
-
         private InputActionMap _currentMap;
 
         private InputAction _moveAction;
@@ -37,8 +35,6 @@ namespace TowerDefense.Gameplay.Core
 
         private InputAction _crouchAction;
 
-        private InputAction _buildAction;
-
         private void Awake()
         {
 
@@ -49,14 +45,12 @@ namespace TowerDefense.Gameplay.Core
             _runAction = _currentMap.FindAction("Run");
             _jumpAction = _currentMap.FindAction("Jump");
             _crouchAction = _currentMap.FindAction("Crouch");
-            _buildAction = _currentMap.FindAction("Build");
 
             _moveAction.performed += onMove;
             _lookAction.performed += onLook;
             _runAction.performed += onRun;
             _jumpAction.performed += onJump;
             _crouchAction.started += onCrouch;
-            _buildAction.performed += onBuild;
 
             _moveAction.canceled += onMove;
             _lookAction.canceled += onLook;
@@ -90,12 +84,6 @@ namespace TowerDefense.Gameplay.Core
         private void onCrouch(InputAction.CallbackContext context)
         {
             Crouch = context.ReadValueAsButton();
-        }
-
-        private void onBuild(InputAction.CallbackContext context)
-        {
-            
-            GetComponent<HandlePlaceCanvas>().ToggleBuildingsCanvas();
         }
 
         private void OnEnable()
