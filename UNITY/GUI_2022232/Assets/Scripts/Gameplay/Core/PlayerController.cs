@@ -56,7 +56,17 @@ namespace TowerDefense.Gameplay.Core
 
         private Vector2 _currentVelocity;
 
-        public bool CameraFreezed { get { return _cameraFreezed; } set { _cameraFreezed = value; } }
+        //public bool CameraFreezed { get { return _cameraFreezed; } set { _cameraFreezed = value; } }
+
+        private void OnEnable()
+        {
+            HandlePlaceCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
+        }
+
+        private void OnDisable()
+        {
+            HandlePlaceCanvas.OnBuildingsCanvasToggled -= ToggleFreezeCam;
+        }
 
         private void Start()
         {
@@ -84,6 +94,11 @@ namespace TowerDefense.Gameplay.Core
         private void LateUpdate()
         {
             CamMovements();
+        }
+
+        private void ToggleFreezeCam()
+        {
+            _cameraFreezed = !_cameraFreezed;
         }
 
         private void Move()
