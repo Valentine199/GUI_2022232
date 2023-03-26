@@ -28,7 +28,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void OnEnable()
         {
-            _enemySpawner = EnemySpawner.GetInstance();
+            _enemySpawner = EnemySpawner.Instance;
             _enemySpawner.OnEnemySpawned += SubscribeToEvents;
             _gameController.OnGameBegin += PrepareNextRound;
         }
@@ -89,7 +89,7 @@ namespace TowerDefense.Gameplay.Core
             ++_currGameStatistics.Waves;
             if (_currGameStatistics.Waves > _waves.Count)
             {
-                //_gameController.DoWin();
+                _gameController.DoVictory();
                 return;
             }
             if (_currGameStatistics.Waves != 1)
