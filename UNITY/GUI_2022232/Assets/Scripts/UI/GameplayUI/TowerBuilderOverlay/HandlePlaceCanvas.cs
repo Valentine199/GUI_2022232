@@ -43,9 +43,10 @@ public class HandlePlaceCanvas : MonoBehaviour
 
         
         _selectionCanvas.gameObject.SetActive(_toggle);
+        _inGameCanvas.gameObject.SetActive(!_toggle);
     }
 
-
+    [SerializeField] private Canvas _inGameCanvas;
     [SerializeField] private Canvas _selectionCanvas; // The canvas which handles the UI
     [SerializeField] private GameObject _buildBg;     // The direct parent to the build elements  
     [SerializeField] private GameObject[] _towers = new GameObject[0];  // A list of all possible buildings
