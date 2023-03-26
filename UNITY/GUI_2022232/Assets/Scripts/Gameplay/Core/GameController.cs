@@ -45,31 +45,49 @@ namespace TowerDefense.Gameplay.Core
         public event Action OnGameBegin;
         public event Action OnGameOver;
 
+        public static GameController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = FindObjectOfType(typeof(GameController)) as GameController;
+                return _instance;
+            }
+            set
+            {
+                _instance = value;
+            }
+        }
+
         public bool GameOver { get => _gameOver; }
         public bool IsWon { get => _isWon; }
         public int Money { get => _currGameStatistics.Money; }
 
         private void Awake()
         {
-            _instance = this;
-            // InputController setup
+            // InputController.ResetMainCamera();
         }
 
         private void Start()
         {
             InitStatistics();
             InitUI();
+
+            // To be done via buttons
+            SetupNewGame();
+            StartNewWave();
+            //StartNewWave();
         }
 
         private void OnEnable()
         {
-            EnemySpawner.GetInstance().OnEnemySpawned += SubscribeToEnemyEvents;
+            EnemySpawner.Instance.OnEnemySpawned += SubscribeToEnemyEvents;
             _waveController.OnWaveCompleted += WaveCompleted;
         }
 
         private void OnDisable()
         {
-            EnemySpawner.GetInstance().OnEnemySpawned -= SubscribeToEnemyEvents;
+            EnemySpawner.Instance.OnEnemySpawned -= SubscribeToEnemyEvents;
             _waveController.OnWaveCompleted -= WaveCompleted;
         }
 
