@@ -12,7 +12,7 @@ public class PlaceTower : MonoBehaviour
         _camera = Camera.main;
     }
 
-    public void PlaceBuilding(GameObject towerToPlace)
+    public void PlaceBuilding(TowerProperties towerToPlace)
     {
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f,0.5f, 0));
 
@@ -20,7 +20,7 @@ public class PlaceTower : MonoBehaviour
         {
             if (hit.collider.gameObject.layer == 3)
             {
-                Instantiate(towerToPlace, hit.point, Quaternion.identity);
+                Instantiate(towerToPlace.TowerRender, hit.point, Quaternion.identity);
             }  
         }        
     }

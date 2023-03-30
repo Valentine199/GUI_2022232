@@ -12,14 +12,14 @@ public class HandlePlaceCanvas : MonoBehaviour
         _currentMap = PlayerInput.currentActionMap;
         _buildAction = _currentMap.FindAction("Build");
         _buildAction.performed += onBuild;
-        foreach (GameObject obj in _towers)
+        foreach (TowerProperties prop in _towers)
         {
             GameObject instance =  Instantiate(_buildMenuItem);
             HandleOnClick InstanceHandleClick = instance.GetComponent<HandleOnClick>();
 
             if (InstanceHandleClick != null)
             {
-                InstanceHandleClick.MyTower = obj;
+                InstanceHandleClick.MyTower = prop;
                 InstanceHandleClick.OnClickSetCanvas += ToggleBuildingsCanvas;
                 InstanceHandleClick.OnClickPlaceBuilding += gameObject.GetComponent<PlaceTower>().PlaceBuilding;
             }
@@ -31,7 +31,6 @@ public class HandlePlaceCanvas : MonoBehaviour
     private void onBuild(InputAction.CallbackContext context)
     {
         ToggleBuildingsCanvas();
-        OnBuildingsCanvasToggled?.Invoke();
     }
 
     public void ToggleBuildingsCanvas()
@@ -53,6 +52,7 @@ public class HandlePlaceCanvas : MonoBehaviour
         
         _selectionCanvas.gameObject.SetActive(_toggle);
         _inGameCanvas.gameObject.SetActive(!_toggle);
+        OnBuildingsCanvasToggled?.Invoke();
     }
 
     public static event Action OnBuildingsCanvasToggled;
@@ -60,7 +60,7 @@ public class HandlePlaceCanvas : MonoBehaviour
     [SerializeField] private Canvas _inGameCanvas;
     [SerializeField] private Canvas _selectionCanvas; // The canvas which handles the UI
     [SerializeField] private GameObject _buildBg;     // The direct parent to the build elements  
-    [SerializeField] private GameObject[] _towers = new GameObject[0];  // A list of all possible buildings
+    [SerializeField] private TowerProperties[] _towers = new TowerProperties[0];  // A list of all possible buildings
     [SerializeField] private GameObject _buildMenuItem;  // What to instantiate as a building option
     [SerializeField] private PlayerInput PlayerInput;
 
