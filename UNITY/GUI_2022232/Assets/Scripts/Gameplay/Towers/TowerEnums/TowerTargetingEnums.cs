@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enums
+namespace TowerDefense.Towers.TowerEnums
 {
-    public enum TargetingStyle 
+    public enum TargetingStyle
     {
         First,
         Last,
-        Strong,
-        Weak
+        Strongest,
+        Weakest,
+        Closest
     }
 }
