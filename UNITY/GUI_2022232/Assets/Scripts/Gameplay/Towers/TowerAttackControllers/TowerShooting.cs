@@ -1,62 +1,124 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TowerDefense.Gameplay.Enemies;
+using TowerDefense.Gameplay.Helpers;
 using UnityEngine;
 
-[RequireComponent(typeof(TowerTargeting))]
-public class TowerShooting : MonoBehaviour
+
+namespace TowerDefense.Towers.TowerAttackControllers
 {
-    [SerializeField] private Transform head;
-    [SerializeField] private TowerTargeting targeting;
-    [SerializeField] private Bullet bullet;
-
-    private Transform _target = null;
-
-    private void Awake()
+    public class TowerShooting : MonoBehaviour
     {
-        targeting ??= GetComponent<TowerTargeting>();
+        [SerializeField] private TowerEnums.TargetingStyle TargetingStyle;
+        [SerializeField] private Transform head;
+        [SerializeField] private List<EnemyController> targetsInRange = new List<EnemyController>();
+        private Transform _target = null;
+        private bool _canShoot = false;
 
-        if (targeting != null)
+
+        private TowerController _towerController;
+        public TowerController TowerController
         {
-            //targeting.OnTargetFound += SetTarget;
-            targeting.OnTargetLost += SetTargetToNull;
-        }
-    }
+            get
+            {
+                return _towerController;
+            }
+            set
+            {
+                _towerController = value;
 
-    private void OnDisable()
-    {
-        if (targeting != null)
+            }
+        }
+
+        public void ChangeTargetingStyle(TowerEnums.TargetingStyle attack)
         {
-            //targeting.OnTargetFound -= SetTarget;
-            targeting.OnTargetLost -= SetTargetToNull;
+            TargetingStyle = attack;
+            GetTarget();
         }
-    }
 
-    //public void SetTarget(Enemy enemy)
-    //{
-    //    _target = enemy.transform;
-    //}
-    public void SetTargetToNull()
-    {
-        _target = null;
-    }
-
-    private void Update()
-    {
-        TargetEnemy();
-    }
-
-    private void TargetEnemy()
-    {
-        if (_target == null)
+        private void Start()
         {
-            bullet.Shoot(false);
+            if (_towerController != null)
+            {
+                TargetingStyle = _towerController.TargetingStyle;
+            }
         }
-        else
+
+        public void AddTargetToInRange(EnemyController target)
+        {
+            targetsInRange.Add(target);
+            GetTarget();
+        }
+
+        public void RemoveTargetFromInRange(EnemyController target)
+        {
+            targetsInRange.Remove(target);
+            GetTarget();
+        }
+
+        private void GetTarget()
+        {
+            switch (TargetingStyle)
+            {
+                case TowerEnums.TargetingStyle.First:
+                    _target = GetEnemyPosition.First(targetsInRange);
+                    break;
+                case TowerEnums.TargetingStyle.Last:
+                    _target = GetEnemyPosition.Last(targetsInRange);
+                    break;
+                case TowerEnums.TargetingStyle.Strongest:
+                    _target = GetEnemyPosition.Strongest(targetsInRange);
+                    break;
+                case TowerEnums.TargetingStyle.Weakest:
+                    _target = GetEnemyPosition.Weakest(targetsInRange);
+                    break;
+                case TowerEnums.TargetingStyle.Closest:
+                    _target = GetEnemyPosition.Closest(targetsInRange, transform.position);
+                    break;
+                default:
+                    _target = GetEnemyPosition.First(targetsInRange);
+                    break;
+            }
+
+            if (_target == null) { return; }
+            TargetEnemy();
+
+        }
+
+        private void Update()
+        {
+            if (_target != null)
+            {
+                _canShoot = true;
+            }
+            else
+            {
+                _canShoot = false;
+            }
+            TargetEnemy();
+            _towerController.Shoot(_canShoot);
+        }
+
+
+        private void TargetEnemy()
         {
             head.LookAt(_target);
-            bullet.Shoot(true);
         }
-    }
 
+
+
+        ////public void SetTarget(Enemy enemy)
+        ////{
+        ////    _target = enemy.transform;
+        ////}
+        //public void SetTargetToNull()
+        //{
+        //    _target = null;
+        //}
+
+
+
+
+    }
 }
