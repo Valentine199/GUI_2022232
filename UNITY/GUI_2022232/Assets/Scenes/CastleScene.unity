@@ -2327,7 +2327,7 @@ MonoBehaviour:
   _moneyText: {fileID: 777126256}
   _livesText: {fileID: 777126255}
   _startRoundButton: {fileID: 0}
-  _gameController: {fileID: 0}
+  _gameController: {fileID: 1396748906}
 --- !u!1001 &1445063189
 PrefabInstance:
   m_ObjectHideFlags: 0
