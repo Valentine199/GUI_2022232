@@ -7,9 +7,9 @@ using System;
 public class HandleOnClick : MonoBehaviour, IPointerDownHandler
 {
     public event Action OnClickSetCanvas;
-    public event Action<GameObject> OnClickPlaceBuilding;
+    public event Action<TowerProperties> OnClickPlaceBuilding;
     
-    public GameObject MyTower;
+    public TowerProperties MyTower;
 
     public void OnPointerDown(PointerEventData eventData)
     {

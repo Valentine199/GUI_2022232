@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ea40025700fba4f917e80a90354636, type: 3}
+  m_Name: BasicTower
+  m_EditorClassIdentifier: 
+  TowerName: Orb Shooter
+  TowerRange: 30
+  TowerDamage: 10
+  TowerFiringRate: 2
+  TowerBulletSpeed: 60
+  TowerCost: 300
+  BulletParticleSystem: {fileID: 4062542256611867654, guid: ca927226afe0ab7469c5531f37886df4,
+    type: 3}
+  TowerRender: {fileID: 2215512835269905292, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
+    type: 3}
+  DefaultTowerTargetingStyle: 0
+  TowerUpgradeOptions:
+  - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
+  - {fileID: 11400000, guid: cc15a98754c8b344490382e273869897, type: 2}
