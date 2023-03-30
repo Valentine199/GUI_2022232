@@ -70,8 +70,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void Start()
         {
-            InitStatistics();
-            InitUI();
+            SetupNewGame();
         }
 
         private void OnEnable()
