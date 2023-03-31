@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TowerDefense.Data.Towers;
 using Unity.VisualScripting;
 using UnityEngine;
 
