@@ -654,6 +654,9 @@ GameObject:
   - component: {fileID: 4144052339869334510}
   - component: {fileID: 7920961283939313480}
   - component: {fileID: 4852639494117932418}
+  - component: {fileID: 3595830684428420469}
+  - component: {fileID: 1313192662702431904}
+  - component: {fileID: 6971598339455193920}
   m_Layer: 8
   m_Name: UI
   m_TagString: Untagged
@@ -677,7 +680,7 @@ Transform:
   - {fileID: 3529260256580780788}
   - {fileID: 1045429770685216801}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7920961283939313480
 MonoBehaviour:
@@ -705,6 +708,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   main: {fileID: 7062504608101998040}
   options: {fileID: 1373899435254161311}
+--- !u!114 &3595830684428420469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615904738654553552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a203fc08ac62f0e4593bcf2b4ac6de31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inGameCanvas: {fileID: 873443335128101768}
+  _selectionCanvas: {fileID: 8599835330972417618}
+  _buildBg: {fileID: 5284709861031443762}
+  _towers:
+  - {fileID: 11400000, guid: 3e8e12e23afabc844b966b249e3031e9, type: 2}
+  _buildMenuItem: {fileID: 4219125253120236336, guid: b1b1aec4cff8b844283e1db730d27828,
+    type: 3}
+  PlayerInput: {fileID: 6971598339455193920}
+--- !u!114 &1313192662702431904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615904738654553552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d821a3e68b0654fab331f82391c6d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
+  _placeableMask:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &6971598339455193920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615904738654553552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 9ed02a406f23b384f95c703bd363ab0a,
+    type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1701044793364983862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,13 +1448,14 @@ GameObject:
   - component: {fileID: 873443335128101768}
   - component: {fileID: 7264196168337686706}
   - component: {fileID: 7432489900697925287}
+  - component: {fileID: 8223666088895624774}
   m_Layer: 8
   m_Name: InGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1045429770685216801
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1470,6 +1541,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8223666088895624774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5797551946530932670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55ffbd834a5bf84408fced62caaddc8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roundText: {fileID: 7095550051476410265}
+  _moneyText: {fileID: 7667427366130009590}
+  _livesText: {fileID: 2959231691896499093}
+  _startRoundButton: {fileID: 0}
+  _gameController: {fileID: 0}
 --- !u!1 &5843456652228724309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,7 +2103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5491475675424419819
 RectTransform:
   m_ObjectHideFlags: 0
