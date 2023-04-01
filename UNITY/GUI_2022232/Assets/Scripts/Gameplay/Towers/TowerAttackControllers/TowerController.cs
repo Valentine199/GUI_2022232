@@ -29,6 +29,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         [SerializeField] private TowerUpgradeController _upgradeController;
 
         [SerializeField] private GameObject _bulletOrigin;
+        public GameObject BulletOrigin { get { return _bulletOrigin; } private set { _bulletOrigin = value; } }
         public TargetingStyle TargetingStyle { get; private set; }
         [SerializeField] private TowerManager _towerManager;
 
@@ -51,12 +52,15 @@ namespace TowerDefense.Towers.TowerAttackControllers
             GameObject inst = Instantiate(_particleSysGO, _bulletOrigin.transform.position, Quaternion.identity);
             inst.transform.parent = _bulletOrigin.transform;
             _particleController.ChangeParticleSystem(inst.GetComponent<ParticleSystem>());
+            _towerShooting.ChangeTargetingStyle(TargetingStyle);
 
             _towerCost = _properties.TowerCost;
 
+            _enemyDetector.InitTowerDetection();
+
         }
 
-        public void OnEnemyEnter(Collider other)
+        public void EnemyDetected(Collider other)
         {
             EnemyController target = other.gameObject.GetComponent<EnemyController>();
             if (target != null)
@@ -89,12 +93,13 @@ namespace TowerDefense.Towers.TowerAttackControllers
         {
             int val = (int)TargetingStyle;
             val++;
-            if (val >= Enum.GetNames(typeof(TowerEnums.TargetingStyle)).Length)
+            if (val >= Enum.GetNames(typeof(TargetingStyle)).Length)
             {
                 val = 0;
             }
 
-            TargetingStyle = (TowerEnums.TargetingStyle)val;
+            TargetingStyle = (TargetingStyle)val;
+            _towerShooting.ChangeTargetingStyle(TargetingStyle);
         }
         public void CycleTargetingModeBackwards()
         {
@@ -102,10 +107,11 @@ namespace TowerDefense.Towers.TowerAttackControllers
             val--;
             if (val < 0)
             {
-                val = Enum.GetNames(typeof(TowerEnums.TargetingStyle)).Length - 1;
+                val = Enum.GetNames(typeof(TargetingStyle)).Length - 1;
             }
 
-            TargetingStyle = (TowerEnums.TargetingStyle)val;
+            TargetingStyle = (TargetingStyle)val;
+            _towerShooting.ChangeTargetingStyle(TargetingStyle);
         }
 
         public TowerUpgrade FetchTowerUpgrade()
