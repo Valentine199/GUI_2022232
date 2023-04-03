@@ -21,6 +21,7 @@ namespace TowerDefense.Data.Towers
         public GameObject BulletParticleSystem;
         public GameObject TowerRender;
         public TargetingStyle DefaultTowerTargetingStyle;
+        public BulletTypeEnums BulletTypeEnum;
 
         public TowerUpgradeProperties[] TowerUpgradeOptions;
     }
