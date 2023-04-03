@@ -2678,6 +2678,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c73e67c06467074792a3f5c46350228, type: 2}
   - {fileID: 11400000, guid: 5bfb5e4dc1546a34d85c3f3d376daa83, type: 2}
   - {fileID: 11400000, guid: 51f102b54b859e248b8a579c9771f424, type: 2}
+  - {fileID: 11400000, guid: c780f45c2cece5a45906af3992f37242, type: 2}
+  - {fileID: 11400000, guid: 89e787b9f3a60034db494a3fa3af0cc5, type: 2}
+  - {fileID: 11400000, guid: a7c64dab7227cd0438d32229adcd0830, type: 2}
+  - {fileID: 11400000, guid: 01bdf9c3de30e4a488fbd6b5d3cc1621, type: 2}
+  - {fileID: 11400000, guid: 66ef5d449bb037d4a9e11456836f3c7e, type: 2}
+  - {fileID: 11400000, guid: 36d94e153ba02144caf4fcf5285680ae, type: 2}
   _gameController: {fileID: 1396748906}
 --- !u!114 &1396748906
 MonoBehaviour:
