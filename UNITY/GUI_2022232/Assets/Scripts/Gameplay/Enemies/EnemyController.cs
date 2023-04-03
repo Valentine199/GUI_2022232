@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Path;
+using TowerDefense.Towers.TowerAttackControllers;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Enemies
@@ -17,8 +18,19 @@ namespace TowerDefense.Gameplay.Enemies
             SetTargetWaypointPosition();
         }
 
+        private void OnParticleCollision(GameObject other)
+        {
+            if (other.TryGetComponent<BulletDescriptor>(out BulletDescriptor bullet))
+            {
+                
+                HitEnemy();
+            }
+
+        }
+
         public bool HitEnemy()
         {
+            Debug.Log("Got called!");
             --_healthRemaining;
             if (_healthRemaining < 0)
                 return false;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
 using UnityEditor.Experimental.GraphView;
@@ -11,14 +12,14 @@ namespace TowerDefense.Towers.TowerAttackControllers
 {
     public class TowerShooting : MonoBehaviour
     {
-        [SerializeField] private TowerEnums.TargetingStyle _targetingStyle;
+        private TowerEnums.TargetingStyle _targetingStyle;
         [SerializeField] private Transform _head;
-        [SerializeField] private List<EnemyController> _targetsInRange = new List<EnemyController>();
-        [SerializeField] private List<EnemyController> _targetsInSight = new List<EnemyController>();
+        private List<EnemyController> _targetsInRange = new List<EnemyController>();
+        private List<EnemyController> _targetsInSight = new List<EnemyController>();
         [SerializeField] private LayerMask _hitLayer;
         [SerializeField] private LayerMask _enemyLayer;
         private Vector3 _origin;
-        [SerializeField] private Transform _target = null;
+        private Transform _target = null;
         private bool _canShoot = false;
 
 
@@ -81,9 +82,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
                     Ray ray = new Ray(_origin, direction);
 
                     if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _hitLayer))
-                    {
-                        Debug.Log(hit.collider.gameObject.name);
-                                               
+                    {                                               
                         if (((_enemyLayer.value & (1 << hit.collider.gameObject.layer)) > 0) && (!_targetsInSight.Contains(target)))
                         {
                             _targetsInSight.Add(target);
@@ -128,9 +127,27 @@ namespace TowerDefense.Towers.TowerAttackControllers
                         _target = GetEnemyPosition.First(_targetsInSight);
                         break;
                 }
+
+                if (_target != null)
+                {
+                    _target.GetComponent<EnemyController>().OnEnemyKilled += HandleOnEnemyKilled;
+                }
             }
         }
 
+        private void HandleOnEnemyKilled(EnemyProperties enemy)
+        {
+            EnemyController enemyScript = _target.GetComponent<EnemyController>();
+            enemyScript.OnEnemyKilled -= HandleOnEnemyKilled;
+            _targetsInRange.Remove(enemyScript);
+            if (_targetsInSight.Contains(enemyScript))
+            {
+                _targetsInRange.Remove(enemyScript);
+            }
+            _target = null;
+            GetTarget();
+
+        }
 
         private void Update()
         {
