@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using TowerDefense.Data.Towers;
 using TowerDefense.Towers.TowerEnums;
+using Unity.VisualScripting;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
@@ -51,6 +52,9 @@ namespace TowerDefense.Towers.TowerAttackControllers
         {
             GameObject inst = Instantiate(_particleSysGO, _bulletOrigin.transform.position, Quaternion.identity);
             inst.transform.parent = _bulletOrigin.transform;
+            var bulletScript =inst.AddComponent<BulletDescriptor>();
+            bulletScript.Init(_properties.TowerDamage, _properties.BulletTypeEnum);
+
             _particleController.ChangeParticleSystem(inst.GetComponent<ParticleSystem>());
             _towerShooting.ChangeTargetingStyle(TargetingStyle);
 
