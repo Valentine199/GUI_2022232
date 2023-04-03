@@ -19,7 +19,7 @@ public class PlaceTower : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) 
         {
-            if (hit.collider.gameObject.layer == 3)
+            if ((_placeableMask.value & (1 << hit.collider.gameObject.layer)) > 0)
             {
                 Instantiate(towerToPlace.TowerRender, hit.point, Quaternion.identity);
             }  
@@ -29,5 +29,5 @@ public class PlaceTower : MonoBehaviour
 
 
     [SerializeField]private Camera _camera;
-    //[SerializeField] private LayerMask placeableMask = new LayerMask();
+    [SerializeField] private LayerMask _placeableMask = new LayerMask();
 }

@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace TowerDefense.Towers.TowerUpgrades
 {
-    public class TowerUpgrade : MonoBehaviour
+    public abstract class TowerUpgrade
     {
         protected TowerUpgradeProperties TowerUpgradeProperties { get; private set; }
 

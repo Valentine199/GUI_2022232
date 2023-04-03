@@ -9,6 +9,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
     public class TowerEnemyDetector : MonoBehaviour, IUpgradeRange
     {
         private TowerController _towerController;
+        [SerializeField] private LayerMask _layerMask;
 
         public TowerController TowerController
         {
@@ -22,6 +23,16 @@ namespace TowerDefense.Towers.TowerAttackControllers
             }
         }
 
+        public void InitTowerDetection()
+        {
+            var towerCollider = GetComponent<SphereCollider>();
+            Collider[] colliders = Physics.OverlapSphere(transform.position, towerCollider.radius, _layerMask);
+            foreach (Collider collider in colliders)
+            {
+                TowerController.EnemyDetected(collider);
+            }
+        }
+
         public void SetRange(float range)
         {
             var rangeNow = transform.localScale;
@@ -32,16 +43,15 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Got hit!");
-            if (other.gameObject.layer == 7)
+            if ((_layerMask.value & (1 << other.gameObject.layer)) > 0)
             {
-                TowerController.OnEnemyEnter(other);
+                TowerController.EnemyDetected(other);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.layer == 7)
+            if ((_layerMask.value & (1 << other.gameObject.layer)) > 0)
             {
                 TowerController.OnEnemyExit(other);
             }
