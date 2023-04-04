@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38141b3e1a2abdd4bb9a9d6767054a15, type: 3}
   m_Name: CurrentGameStastics
   m_EditorClassIdentifier: 
-  _waves: 1
-  _money: 40000
+  _waves: 0
+  _money: 100
   _lives: 200
   _maxGameStats: {fileID: 11400000, guid: d24d3b6bc9b51e04f8a728162567b4e8, type: 2}
