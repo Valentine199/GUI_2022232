@@ -69,6 +69,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
             EnemyController target = other.gameObject.GetComponent<EnemyController>();
             if (target != null)
             {
+                Debug.Log("Enemy add");
                 _towerShooting.AddTargetToInRange(target);
             }
         }

@@ -15,7 +15,7 @@ MonoBehaviour:
   TowerName: Orb Shooter
   TowerRange: 30
   TowerDamage: 10
-  TowerFiringRate: 2
+  TowerFiringRate: 0.5
   TowerBulletSpeed: 60
   TowerCost: 300
   BulletParticleSystem: {fileID: 4062542256611867654, guid: ca927226afe0ab7469c5531f37886df4,
@@ -23,6 +23,7 @@ MonoBehaviour:
   TowerRender: {fileID: 2215512835269905292, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
     type: 3}
   DefaultTowerTargetingStyle: 0
+  BulletTypeEnum: {fileID: 0}
   TowerUpgradeOptions:
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   - {fileID: 11400000, guid: cc15a98754c8b344490382e273869897, type: 2}
