@@ -18,19 +18,8 @@ namespace TowerDefense.Gameplay.Enemies
             SetTargetWaypointPosition();
         }
 
-        private void OnParticleCollision(GameObject other)
-        {
-            if (other.TryGetComponent<BulletDescriptor>(out BulletDescriptor bullet))
-            {
-                
-                HitEnemy();
-            }
-
-        }
-
         public bool HitEnemy()
         {
-            Debug.Log("Got called!");
             --_healthRemaining;
             if (_healthRemaining < 0)
                 return false;
