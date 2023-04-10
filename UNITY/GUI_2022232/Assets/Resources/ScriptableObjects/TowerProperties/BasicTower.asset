@@ -23,7 +23,8 @@ MonoBehaviour:
   TowerRender: {fileID: 2215512835269905292, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
     type: 3}
   DefaultTowerTargetingStyle: 0
-  BulletTypeEnum: {fileID: 0}
+  Effect: {fileID: 11400000, guid: 6126f9d49de8da542ac51b9698b2fd19, type: 2}
   TowerUpgradeOptions:
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   - {fileID: 11400000, guid: cc15a98754c8b344490382e273869897, type: 2}
+  BulletTypeEnum: 0
