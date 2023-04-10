@@ -1,15 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using TowerDefense.Data.Towers;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Towers.TowerUpgrades;
-using UnityEditor;
 using UnityEngine;
-using TowerDefense.Data.Towers;
 using TowerDefense.Towers.TowerEnums;
-using Unity.VisualScripting;
+using static BulletTypeEnums;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
@@ -52,8 +47,9 @@ namespace TowerDefense.Towers.TowerAttackControllers
         {
             GameObject inst = Instantiate(_particleSysGO, _bulletOrigin.transform.position, Quaternion.identity);
             inst.transform.parent = _bulletOrigin.transform;
-            var bulletScript =inst.AddComponent<BulletDescriptor>();
-            bulletScript.Init(_properties.TowerDamage, _properties.BulletTypeEnum);
+
+            var bulletScript = GetDamageType(inst);
+            bulletScript.InitDamage(_properties);
 
             _particleController.ChangeParticleSystem(inst.GetComponent<ParticleSystem>());
             _towerShooting.ChangeTargetingStyle(TargetingStyle);
@@ -122,6 +118,26 @@ namespace TowerDefense.Towers.TowerAttackControllers
         public TowerUpgrade FetchTowerUpgrade()
         {
             return _upgradeController.GetUpgrade();
+        }
+
+        private TowerDamage GetDamageType(GameObject inst)
+        {
+            if (_properties == null && inst==null) { return null; }
+            BulletTypeEnum bulletType = _properties.BulletTypeEnum;
+
+            switch (bulletType)
+            {
+                case BulletTypeEnum.None:
+                    return inst.AddComponent<TowerDamage>();
+                case BulletTypeEnum.Fire:
+                    return inst.AddComponent<FireDamage>();
+                //case BulletTypeEnum.Ice:
+                //    break;
+                //case BulletTypeEnum.poison:
+                //    break;
+                default:
+                    return null;
+            }
         }
 
 
