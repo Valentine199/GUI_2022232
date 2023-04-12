@@ -1612,6 +1612,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8223666088895624774, guid: d283c42941e3f7c4a85da6326cf55122,
+        type: 3}
+      propertyPath: _gameController
+      value: 
+      objectReference: {fileID: 1396748906}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1914,6 +1919,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
+  _placeableMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &856662080
 MonoBehaviour:
   m_ObjectHideFlags: 0
