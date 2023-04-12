@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -13,7 +10,14 @@ namespace TowerDefense.Towers.TowerAttackControllers
     public class TowerShooting : MonoBehaviour
     {
         private TowerEnums.TargetingStyle _targetingStyle;
-        [SerializeField] private Transform _head;
+        [SerializeField] 
+        [Tooltip("Logical, only neccessery for the model")]
+        private Transform _head;
+
+        [SerializeField]
+        [Tooltip("Ensures accurate shooting")]
+        private Transform _bulletOrigin;   
+
         [SerializeField] private List<EnemyController> _targetsInRange = new List<EnemyController>();
         [SerializeField] private List<EnemyController> _targetsInSight = new List<EnemyController>();
         [SerializeField] private LayerMask _hitLayer;
@@ -54,6 +58,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         public void AddTargetToInRange(EnemyController target)
         {
             _targetsInRange.Add(target);
+            target.OnEnemyKilled += HandleOnEnemyKilled;
             EnsureSight();
         }
 
@@ -64,7 +69,8 @@ namespace TowerDefense.Towers.TowerAttackControllers
             {
                 _targetsInSight.Remove(target);
             }
-            
+
+            target.OnEnemyKilled -= HandleOnEnemyKilled;
             _target = null;
 
             EnsureSight();
@@ -76,7 +82,11 @@ namespace TowerDefense.Towers.TowerAttackControllers
             {
                 foreach (EnemyController target in _targetsInRange)
                 {
-
+                    //if (target == null)
+                    //{
+                    //    _targetsInRange.Remove(target);
+                    //    return;
+                    //}
                     var direction =  target.transform.position - _origin;
                     Debug.DrawRay(_origin, direction);
                     Ray ray = new Ray(_origin, direction);
@@ -128,24 +138,30 @@ namespace TowerDefense.Towers.TowerAttackControllers
                         break;
                 }
 
-                if (_target != null)
-                {
-                    _target.GetComponent<EnemyController>().OnEnemyKilled += HandleOnEnemyKilled;
-                }
+                //if (_target != null)
+                //{
+
+                //        _target.GetComponent<EnemyController>().OnEnemyKilled += HandleOnEnemyKilled;
+                //}
             }
         }
 
         private void HandleOnEnemyKilled(EnemyProperties enemy)
         {
             EnemyController enemyScript = _target.GetComponent<EnemyController>();
-            enemyScript.OnEnemyKilled -= HandleOnEnemyKilled;
-            _targetsInRange.Remove(enemyScript);
-            if (_targetsInSight.Contains(enemyScript))
-            {
-                _targetsInRange.Remove(enemyScript);
-            }
-            _target = null;
-            GetTarget();
+
+            RemoveTargetFromInRange(enemyScript);
+            //_targetsInRange.Remove(enemyScript);
+            //Debug.Log("enemyRemoved");
+
+            //if (_targetsInSight.Contains(enemyScript))
+            //{
+            //    _targetsInSight.Remove(enemyScript);
+            //    Debug.Log("enemyRemoved from sight");
+            //}
+            //_target = null;
+            ////enemyScript.OnEnemyKilled -= HandleOnEnemyKilled;
+            //GetTarget();
 
         }
 
@@ -162,7 +178,11 @@ namespace TowerDefense.Towers.TowerAttackControllers
             TargetEnemy();
             _towerController.Shoot(_canShoot);
 
-            EnsureSight();
+            if(_targetsInRange.Count > 0) 
+            {
+                EnsureSight();
+            }
+
 
         }
 
@@ -170,6 +190,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         private void TargetEnemy()
         {
             _head.LookAt(_target);
+            _bulletOrigin.LookAt(_target);
         }
 
 
