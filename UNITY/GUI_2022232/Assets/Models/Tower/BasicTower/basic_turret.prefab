@@ -38,7 +38,7 @@ Transform:
   - {fileID: 2808319839613088140}
   - {fileID: 3949834569855518708}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1968812150912138636
 MonoBehaviour:
@@ -71,8 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be59e22431cce5e4680b97ffb51dc34c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetingStyle: 0
   _head: {fileID: 7077566244027247688}
+  _bulletOrigin: {fileID: 6371553838277958869}
   _targetsInRange: []
   _targetsInSight: []
   _hitLayer:
@@ -95,7 +95,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
