@@ -9,17 +9,16 @@ namespace TowerDefense.Towers.TowerAttackControllers
     {
 
         public int Damage { get;  private set; }
-        public TowerEffectProperties EffectProperties { get; private set; }
 
-        public void InitDamage(TowerProperties properties)
+        public virtual void InitDamage(TowerProperties properties)
         {
             Damage = properties.TowerDamage;
-            EffectProperties = properties.Effect;
         }
 
         public virtual void DoDamage(EnemyController enemy)
         {
             enemy.HitEnemy();
+
         }
 
         private void OnParticleCollision(GameObject other)
@@ -32,7 +31,14 @@ namespace TowerDefense.Towers.TowerAttackControllers
     }
     public class FireDamage : TowerDamage
     {
-        private bool _isOnFire;
+        private bool _isOnFire = false;
+        public TowerEffectProperties EffectProperties { get; private set; }
+
+        public override void InitDamage(TowerProperties properties)
+        {
+            base.InitDamage(properties);
+            EffectProperties = properties.Effect;
+        }
 
         IEnumerator ApplyEffect(EnemyController enemy)
         {
@@ -45,14 +51,14 @@ namespace TowerDefense.Towers.TowerAttackControllers
             while ((currentTime - startTime) < EffectProperties.Duration)
             {
                 enemy.HitEnemy();
-                Debug.Log("Tick");
+                //Debug.Log("Tick");
                 yield return new WaitForSeconds(EffectProperties.TickSpeed);
-                Debug.Log("Tack");
+                //Debug.Log("Tack");
                 currentTime = Time.time;
             }
 
             Destroy(ps);
-            Debug.Log("effect Ended");
+           // Debug.Log("effect Ended");
         }
 
         public override void DoDamage(EnemyController enemy)
@@ -61,7 +67,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
             if(!_isOnFire)
             {
-                Debug.Log("FireDamage");
+                //Debug.Log("FireDamage");
                 StartCoroutine(ApplyEffect(enemy));
             }
         }
