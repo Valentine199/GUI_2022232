@@ -43,6 +43,10 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("Enemy enter");
+            Debug.Log((_layerMask.value & (1 << other.gameObject.layer)) > 0);
+            Debug.Log(_layerMask.value + " mask value");
+            Debug.Log((1 << other.gameObject.layer) + " other value");
             if ((_layerMask.value & (1 << other.gameObject.layer)) > 0)
             {
                 TowerController.EnemyDetected(other);

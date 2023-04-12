@@ -14,12 +14,12 @@ namespace TowerDefense.Towers.TowerAttackControllers
     {
         private TowerEnums.TargetingStyle _targetingStyle;
         [SerializeField] private Transform _head;
-        private List<EnemyController> _targetsInRange = new List<EnemyController>();
-        private List<EnemyController> _targetsInSight = new List<EnemyController>();
+        [SerializeField] private List<EnemyController> _targetsInRange = new List<EnemyController>();
+        [SerializeField] private List<EnemyController> _targetsInSight = new List<EnemyController>();
         [SerializeField] private LayerMask _hitLayer;
         [SerializeField] private LayerMask _enemyLayer;
         private Vector3 _origin;
-        private Transform _target = null;
+        [SerializeField] private Transform _target = null;
         private bool _canShoot = false;
 
 

@@ -680,7 +680,7 @@ Transform:
   - {fileID: 3529260256580780788}
   - {fileID: 1045429770685216801}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7920961283939313480
 MonoBehaviour:
@@ -1679,7 +1679,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6349396936721327091}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TowerDefense.Gameplay.Core.GameController, Assembly-CSharp
+        m_MethodName: StartNewWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6001693056933890129
 GameObject:
   m_ObjectHideFlags: 0
