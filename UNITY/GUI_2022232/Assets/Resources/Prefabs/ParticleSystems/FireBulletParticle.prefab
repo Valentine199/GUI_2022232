@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3004025577876708475}
   - component: {fileID: 8418689972167398479}
   m_Layer: 8
-  m_Name: BulletParticle
+  m_Name: FireBulletParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4777,7 +4777,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
+  - {fileID: 2100000, guid: 82790e6ec9867f24b943806039a0a1bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
