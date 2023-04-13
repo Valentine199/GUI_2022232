@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
   m_Name: Rockhopper
   m_EditorClassIdentifier: 
-  _health: 1
+  _health: 10
   _moneyWhenKilled: 1
-  _moveSpeed: 40
+  _moveSpeed: 4
   _enemiesToSpawnWhenKilled: []
   _enemyType: 0

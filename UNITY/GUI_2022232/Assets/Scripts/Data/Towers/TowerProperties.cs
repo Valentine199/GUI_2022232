@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TowerDefense.Towers.TowerEnums;
 using Unity.VisualScripting;
 using UnityEngine;
+using static BulletTypeEnums;
 
 namespace TowerDefense.Data.Towers
 {
@@ -21,8 +22,9 @@ namespace TowerDefense.Data.Towers
         public GameObject BulletParticleSystem;
         public GameObject TowerRender;
         public TargetingStyle DefaultTowerTargetingStyle;
-        public BulletTypeEnums BulletTypeEnum;
+        public TowerEffectProperties Effect;
 
         public TowerUpgradeProperties[] TowerUpgradeOptions;
+        public BulletTypeEnum BulletTypeEnum;
     }
 }

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ea40025700fba4f917e80a90354636, type: 3}
+  m_Name: FireTowerProp
+  m_EditorClassIdentifier: 
+  TowerName: Millboard Vulcano
+  TowerRange: 70
+  TowerDamage: 5
+  TowerFiringRate: 1
+  TowerBulletSpeed: 60
+  TowerCost: 700
+  BulletParticleSystem: {fileID: 4062542256611867654, guid: d16061b2d801fb94897da67ac73ef17d,
+    type: 3}
+  TowerRender: {fileID: 7984716153503779439, guid: 3f66860ed5b95ca48be6d9fd66964ea2,
+    type: 3}
+  DefaultTowerTargetingStyle: 2
+  Effect: {fileID: 11400000, guid: ca85b15fc4a6c7d47b606ce5964e2cd2, type: 2}
+  TowerUpgradeOptions:
+  - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
+  - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
+  BulletTypeEnum: 1
