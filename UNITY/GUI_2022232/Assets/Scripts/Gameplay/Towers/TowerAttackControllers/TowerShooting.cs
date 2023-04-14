@@ -103,8 +103,10 @@ namespace TowerDefense.Towers.TowerAttackControllers
                         }
                     }
                 }
-
-                GetTarget();
+                if (_target == null)
+                {
+                    GetTarget();
+                }
             }
             else
             {

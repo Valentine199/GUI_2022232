@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TowerDefense.Gameplay.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -88,8 +89,12 @@ public class GunSystem : MonoBehaviour
         {
             Debug.Log(rayHit.collider.name);
 
-            if (rayHit.collider.CompareTag("Enemy"))
+            if ((whatIsEnemy.value & (1 << rayHit.collider.gameObject.layer)) > 0)
             {
+                if (rayHit.collider.gameObject.TryGetComponent<EnemyController>(out EnemyController enemy))
+                {
+                    enemy.HitEnemy();
+                }
                 //rayHit.collider.GetComponent<Enemys>().TakeDamage(damage);
             }
         }
