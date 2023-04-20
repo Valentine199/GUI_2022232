@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
-  m_Name: King
+  m_Name: Egg
   m_EditorClassIdentifier: 
-  _health: 7
-  _moneyWhenKilled: 7
-  _moveSpeed: 70
+  _health: 10
+  _moneyWhenKilled: 1
+  _moveSpeed: 4
   _enemiesToSpawnWhenKilled: []
-  _enemyType: 6
+  _enemyType: 0

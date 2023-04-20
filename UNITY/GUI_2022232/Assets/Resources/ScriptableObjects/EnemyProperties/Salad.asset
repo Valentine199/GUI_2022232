@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
-  m_Name: Emperor
+  m_Name: Salad
   m_EditorClassIdentifier: 
-  _health: 8
-  _moneyWhenKilled: 8
-  _moveSpeed: 75
+  _health: 4
+  _moneyWhenKilled: 4
+  _moveSpeed: 90
   _enemiesToSpawnWhenKilled: []
-  _enemyType: 7
+  _enemyType: 3
