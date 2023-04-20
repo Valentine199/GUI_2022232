@@ -91,6 +91,7 @@ namespace TowerDefense.Gameplay.Enemies
 
         public event Action<EnemyProperties> OnEnemyReachedEnd;
         public event Action<EnemyProperties> OnEnemyKilled;
+        public event Action<EnemyController> OnEnemyDie;
 
         public EnemyProperties EnemyProperties
         {
@@ -112,6 +113,7 @@ namespace TowerDefense.Gameplay.Enemies
         private EnemyController[] BurstEnemy()
         {
             OnEnemyKilled?.Invoke(_enemyProperties);
+            OnEnemyDie?.Invoke(this);
             if (HasEnemiesToSpawn)
             {
                 Destroy(gameObject);

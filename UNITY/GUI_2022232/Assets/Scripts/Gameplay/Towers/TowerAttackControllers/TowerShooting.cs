@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
@@ -10,16 +11,16 @@ namespace TowerDefense.Towers.TowerAttackControllers
     public class TowerShooting : MonoBehaviour
     {
         private TowerEnums.TargetingStyle _targetingStyle;
-        [SerializeField] 
+        [SerializeField]
         [Tooltip("Logical, only neccessery for the model")]
         private Transform _head;
 
         [SerializeField]
         [Tooltip("Ensures accurate shooting")]
-        private Transform _bulletOrigin;   
+        private Transform _bulletOrigin;
 
         [SerializeField] private List<EnemyController> _targetsInRange = new List<EnemyController>();
-        [SerializeField] private List<EnemyController> _targetsInSight = new List<EnemyController>();
+        [SerializeField] private Queue<EnemyController> _targetsToRemove = new Queue<EnemyController>();
         [SerializeField] private LayerMask _hitLayer;
         [SerializeField] private LayerMask _enemyLayer;
         private Vector3 _origin;
@@ -50,7 +51,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         {
             if (_towerController != null)
             {
-                _origin =  _towerController.BulletOrigin.transform.position;
+                _origin = _towerController.BulletOrigin.transform.position;
             }
 
         }
@@ -58,85 +59,85 @@ namespace TowerDefense.Towers.TowerAttackControllers
         public void AddTargetToInRange(EnemyController target)
         {
             _targetsInRange.Add(target);
-            target.OnEnemyKilled += HandleOnEnemyKilled;
-            EnsureSight();
+            target.OnEnemyDie += HandleOnEnemyKilled;
+            //EnsureSight();
+            GetTarget();
         }
 
         public void RemoveTargetFromInRange(EnemyController target)
         {
             _targetsInRange.Remove(target);
-            if (_targetsInSight.Contains(target))
-            {
-                _targetsInSight.Remove(target);
-            }
+            //if (_targetsInSight.Contains(target))
+            //{
+            //    _targetsInSight.Remove(target);
+            //}
 
-            target.OnEnemyKilled -= HandleOnEnemyKilled;
-            _target = null;
+            target.OnEnemyDie -= HandleOnEnemyKilled;
 
-            EnsureSight();
+            //EnsureSight();
+            GetTarget();
         }
 
-        private void EnsureSight()
+        private bool EnsureSight(EnemyController target)
         {
-            if (_targetsInRange.Count > 0)
+            if (target == null)
             {
-                foreach (EnemyController target in _targetsInRange)
-                {
-                    //if (target == null)
-                    //{
-                    //    _targetsInRange.Remove(target);
-                    //    return;
-                    //}
-                    var direction =  target.transform.position - _origin;
-                    Debug.DrawRay(_origin, direction);
-                    Ray ray = new Ray(_origin, direction);
+                return false;
+            }
+            var direction = target.transform.position - _origin;
+            Debug.DrawRay(_origin, direction);
+            Ray ray = new Ray(_origin, direction);
 
-                    if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _hitLayer))
-                    {                                               
-                        if (((_enemyLayer.value & (1 << hit.collider.gameObject.layer)) > 0) && (!_targetsInSight.Contains(target)))
-                        {
-                            _targetsInSight.Add(target);
-                        }
-                        else if ((_enemyLayer.value & (1 << hit.collider.gameObject.layer)) <= 0 && _targetsInSight.Contains(target))
-                        {
-                            _targetsInSight.Remove(target);
-                        }
-                    }
-                }
-                if (_target == null)
-                {
-                    GetTarget();
-                }
-            }
-            else
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _hitLayer))
             {
-                _target = null;
+                if (((_enemyLayer.value & (1 << hit.collider.gameObject.layer)) > 0))
+                {
+                    return true;
+                }
+                else if ((_enemyLayer.value & (1 << hit.collider.gameObject.layer)) <= 0)
+                {
+                    return false;
+                }
             }
+
+            return false;
+
+
         }
 
         private void GetTarget()
         {
-            if (_targetsInSight.Count > 0)
+            List<EnemyController> targetsInSight = new List<EnemyController>();
+
+            foreach (EnemyController target in _targetsInRange)
+            {
+                if (EnsureSight(target))
+                {
+                    targetsInSight.Add(target);
+                }
+            }
+
+            if (targetsInSight.Count > 0)
             {
                 switch (_targetingStyle)
                 {
                     case TowerEnums.TargetingStyle.First:
-                        _target = GetEnemyPosition.First(_targetsInSight);
+                        _target = GetEnemyPosition.First(targetsInSight);
                         break;
                     case TowerEnums.TargetingStyle.Last:
-                        _target = GetEnemyPosition.Last(_targetsInSight);
+                        _target = GetEnemyPosition.Last(targetsInSight);
                         break;
                     case TowerEnums.TargetingStyle.Strongest:
-                        _target = GetEnemyPosition.Strongest(_targetsInSight);
+                        _target = GetEnemyPosition.Strongest(targetsInSight);
                         break;
                     case TowerEnums.TargetingStyle.Weakest:
-                        _target = GetEnemyPosition.Weakest(_targetsInSight);
+                        _target = GetEnemyPosition.Weakest(targetsInSight);
                         break;
                     case TowerEnums.TargetingStyle.Closest:
-                        _target = GetEnemyPosition.Closest(_targetsInSight, transform.position);
+                        _target = GetEnemyPosition.Closest(targetsInSight, transform.position);
                         break;
                     default:
-                        _target = GetEnemyPosition.First(_targetsInSight);
+                        _target = GetEnemyPosition.First(targetsInSight);
                         break;
                 }
 
@@ -148,11 +149,16 @@ namespace TowerDefense.Towers.TowerAttackControllers
             }
         }
 
-        private void HandleOnEnemyKilled(EnemyProperties enemy)
+        private void HandleOnEnemyKilled(EnemyController enemy)
         {
-            EnemyController enemyScript = _target.GetComponent<EnemyController>();
+            //EnemyController enemyScript = _target.GetComponent<EnemyController>();
 
-            RemoveTargetFromInRange(enemyScript);
+
+            _targetsToRemove.Enqueue(enemy);
+            //RemoveTargetFromInRange(enemy);
+            //_target = null;
+
+
             //_targetsInRange.Remove(enemyScript);
             //Debug.Log("enemyRemoved");
 
@@ -169,25 +175,36 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void Update()
         {
-            if (_target != null)
+            if(_targetsToRemove.Count>0)
+            {
+                RemoveDeadEnemies();
+            }
+
+            if (_target != null && EnsureSight(_target.GetComponent<EnemyController>()))
             {
                 _canShoot = true;
+                TargetEnemy();   
             }
             else
             {
                 _canShoot = false;
+                GetTarget();
+
             }
-            TargetEnemy();
             _towerController.Shoot(_canShoot);
-
-            if(_targetsInRange.Count > 0) 
-            {
-                EnsureSight();
-            }
-
-
         }
 
+        private void RemoveDeadEnemies()
+        {
+            foreach (EnemyController target in _targetsToRemove)
+            {
+                _targetsInRange.Remove(target);
+                _target = null;
+            }
+
+            _targetsToRemove.Clear();
+
+        }
 
         private void TargetEnemy()
         {
