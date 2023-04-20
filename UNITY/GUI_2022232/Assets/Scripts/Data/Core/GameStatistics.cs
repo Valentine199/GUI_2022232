@@ -13,6 +13,7 @@ namespace TowerDefense.Data.Core
             Money = stats.Money;
             Lives = stats.Lives;
             EnemiesKilled = stats.EnemiesKilled;
+            SellTowerMultiplier = stats.SellTowerMultiplier;
         }
 
         private void Awake()
@@ -71,9 +72,16 @@ namespace TowerDefense.Data.Core
             set => _hasMaxStats = value; 
         }
 
+        public float SellTowerMultiplier
+        {
+            get => _sellTowerMultiplier;
+            set => _sellTowerMultiplier = value;
+        }
+
         [SerializeField] private int _waves;
         [SerializeField] private int _money;
         [SerializeField] private int _lives;
+        [SerializeField] private float _sellTowerMultiplier;
         [SerializeField] private GameStatistics _maxGameStats;
 
         private int _enemiesKilled;
