@@ -5,6 +5,7 @@ using TowerDefense.Towers.TowerUpgrades;
 using UnityEngine;
 using TowerDefense.Towers.TowerEnums;
 using static BulletTypeEnums;
+using TowerDefense.Gameplay.Core;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
@@ -16,18 +17,21 @@ namespace TowerDefense.Towers.TowerAttackControllers
         private int _towerCost;
 
         [SerializeField] private TowerProperties _properties;
-        public TowerProperties Properties { get { return _properties; } private set { _properties = value; } }
         [SerializeField] private TowerEnemyDetector _enemyDetector;
-        public TowerEnemyDetector EnemyDetector => _enemyDetector;
         [SerializeField] private TowerShooting _towerShooting;
         [SerializeField] private TowerParticleController _particleController;
-        public TowerParticleController ParticleControll => _particleController;
         [SerializeField] private TowerUpgradeController _upgradeController;
-
         [SerializeField] private GameObject _bulletOrigin;
+        [SerializeField] private TowerManager _towerManager;
+
+        public TowerProperties Properties { get { return _properties; } private set { _properties = value; } }
+        public TowerEnemyDetector EnemyDetector => _enemyDetector;
+        public TowerParticleController ParticleControll => _particleController;
         public GameObject BulletOrigin { get { return _bulletOrigin; } private set { _bulletOrigin = value; } }
         public TargetingStyle TargetingStyle { get; private set; }
-        [SerializeField] private TowerManager _towerManager;
+
+        private float SellTowerMultiplier => GameController.Instance.SellTowerMultiplier;
+        public int SellTowerCost => Mathf.FloorToInt(_towerCost * SellTowerMultiplier);
 
         private void Awake()
         {
@@ -58,6 +62,13 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
             _enemyDetector.InitTowerDetection();
 
+        }
+
+        public void SellTower()
+        {
+            GameController.Instance.IncrementMoney(SellTowerCost);
+            StopAllCoroutines();
+            Destroy(gameObject);
         }
 
         public void EnemyDetected(Collider other)

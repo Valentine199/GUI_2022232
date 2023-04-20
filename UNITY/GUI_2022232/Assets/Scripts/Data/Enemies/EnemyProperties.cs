@@ -66,6 +66,9 @@ namespace TowerDefense.Data.Enemies
 
         [SerializeField] private int _health;
         [SerializeField] private int _moneyWhenKilled;
+        [SerializeField] private bool _canBeFrozen;
+        [SerializeField] private bool _canBePoisoned;
+        [SerializeField] private bool _canBeBurnt;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private List<EnemyProperties> _enemiesToSpawnWhenKilled;
         [SerializeField] private EnemyType _enemyType;

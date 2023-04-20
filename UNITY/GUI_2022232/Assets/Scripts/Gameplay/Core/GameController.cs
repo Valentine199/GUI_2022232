@@ -59,9 +59,10 @@ namespace TowerDefense.Gameplay.Core
             }
         }
 
-        public bool GameOver { get => _gameOver; }
-        public bool IsWon { get => _isWon; }
-        public int Money { get => _currGameStatistics.Money; }
+        public bool GameOver => _gameOver;
+        public bool IsWon => _isWon; 
+        public int Money => _currGameStatistics.Money;
+        public float SellTowerMultiplier => _currGameStatistics.SellTowerMultiplier;
 
         private void Awake()
         {
@@ -104,11 +105,6 @@ namespace TowerDefense.Gameplay.Core
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);
             OnLivesChanged?.Invoke(_currGameStatistics.Lives);
         }
-
-        //private void EndOfWaveReward(int waveNumber)
-        //{
-
-        //}
 
         private void WaveCompleted(WaveProperties waveProperties)
         {
