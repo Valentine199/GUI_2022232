@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +9,7 @@ using UnityEngine.InputSystem.Interactions;
 
 namespace TowerDefense.Gameplay.Core
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : NetworkBehaviour
     {
         [SerializeField] private PlayerInput PlayerInput;
 
@@ -37,7 +38,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void Awake()
         {
-
+            //if (!IsOwner) return;
             HideCursor();
             _currentMap = PlayerInput.currentActionMap;
             _moveAction = _currentMap.FindAction("Move");
