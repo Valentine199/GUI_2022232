@@ -12,6 +12,7 @@ namespace TowerDefense.Gameplay.Core
     public class InputManager : NetworkBehaviour
     {
         [SerializeField] private PlayerInput PlayerInput;
+        [SerializeField] private PlayerControlls _playerControlls;
 
         public Vector2 Move { get; private set; }
 
@@ -58,6 +59,8 @@ namespace TowerDefense.Gameplay.Core
             _runAction.canceled += onRun;
             _jumpAction.canceled += onJump;
             _crouchAction.canceled += onCrouch;
+
+            _playerControlls = new PlayerControlls();
         }
 
         private void HideCursor()
@@ -87,14 +90,21 @@ namespace TowerDefense.Gameplay.Core
             Crouch = context.ReadValueAsButton();
         }
 
+        public Vector2 GetMouseDelta()
+        {
+            return _playerControlls.Player.Look.ReadValue<Vector2>();
+        }
+
         private void OnEnable()
         {
             _currentMap.Enable();
+            _playerControlls.Enable();
         }
 
         private void OnDisable()
         {
             _currentMap.Disable();
+            _playerControlls.Disable();
         }
     }
 }

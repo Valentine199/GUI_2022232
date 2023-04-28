@@ -22,7 +22,9 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private float JumpFactor = 260f;
         [SerializeField] private float DistanceToGround = 0.85f;
         [SerializeField] private float AirResistance = 0.8f;
-        [SerializeField] private LayerMask GroundCheck;        
+        [SerializeField] private LayerMask GroundCheck;
+
+        [SerializeField] private CinemachineExtender cinemachineExtender;
 
         private Rigidbody _playerRigidbody;
 
@@ -94,8 +96,13 @@ namespace TowerDefense.Gameplay.Core
             _crouchVelHash = Animator.StringToHash("Crouch");
             
             //PlayerCamera.Instance.FollowPlayer(transform.Find("PlayerCameraRoot"));
-            CinemachineVirtualCamera virtualcam = GameObject.Find("Main Camera").GetComponent<CinemachineVirtualCamera>();
-            if (IsOwner) virtualcam.Follow = CameraRoot;
+            //CinemachineVirtualCamera virtualcam = GameObject.Find("Main Camera").GetComponent<CinemachineVirtualCamera>();
+            //if (IsOwner) virtualcam.Follow = CameraRoot;
+
+            //cinemachineExtender = GameObject.Find("Main Camera").GetComponent<CinemachineExtender>();
+            cinemachineExtender.Sensitivity = MouseSensitivity;
+            cinemachineExtender.inputManger = GetComponent<InputManager>();
+            //virtualcam.AddExtension(cinemachineExtender);
             
 
         }
@@ -167,6 +174,7 @@ namespace TowerDefense.Gameplay.Core
 
             //Camera.localRotation = Quaternion.Euler(_xRotation,0,0);
             _playerRigidbody.MoveRotation(_playerRigidbody.rotation * Quaternion.Euler(0, Mouse_X * MouseSensitivity * Time.smoothDeltaTime, 0));
+
         }
 
         private void HandleCrouch()
