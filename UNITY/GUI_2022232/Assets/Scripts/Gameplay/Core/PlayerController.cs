@@ -15,7 +15,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private float AnimBlendSpeed = 8.9f;
         [SerializeField] private Transform CameraRoot;
         [SerializeField] private Transform Camera;
-        [SerializeField] private Camera cam;
+        [SerializeField] private GameObject cam;
         [SerializeField] private float UpperLimit = -40f;
         [SerializeField] private float BottomLimit = 70f;
         [SerializeField] private float MouseSensitivity = 21.9f;
@@ -23,6 +23,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private float DistanceToGround = 0.85f;
         [SerializeField] private float AirResistance = 0.8f;
         [SerializeField] private LayerMask GroundCheck;
+        [SerializeField] private GameObject WeaponHolder;
 
         [SerializeField] private CinemachineExtender cinemachineExtender;
 
@@ -98,12 +99,16 @@ namespace TowerDefense.Gameplay.Core
             //PlayerCamera.Instance.FollowPlayer(transform.Find("PlayerCameraRoot"));
             //CinemachineVirtualCamera virtualcam = GameObject.Find("Main Camera").GetComponent<CinemachineVirtualCamera>();
             //if (IsOwner) virtualcam.Follow = CameraRoot;
-
-            //cinemachineExtender = GameObject.Find("Main Camera").GetComponent<CinemachineExtender>();
-            cinemachineExtender.Sensitivity = MouseSensitivity;
-            cinemachineExtender.inputManger = GetComponent<InputManager>();
+            Camera = GameObject.Find("Main Camera").transform;
+            cam = GameObject.Find("Main Camera");
+            //cinemachineExtender.Sensitivity = MouseSensitivity;
+            //cinemachineExtender.inputManger = GetComponent<InputManager>();
             //virtualcam.AddExtension(cinemachineExtender);
-            
+            if (!IsOwner) return;
+            cam.transform.SetParent(transform);
+            WeaponHolder.transform.SetParent(cam.transform);
+            WeaponHolder.transform.localPosition = Vector3.zero;
+            WeaponHolder.transform.localRotation = Quaternion.identity;
 
         }
 
@@ -163,23 +168,23 @@ namespace TowerDefense.Gameplay.Core
         {
             if (!IsOwner) return;
             if (!_hasAnimator) return;
-            if (_cameraFreezed)  return; 
+            if (_cameraFreezed) return;
 
             var Mouse_X = _inputManager.Look.x;
             var Mouse_Y = _inputManager.Look.y;
-            //Camera.position = CameraRoot.position;
+            Camera.position = CameraRoot.position;
 
             _xRotation -= Mouse_Y * MouseSensitivity * Time.deltaTime;
             _xRotation = Mathf.Clamp(_xRotation, UpperLimit, BottomLimit);
 
-            //Camera.localRotation = Quaternion.Euler(_xRotation,0,0);
+            Camera.localRotation = Quaternion.Euler(_xRotation, 0, 0);
             _playerRigidbody.MoveRotation(_playerRigidbody.rotation * Quaternion.Euler(0, Mouse_X * MouseSensitivity * Time.smoothDeltaTime, 0));
-
         }
 
         private void HandleCrouch()
         {
             if (!IsOwner) return;
+            
             _animator.SetBool(_crouchVelHash, _inputManager.Crouch);
         }
 
@@ -188,7 +193,8 @@ namespace TowerDefense.Gameplay.Core
             if (!IsOwner) return;
             if (!_hasAnimator) return;
             if (!_inputManager.Jump) return;
-            if (!_grounded) return;            
+            if (!_grounded) return;
+            
             _animator.SetTrigger(_jumpHash);       
         }
             
@@ -197,6 +203,7 @@ namespace TowerDefense.Gameplay.Core
             if (!IsOwner) return;
             _playerRigidbody.AddForce(-_playerRigidbody.velocity.y*Vector3.up,ForceMode.VelocityChange);
             _playerRigidbody.AddForce(Vector3.up * JumpFactor, ForceMode.Impulse);
+            
             _animator.ResetTrigger(_jumpHash);
         }
 
@@ -223,6 +230,7 @@ namespace TowerDefense.Gameplay.Core
         private void SetAnimationGrounding()
         {
             if (!IsOwner) return;
+            
             _animator.SetBool(_fallingHash, !_grounded);
             _animator.SetBool(_groundHash, _grounded);
         }
