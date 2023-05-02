@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using Unity.Netcode;
 using UnityEngine;
 
-public class WeaponSwitching : MonoBehaviour
+public class WeaponSwitching : NetworkBehaviour
 {
     public int selectedWeapon = 0;
 
@@ -16,6 +18,8 @@ public class WeaponSwitching : MonoBehaviour
     
     void Update()
     {
+        if (!IsOwner) return;
+
         int prev = selectedWeapon;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -56,5 +60,34 @@ public class WeaponSwitching : MonoBehaviour
             }
             i++;
         }
+        SelectWeaponServerRpc();
+                
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SelectWeaponServerRpc()
+    {
+        SelectWeaponClientRpc();
+    }
+
+    [ClientRpc]
+    void SelectWeaponClientRpc()
+    {
+        if (IsOwner) return;
+
+        int i = 0;
+        foreach (Transform weapon in transform)
+        {
+            if (i == selectedWeapon)
+            {
+                weapon.gameObject.SetActive(true);
+            }
+            else
+            {
+                weapon.gameObject.SetActive(false);
+            }
+            i++;
+        }
+
     }
 }
