@@ -60,7 +60,7 @@ namespace TowerDefense.Gameplay.Core
             _jumpAction.canceled += onJump;
             _crouchAction.canceled += onCrouch;
 
-            _playerControlls = new PlayerControlls();
+            //_playerControlls = new PlayerControlls();
         }
 
         private void HideCursor()
@@ -90,21 +90,21 @@ namespace TowerDefense.Gameplay.Core
             Crouch = context.ReadValueAsButton();
         }
 
-        public Vector2 GetMouseDelta()
-        {
-            return _playerControlls.Player.Look.ReadValue<Vector2>();
-        }
+        //public Vector2 GetMouseDelta()
+        //{
+        //    return _playerControlls.Player.Look.ReadValue<Vector2>();
+        //}
 
         private void OnEnable()
         {
             _currentMap.Enable();
-            _playerControlls.Enable();
+            //_playerControlls.Enable();
         }
 
         private void OnDisable()
         {
             _currentMap.Disable();
-            _playerControlls.Disable();
+            //_playerControlls.Disable();
         }
     }
 }
