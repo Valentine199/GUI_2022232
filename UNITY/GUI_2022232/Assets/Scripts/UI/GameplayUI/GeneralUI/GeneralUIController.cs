@@ -24,7 +24,6 @@ public class GeneralUIController : MonoBehaviour
 
         //_gameController.OnGameBegin += ShowStartRoundButton;
         //_roundController.OnRoundComplete += ShowStartRoundButton;
-        Debug.Log("Végén");
         _gameController.InitUI();
     }
 
