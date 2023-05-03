@@ -6,13 +6,12 @@ namespace TowerDefense.Data.Enemies
 {
     public enum EnemyType
     {
-        rockhopper,
-        chinstrap,
-        adelie,
-        macaroni,
-        magellanic,
-        gentoo,
-        king,
-        emperor
+        egg,
+        tomato,
+        corn,
+        salad,
+        popsicle,
+        bread,
+        cheese,
     }
 }

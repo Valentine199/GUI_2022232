@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Path;
 using TowerDefense.Towers.TowerAttackControllers;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Enemies
@@ -23,7 +24,7 @@ namespace TowerDefense.Gameplay.Enemies
             --_healthRemaining;
             if (_healthRemaining < 0)
                 return false;
-            if (_healthRemaining == 0)
+            if (_healthRemaining <= 0)
                 BurstEnemy();
 
             return true;
@@ -91,6 +92,7 @@ namespace TowerDefense.Gameplay.Enemies
 
         public event Action<EnemyProperties> OnEnemyReachedEnd;
         public event Action<EnemyProperties> OnEnemyKilled;
+        public event Action<EnemyController> OnEnemyDie;
 
         public EnemyProperties EnemyProperties
         {
@@ -104,6 +106,8 @@ namespace TowerDefense.Gameplay.Enemies
             set => _path = value;
         }
 
+        public bool IsFrozen => _isFrozen;
+
         private void Update()
         {
             MoveEnemies();
@@ -112,6 +116,7 @@ namespace TowerDefense.Gameplay.Enemies
         private EnemyController[] BurstEnemy()
         {
             OnEnemyKilled?.Invoke(_enemyProperties);
+            OnEnemyDie?.Invoke(this);
             if (HasEnemiesToSpawn)
             {
                 Destroy(gameObject);
@@ -190,6 +195,7 @@ namespace TowerDefense.Gameplay.Enemies
 
         private int _targetWaypointIndex;
         private int _healthRemaining;
+        private bool _isFrozen;
 
         private Vector3 _targetWaypointPosition;
 
