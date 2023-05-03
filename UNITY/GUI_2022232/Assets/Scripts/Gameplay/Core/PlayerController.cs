@@ -109,7 +109,14 @@ namespace TowerDefense.Gameplay.Core
             WeaponHolder.transform.SetParent(cam.transform);
             WeaponHolder.transform.localPosition = Vector3.zero;
             WeaponHolder.transform.localRotation = Quaternion.identity;
-
+            foreach (Transform child in WeaponHolder.transform)
+            {
+                child.transform.GetChild(0).TryGetComponent<GunSystem>(out var gunSystem);
+                if (gunSystem != null)
+                {
+                gunSystem.fpsCam = cam.GetComponent<Camera>();
+                }
+            }
         }
 
         private void FixedUpdate()

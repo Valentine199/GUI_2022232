@@ -31,7 +31,7 @@ public class GunSystem : NetworkBehaviour
     bool readyToShoot;
     bool reloading;
 
-    [SerializeField] Camera fpsCam;
+    public Camera fpsCam;
     [SerializeField] Transform attackPoint;
     [SerializeField] RaycastHit rayHit;
     [SerializeField] LayerMask whatIsEnemy;

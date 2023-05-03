@@ -3305,14 +3305,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6680321662495576898}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38af6a62983982949891b9ee0d790cd8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2773116088157944100}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38af6a62983982949891b9ee0d790cd8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6716792339375669513}
   m_SourcePrefab: {fileID: 100100000, guid: 38af6a62983982949891b9ee0d790cd8, type: 3}
 --- !u!1 &419652464187689763 stripped
 GameObject:
@@ -3335,51 +3327,6 @@ MonoBehaviour:
   smooth: 8
   swayMultiplier: 2
 --- !u!114 &6680321662495576898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419652464187689763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e413c89497b380488e566a9c2ae024a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
-  timeBetweenShooting: 0.05
-  spread: 0.02
-  range: 100
-  reloadTime: 1
-  timeBetweenShots: 0
-  magazineSize: 30
-  bulletsPerTap: 1
-  allowButtonHold: 1
-  fpsCam: {fileID: 0}
-  attackPoint: {fileID: 2077708846953490608}
-  whatIsEnemy:
-    serializedVersion: 2
-    m_Bits: 128
-  text: {fileID: 2382768356103340768}
-  muzzleFlash: {fileID: 6100081921473124603, guid: 038008ece3384a84f85cef3b3f8b84d6,
-    type: 3}
-  bulletHoleGraphic: {fileID: 1707326438774377614, guid: 621c056f5a8700140af54885e75b0b4e,
-    type: 3}
---- !u!114 &2773116088157944100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419652464187689763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4983d37679c138e47a063dabcaa3c5d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smooth: 8
-  swayMultiplier: 2
---- !u!114 &6716792339375669513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
