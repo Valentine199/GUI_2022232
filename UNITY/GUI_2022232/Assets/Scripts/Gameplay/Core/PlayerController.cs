@@ -24,6 +24,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private float AirResistance = 0.8f;
         [SerializeField] private LayerMask GroundCheck;
         [SerializeField] private GameObject WeaponHolder;
+        [SerializeField] private HandlePlaceCanvas _buildCanvas;
 
         [SerializeField] private CinemachineExtender cinemachineExtender;
 
@@ -72,14 +73,14 @@ namespace TowerDefense.Gameplay.Core
         }
     private void OnEnable()
         {
-            if (!IsOwner) return;
-            HandlePlaceCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
+            //if (!IsOwner) return;
+            _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
         }
 
         private void OnDisable()
         {
-            if (!IsOwner) return;
-            HandlePlaceCanvas.OnBuildingsCanvasToggled -= ToggleFreezeCam;
+            //if (!IsOwner) return;
+            _buildCanvas.OnBuildingsCanvasToggled -= ToggleFreezeCam;
         }
 
         private void Start()

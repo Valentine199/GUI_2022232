@@ -956,6 +956,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   WeaponHolder: {fileID: 61044569542901163}
+  _buildCanvas: {fileID: 4173888034242662085}
 --- !u!114 &3485348915591755835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3540,6 +3541,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4173888034242662085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 486829858822970215, guid: d283c42941e3f7c4a85da6326cf55122,
+    type: 3}
+  m_PrefabInstance: {fileID: 4552347716306064802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a203fc08ac62f0e4593bcf2b4ac6de31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7941272198562927607 stripped
