@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using Unity.Netcode;
 using UnityEngine;
 
-public class WeaponSwitching : MonoBehaviour
+public class WeaponSwitching : NetworkBehaviour
 {
     public int selectedWeapon = 0;
 
@@ -16,6 +18,8 @@ public class WeaponSwitching : MonoBehaviour
     
     void Update()
     {
+        if (!IsOwner) return;
+
         int prev = selectedWeapon;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -56,5 +60,40 @@ public class WeaponSwitching : MonoBehaviour
             }
             i++;
         }
+        //Debug.Log("KInt:"+selectedWeapon);
+        SelectWeaponServerRpc(selectedWeapon);
+                
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SelectWeaponServerRpc(int xd)
+    {
+        //Debug.Log("Közép:" + selectedWeapon);
+        SelectWeaponClientRpc(xd);
+    }
+
+    [ClientRpc]
+    void SelectWeaponClientRpc(int xd)
+    {
+        if (IsOwner) return;
+        //Debug.Log("Bent" + xd);
+        selectedWeapon = xd;
+        int i = 0;
+        foreach (Transform weapon in transform)
+        {
+            
+            
+            
+            if (i == selectedWeapon)
+            {
+                weapon.gameObject.SetActive(true);
+            }
+            else
+            {
+                weapon.gameObject.SetActive(false);
+            }
+            i++;
+        }
+
     }
 }

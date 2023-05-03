@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using TMPro.EditorUtilities;
+//using TMPro.EditorUtilities;
 using TowerDefense.Data.Core;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
@@ -72,6 +72,7 @@ namespace TowerDefense.Gameplay.Core
         private void Start()
         {
             SetupNewGame();
+            Debug.Log("mapos startos");
         }
 
         private void OnEnable()
@@ -99,7 +100,7 @@ namespace TowerDefense.Gameplay.Core
             _waveController.Initialize(_currGameStatistics);
         }
 
-        private void InitUI()
+        public void InitUI()
         {
             OnWaveChanged?.Invoke(_currGameStatistics.Waves);
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);

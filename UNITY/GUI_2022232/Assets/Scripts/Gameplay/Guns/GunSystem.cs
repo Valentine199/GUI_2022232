@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using TowerDefense.Gameplay.Enemies;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GunSystem : MonoBehaviour
+public class GunSystem : NetworkBehaviour
 {
     //Gun stats
     [SerializeField] int damage;
@@ -30,7 +31,7 @@ public class GunSystem : MonoBehaviour
     bool readyToShoot;
     bool reloading;
 
-    [SerializeField] Camera fpsCam;
+    public Camera fpsCam;
     [SerializeField] Transform attackPoint;
     [SerializeField] RaycastHit rayHit;
     [SerializeField] LayerMask whatIsEnemy;
@@ -45,6 +46,8 @@ public class GunSystem : MonoBehaviour
     }
     private void Update()
     {
+        if (!IsOwner) return;
+        
         MyInput();
 
         text.SetText(bulletsLeft + " / " + magazineSize);

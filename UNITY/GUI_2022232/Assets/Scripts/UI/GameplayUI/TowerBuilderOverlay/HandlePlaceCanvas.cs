@@ -56,7 +56,7 @@ public class HandlePlaceCanvas : MonoBehaviour
         OnBuildingsCanvasToggled?.Invoke();
     }
 
-    public static event Action OnBuildingsCanvasToggled;
+    public event Action OnBuildingsCanvasToggled;
 
     [SerializeField] private Canvas _inGameCanvas;
     [SerializeField] private Canvas _selectionCanvas; // The canvas which handles the UI

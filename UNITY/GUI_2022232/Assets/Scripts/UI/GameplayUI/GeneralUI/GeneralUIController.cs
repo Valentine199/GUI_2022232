@@ -10,18 +10,21 @@ public class GeneralUIController : MonoBehaviour
     [SerializeField] private TMP_Text _roundText;
     [SerializeField] private TMP_Text _moneyText;
     [SerializeField] private TMP_Text _livesText;
-    [SerializeField] private Button _startRoundButton;
-    [SerializeField] private GameController _gameController;
+    //[SerializeField] private Button _startRoundButton;
+    private GameController _gameController;
     //[SerializeField] private WaveController _roundController;
 
     private void OnEnable()
     {
+        
+        _gameController = GameController.Instance;
         _gameController.OnWaveChanged += UpdateRoundText;
         _gameController.OnMoneyChanged += UpdateMoneyText;
         _gameController.OnLivesChanged += UpdateLivesText;
 
         //_gameController.OnGameBegin += ShowStartRoundButton;
         //_roundController.OnRoundComplete += ShowStartRoundButton;
+        _gameController.InitUI();
     }
 
     private void OnDisable()
