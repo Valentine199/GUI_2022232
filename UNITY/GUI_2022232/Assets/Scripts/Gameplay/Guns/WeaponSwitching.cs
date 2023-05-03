@@ -60,24 +60,30 @@ public class WeaponSwitching : NetworkBehaviour
             }
             i++;
         }
-        SelectWeaponServerRpc();
+        //Debug.Log("KInt:"+selectedWeapon);
+        SelectWeaponServerRpc(selectedWeapon);
                 
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void SelectWeaponServerRpc()
+    void SelectWeaponServerRpc(int xd)
     {
-        SelectWeaponClientRpc();
+        //Debug.Log("Közép:" + selectedWeapon);
+        SelectWeaponClientRpc(xd);
     }
 
     [ClientRpc]
-    void SelectWeaponClientRpc()
+    void SelectWeaponClientRpc(int xd)
     {
         if (IsOwner) return;
-
+        //Debug.Log("Bent" + xd);
+        selectedWeapon = xd;
         int i = 0;
         foreach (Transform weapon in transform)
         {
+            
+            
+            
             if (i == selectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
