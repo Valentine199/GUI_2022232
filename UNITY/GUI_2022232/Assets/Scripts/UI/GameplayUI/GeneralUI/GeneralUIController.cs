@@ -10,6 +10,7 @@ public class GeneralUIController : MonoBehaviour
     [SerializeField] private TMP_Text _roundText;
     [SerializeField] private TMP_Text _moneyText;
     [SerializeField] private TMP_Text _livesText;
+    [SerializeField] private TMP_Text _buildMoneyText;
     //[SerializeField] private Button _startRoundButton;
     private GameController _gameController;
     //[SerializeField] private WaveController _roundController;
@@ -43,7 +44,11 @@ public class GeneralUIController : MonoBehaviour
 
     private void UpdateRoundText(int currentRound) =>
         _roundText.text = $"Round: {(currentRound.Equals(0) ? 1.ToString() : currentRound.ToString())}";
-    private void UpdateMoneyText(int currentMoney) => _moneyText.text = $"Money: {currentMoney.ToString()}";
+    private void UpdateMoneyText(int currentMoney) 
+    {
+        _moneyText.text = $"Money: {currentMoney.ToString()}";
+        _buildMoneyText.text = $"Money: {currentMoney.ToString()}";
+    } 
     private void UpdateLivesText(int currentLives) => _livesText.text = $"Lives: {currentLives.ToString()}";
     //private void ShowStartRoundButton(RoundProperties round) => ShowStartRoundButton();
     //private void ShowStartRoundButton() => _startRoundButton.gameObject.SetActive(true);
