@@ -187,9 +187,20 @@ namespace TowerDefense.Gameplay.Core
             _xRotation = Mathf.Clamp(_xRotation, UpperLimit, BottomLimit);
 
             Camera.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+            RotateWeaponServerRpc(_xRotation);
             _playerRigidbody.MoveRotation(_playerRigidbody.rotation * Quaternion.Euler(0, Mouse_X * MouseSensitivity * Time.smoothDeltaTime, 0));
         }
-
+        [ServerRpc(RequireOwnership = false)]
+        void RotateWeaponServerRpc(float xd)
+        {           
+            RotateWeaponClientRpc(xd);
+        }
+        [ClientRpc]
+        void RotateWeaponClientRpc(float xd)
+        {
+            if (IsOwner) return;
+            WeaponHolder.transform.localRotation = Quaternion.Euler(xd, 0, 0);
+        }
         private void HandleCrouch()
         {
             if (!IsOwner) return;
