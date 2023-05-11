@@ -90,7 +90,7 @@ public class GunSystem : NetworkBehaviour
         //RayCast
         if (Physics.Raycast(fpsCam.transform.position,direction,out rayHit,range)) 
         {
-            Debug.Log(rayHit.collider.name);
+            //Debug.Log(rayHit.collider.name);
 
             if ((whatIsEnemy.value & (1 << rayHit.collider.gameObject.layer)) > 0)
             {

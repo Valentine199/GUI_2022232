@@ -72,7 +72,7 @@ namespace TowerDefense.Gameplay.Core
         private void Start()
         {
             SetupNewGame();
-            Debug.Log("mapos startos");
+            //Debug.Log("mapos startos");
         }
 
         private void OnEnable()
