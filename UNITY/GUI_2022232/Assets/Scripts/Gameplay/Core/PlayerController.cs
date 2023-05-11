@@ -22,6 +22,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private float JumpFactor = 260f;
         [SerializeField] private float DistanceToGround = 0.85f;
         [SerializeField] private float AirResistance = 0.8f;
+        [SerializeField] private float jumpDelay = 1f;
         [SerializeField] private LayerMask GroundCheck;
         [SerializeField] private GameObject WeaponHolder;
         [SerializeField] private HandlePlaceCanvas _buildCanvas;
@@ -74,7 +75,7 @@ namespace TowerDefense.Gameplay.Core
     private void OnEnable()
         {
             //if (!IsOwner) return;
-            Debug.Log("Subscribed");
+            //Debug.Log("Subscribed");
             _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
         }
 
@@ -210,12 +211,17 @@ namespace TowerDefense.Gameplay.Core
 
         private void HandleJump()
         {
-            if (!IsOwner) return;
-            if (!_hasAnimator) return;
-            if (!_inputManager.Jump) return;
-            if (!_grounded) return;
-            
-            _animator.SetTrigger(_jumpHash);       
+            jumpDelay -= Time.deltaTime;
+            if (jumpDelay <= 0.0f)
+            {
+                if (!IsOwner) return;
+                if (!_hasAnimator) return;
+                if (!_inputManager.Jump) return;
+                if (!_grounded) return;
+
+                _animator.SetTrigger(_jumpHash);
+                jumpDelay = 1f;
+            }
         }
             
         public void JumpAddForce()
