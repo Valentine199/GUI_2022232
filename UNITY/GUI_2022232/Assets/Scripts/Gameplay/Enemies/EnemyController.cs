@@ -129,16 +129,17 @@ namespace TowerDefense.Gameplay.Enemies
             }
         }
 
-        private EnemyController[] SpawnChildEnemies()
+        private void SpawnChildEnemies()
         {
-            var children = new EnemyController[_enemyProperties.EnemiesToSpawnWhenKilled.Count];
             for (int i = 0; i < _enemyProperties.EnemiesToSpawnWhenKilled.Count; i++)
             {
-                var enemyToSpawn = _enemyProperties.EnemiesToSpawnWhenKilled[i];
-                var newEnemy = EnemySpawner.Instance.SpawnEnemy(enemyToSpawn, transform.position, _targetWaypointIndex);
-                children[i] = newEnemy;
+                EnemyProperties enemyToSpawn = _enemyProperties.EnemiesToSpawnWhenKilled[i];
+                Vector3 spawnOffset = new Vector3(
+                    (float)Util.Random.NextDouble(),
+                    (float)Util.Random.NextDouble(),
+                    (float)Util.Random.NextDouble());
+                EnemySpawner.Instance.SpawnEnemy(enemyToSpawn, transform.position + spawnOffset, _targetWaypointIndex);
             }
-            return children;
         }
 
         private void MoveEnemies()
