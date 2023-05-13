@@ -74,7 +74,6 @@ namespace TowerDefense.Gameplay.Core
     private void OnEnable()
         {
             //if (!IsOwner) return;
-            Debug.Log("Subscribed");
             _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
         }
 
