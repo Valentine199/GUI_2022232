@@ -45,12 +45,9 @@ namespace TowerDefense.Gameplay.Enemies
             _pathHeadPosition = _pathController[0];
         }
 
-        [SerializeField] private List<GameObject> _enemyPrefabs;
         [SerializeField] private PathController _pathController;
 
         private static EnemySpawner _instance;
-
-        private GameObject _spawnedEnemiesGO;
 
         private Vector3 _pathHeadPosition;
     }
