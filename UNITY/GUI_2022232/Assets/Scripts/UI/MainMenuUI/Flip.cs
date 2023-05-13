@@ -55,6 +55,6 @@ public class Flip : MonoBehaviour
     IEnumerator WaitCoroutine(GameObject xd)
     {      
         yield return new WaitForSeconds(0.5f);
-        xd.SetActive(!xd.active);       
+        xd.SetActive(!xd.activeSelf);       
     }
 }
