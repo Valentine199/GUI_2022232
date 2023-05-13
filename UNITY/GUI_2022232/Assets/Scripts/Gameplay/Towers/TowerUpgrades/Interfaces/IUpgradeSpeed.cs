@@ -6,6 +6,8 @@ namespace TowerDefense.Towers.TowerUpgrades.Interfaces
 {
     public interface IUpgradeSpeed
     {
-        void SetFiringRate(float newCooldownTime);
+        void SetFiringRateServerRpc(float newCooldownTime);
+
+        void SetFiringRateClientRpc(float newCooldownTime);
     }
 }

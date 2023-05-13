@@ -54,7 +54,7 @@ namespace TowerDefense.Towers.TowerUpgrades
         {
             if (towerController.EnemyDetector is IUpgradeRange rangeUpdate)
             {
-                rangeUpdate.SetRange(rangeValue);
+                rangeUpdate.SetRangeServerRpc(rangeValue);
                 base.PurchaseUpgrade(towerController);
             }
 
@@ -69,7 +69,7 @@ namespace TowerDefense.Towers.TowerUpgrades
         {
             if (towerController.ParticleControll is IUpgradeSpeed speedUpdate)
             {
-                speedUpdate.SetFiringRate(SpeedValue);
+                speedUpdate.SetFiringRateServerRpc(SpeedValue);
                 base.PurchaseUpgrade(towerController);
             }
 
