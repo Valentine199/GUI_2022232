@@ -1420,11 +1420,11 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 793595224}
-    PlayerPrefab: {fileID: 6098533993298156152, guid: 8288268f8bd158247b15daac53426670,
+    PlayerPrefab: {fileID: 3303115634917129618, guid: 9dcabfc6f6d835b4c841785796758c09,
       type: 3}
     NetworkPrefabs:
     - Override: 0
-      Prefab: {fileID: 6098533993298156152, guid: 8288268f8bd158247b15daac53426670,
+      Prefab: {fileID: 3303115634917129618, guid: 9dcabfc6f6d835b4c841785796758c09,
         type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
@@ -2418,7 +2418,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.01
   far clip plane: 5000
   field of view: 40
   orthographic: 0
