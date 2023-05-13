@@ -13,5 +13,6 @@ namespace TowerDefense.Data.Enemies
         popsicle,
         bread,
         cheese,
+        cheeseCut
     }
 }
