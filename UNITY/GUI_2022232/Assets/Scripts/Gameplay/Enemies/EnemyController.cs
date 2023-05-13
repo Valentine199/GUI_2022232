@@ -132,6 +132,12 @@ namespace TowerDefense.Gameplay.Enemies
 
         private void MoveEnemies()
         {
+            MoveEnemiesServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void MoveEnemiesServerRpc()
+        {
             float speed = _enemyProperties.MoveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);
 
