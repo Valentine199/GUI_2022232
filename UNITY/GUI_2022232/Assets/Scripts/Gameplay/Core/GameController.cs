@@ -7,11 +7,12 @@ using TowerDefense.Data.Core;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Core
 {
-    public class GameController : MonoBehaviour
+    public class GameController : NetworkBehaviour
     {
         public void SetupNewGame()
         {
@@ -22,17 +23,53 @@ namespace TowerDefense.Gameplay.Core
 
         public void StartNewWave()
         {
-            UpdateWaveText();
+            StartNewWaveServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void StartNewWaveServerRpc()
+        {
+            StartNewWaveClientRpc();
             _waveController.StartNextWave();
         }
 
+        [ClientRpc]
+        public void StartNewWaveClientRpc()
+        {
+            UpdateWaveText();
+        }
+
         public void IncrementMoney(int amount)
+        {
+            IncrementMoneyServerRpc(amount);
+        }
+
+        [ServerRpc]
+        public void IncrementMoneyServerRpc(int amount)
+        {
+            IncrementMoneyClientRpc(amount);
+        }
+
+        [ClientRpc]
+        public void IncrementMoneyClientRpc(int amount)
         {
             _currGameStatistics.Money += amount;
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);
         }
 
         public void DecrementMoney(int amount)
+        {
+            DecrementMoneyServerRpc(amount);
+        }
+
+        [ServerRpc]
+        public void DecrementMoneyServerRpc(int amount)
+        {
+            DecrementMoneyClientRpc(amount);
+        }
+
+        [ClientRpc]
+        public void DecrementMoneyClientRpc(int amount)
         {
             _currGameStatistics.Money -= amount;
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);
@@ -60,7 +97,7 @@ namespace TowerDefense.Gameplay.Core
         }
 
         public bool GameOver => _gameOver;
-        public bool IsWon => _isWon; 
+        public bool IsWon => _isWon;
         public int Money => _currGameStatistics.Money;
         public float SellTowerMultiplier => _currGameStatistics.SellTowerMultiplier;
 
@@ -72,19 +109,17 @@ namespace TowerDefense.Gameplay.Core
         private void Start()
         {
             SetupNewGame();
-            Debug.Log("mapos startos");
         }
 
         private void OnEnable()
         {
-            _enemySpawner = EnemySpawner.Instance;
-            _enemySpawner.OnEnemySpawned += SubscribeToEnemyEvents;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned += SubscribeToEnemyEvents;
             _waveController.OnWaveCompleted += WaveCompleted;
         }
 
         private void OnDisable()
         {
-            _enemySpawner.OnEnemySpawned -= SubscribeToEnemyEvents;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned -= SubscribeToEnemyEvents;
             _waveController.OnWaveCompleted -= WaveCompleted;
         }
 
@@ -118,6 +153,18 @@ namespace TowerDefense.Gameplay.Core
         }
 
         private void DecrementLives(int amount)
+        {
+            DecrementLivesServerRpc(amount);
+        }
+
+        [ServerRpc]
+        private void DecrementLivesServerRpc(int amount)
+        {
+            DecrementLivesClientRpc(amount);
+        }
+
+        [ClientRpc]
+        private void DecrementLivesClientRpc(int amount)
         {
             if (_gameOver)
                 return;
