@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Towers.TowerUpgrades.Interfaces;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TowerDefense.Towers.TowerAttackControllers
@@ -39,7 +40,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
             ps = particleSys;
         }
 
-        public void ChangeBulletSpped(int speed)
+        public void ChangeBulletSpeed(int speed)
         {
             var main = ps.main;
             main.startSpeed = speed;
@@ -69,7 +70,13 @@ namespace TowerDefense.Towers.TowerAttackControllers
             isShooting = false;
         }
 
-        public void SetFiringRate(float newCooldownTime)
+        [ServerRpc(RequireOwnership =false)]
+        public void SetFiringRateServerRpc(float newCooldownTime)
+        {
+            SetFiringRateClientRpc(newCooldownTime);
+        }
+
+        public void SetFiringRateClientRpc(float newCooldownTime)
         {
             firingRate -= newCooldownTime;
         }

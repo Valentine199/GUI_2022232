@@ -6,12 +6,13 @@ using UnityEngine;
 using TowerDefense.Towers.TowerEnums;
 using static BulletTypeEnums;
 using TowerDefense.Gameplay.Core;
+using Unity.Netcode;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
     [RequireComponent(typeof(TowerUpgradeController))]
     [RequireComponent(typeof(TowerManager))]
-    public class TowerController : MonoBehaviour
+    public class TowerController : NetworkBehaviour
     {
         private GameObject _particleSysGO;
         private int _towerCost;
@@ -76,16 +77,15 @@ namespace TowerDefense.Towers.TowerAttackControllers
             EnemyController target = other.gameObject.GetComponent<EnemyController>();
             if (target != null)
             {
-                _towerShooting.AddTargetToInRange(target);
+                _towerShooting.AddTargetToInRangeServerRpc(target.GetEnemyNetworkObject());
             }
         }
-
         public void OnEnemyExit(Collider other)
         {
             EnemyController target = other.gameObject.GetComponent<EnemyController>();
             if (target != null)
             {
-                _towerShooting.RemoveTargetFromInRange(target);
+                _towerShooting.RemoveTargetFromInRangeServerRpc(target.GetEnemyNetworkObject());
             }
         }
 
@@ -149,35 +149,5 @@ namespace TowerDefense.Towers.TowerAttackControllers
                     return null;
             }
         }
-
-
-        //private void GetCurrentTarget()
-        //{
-        //    if (targetsInRange.Count <= 0)
-        //    {
-        //        currentTarget = null;
-        //        OnTargetLost?.Invoke();
-        //        return;
-        //    }
-
-        //    if (currentTarget != null)
-        //    {
-        //        currentTarget.OnDeath -= HandleTargetDeath;
-        //    }
-
-        //    currentTarget.OnDeath += HandleTargetDeath;
-
-        //    OnTargetFound?.Invoke(currentTarget);
-        //}
-
-
-
-        //private void HandleTargetDeath()
-        //{
-        //    //RemoveTargetFromInRangeList(currentTarget);
-        //    //currentTarget.OnDeath -= HandleTargetDeath;
-        //    GetCurrentTarget();
-        //}
-
     }
 }

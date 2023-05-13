@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Data.Towers;
 using TowerDefense.Gameplay.Core;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HandlePlaceCanvas : MonoBehaviour
+public class HandlePlaceCanvas : NetworkBehaviour
 {
     private void Awake()
     {
         _currentMap = PlayerInput.currentActionMap;
         _buildAction = _currentMap.FindAction("Build");
         _buildAction.performed += onBuild;
-        foreach (TowerProperties prop in _towers)
+        List<TowerProperties> towers = TowerList.TowerSOList;
+        foreach (TowerProperties prop in towers)
         {
             GameObject instance =  Instantiate(_buildMenuItem);
             HandleOnClick InstanceHandleClick = instance.GetComponent<HandleOnClick>();
@@ -22,7 +24,7 @@ public class HandlePlaceCanvas : MonoBehaviour
             {
                 InstanceHandleClick.MyTower = prop;
                 InstanceHandleClick.OnClickSetCanvas += ToggleBuildingsCanvas;
-                InstanceHandleClick.OnClickPlaceBuilding += gameObject.GetComponent<PlaceTower>().PlaceBuilding;
+                InstanceHandleClick.OnClickPlaceBuilding += gameObject.GetComponent<PlaceTower>().HandleBuildingPlacementRequest;
             }
 
             instance.transform.SetParent(_buildBg.transform, false);
@@ -31,6 +33,7 @@ public class HandlePlaceCanvas : MonoBehaviour
 
     private void onBuild(InputAction.CallbackContext context)
     {
+        if(!IsOwner) { return; }
         ToggleBuildingsCanvas();
     }
 
@@ -61,7 +64,8 @@ public class HandlePlaceCanvas : MonoBehaviour
     [SerializeField] private Canvas _inGameCanvas;
     [SerializeField] private Canvas _selectionCanvas; // The canvas which handles the UI
     [SerializeField] private GameObject _buildBg;     // The direct parent to the build elements  
-    [SerializeField] private TowerProperties[] _towers = new TowerProperties[0];  // A list of all possible buildings
+    //[SerializeField] private TowerProperties[] _towers = new TowerProperties[0];  // A list of all possible buildings | Only usefull if we were to give each player a separate set of buildings
+    [SerializeField] private TowerTypeListSO TowerList; //instead of _towers
     [SerializeField] private GameObject _buildMenuItem;  // What to instantiate as a building option
     [SerializeField] private PlayerInput PlayerInput;
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Path;
 using TowerDefense.Towers.TowerAttackControllers;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -28,6 +29,16 @@ namespace TowerDefense.Gameplay.Enemies
                 BurstEnemy();
 
             return true;
+        }
+
+        public NetworkObject GetEnemyNetworkObject()
+        {
+            if (this.TryGetComponent<NetworkObject>(out NetworkObject enemyNetwork))
+            {
+                return enemyNetwork;
+            }
+            
+            return null;
         }
 
         public bool HitEnemy(out EnemyController[] spawnedEnemies)
