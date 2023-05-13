@@ -19,25 +19,19 @@ namespace TowerDefense.Gameplay.Enemies
             SetTargetWaypointPosition();
         }
 
-        public bool HitEnemy()
+        public void HitEnemy()
         {
-            --_healthRemaining;
-            if (_healthRemaining < 0)
-                return false;
-            if (_healthRemaining <= 0)
-                BurstEnemy();
-
-            return true;
+            HitEnemyServerRpc();
         }
 
-        public bool HitEnemy(out EnemyController[] spawnedEnemies)
+        [ServerRpc(RequireOwnership = false)]
+        public void HitEnemyServerRpc()
         {
-            spawnedEnemies = null;
             --_healthRemaining;
             if (_healthRemaining < 0)
-                return false;
-            spawnedEnemies = _healthRemaining <= 0 ? BurstEnemy() : new EnemyController[1] { this };
-            return true;
+                return;
+            if (_healthRemaining <= 0)
+                BurstEnemy();
         }
 
         public static EnemyController CompareFirst(EnemyController e1, EnemyController e2)
