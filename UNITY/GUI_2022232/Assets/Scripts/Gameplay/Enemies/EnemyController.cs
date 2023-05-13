@@ -1,15 +1,14 @@
+using Assets.Scripts.Gameplay.Helpers;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Path;
-using TowerDefense.Towers.TowerAttackControllers;
-using Unity.VisualScripting;
+using Unity.Mathematics;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Enemies
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : NetworkBehaviour
     {
         public void InitEnemy(EnemyProperties enemyProperties, int targetWaypointIndex)
         {
