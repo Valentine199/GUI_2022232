@@ -1,16 +1,17 @@
+using Assets.Scripts.Gameplay.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Path;
-using TowerDefense.Towers.TowerAttackControllers;
+using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Enemies
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : NetworkBehaviour
     {
         public void InitEnemy(EnemyProperties enemyProperties, int targetWaypointIndex)
         {
@@ -20,15 +21,9 @@ namespace TowerDefense.Gameplay.Enemies
             SetTargetWaypointPosition();
         }
 
-        public bool HitEnemy()
+        public void HitEnemy()
         {
-            --_healthRemaining;
-            if (_healthRemaining < 0)
-                return false;
-            if (_healthRemaining <= 0)
-                BurstEnemy();
-
-            return true;
+            HitEnemyServerRpc();
         }
 
         public NetworkObject GetEnemyNetworkObject()
@@ -41,14 +36,14 @@ namespace TowerDefense.Gameplay.Enemies
             return null;
         }
 
-        public bool HitEnemy(out EnemyController[] spawnedEnemies)
+        [ServerRpc(RequireOwnership = false)]
+        public void HitEnemyServerRpc()
         {
-            spawnedEnemies = null;
             --_healthRemaining;
             if (_healthRemaining < 0)
-                return false;
-            spawnedEnemies = _healthRemaining <= 0 ? BurstEnemy() : new EnemyController[1] { this };
-            return true;
+                return;
+            if (_healthRemaining <= 0)
+                BurstEnemy();
         }
 
         public static EnemyController CompareFirst(EnemyController e1, EnemyController e2)
@@ -124,35 +119,36 @@ namespace TowerDefense.Gameplay.Enemies
             MoveEnemies();
         }
 
-        private EnemyController[] BurstEnemy()
+        private void BurstEnemy()
         {
             OnEnemyKilled?.Invoke(_enemyProperties);
             OnEnemyDie?.Invoke(this);
+
+            Destroy(gameObject);
             if (HasEnemiesToSpawn)
-            {
-                Destroy(gameObject);
-                return SpawnChildEnemies();
-            }
-            else
-            {
-                Destroy(gameObject);
-                return null;
-            }
+                SpawnChildEnemies();
         }
 
-        private EnemyController[] SpawnChildEnemies()
+        private void SpawnChildEnemies()
         {
-            var children = new EnemyController[_enemyProperties.EnemiesToSpawnWhenKilled.Count];
             for (int i = 0; i < _enemyProperties.EnemiesToSpawnWhenKilled.Count; i++)
             {
-                var enemyToSpawn = _enemyProperties.EnemiesToSpawnWhenKilled[i];
-                var newEnemy = EnemySpawner.Instance.SpawnEnemy(enemyToSpawn, transform.position, _targetWaypointIndex);
-                children[i] = newEnemy;
+                EnemyProperties enemyToSpawn = _enemyProperties.EnemiesToSpawnWhenKilled[i];
+                Vector3 spawnOffset = new Vector3(
+                    (float)Util.Random.NextDouble(),
+                    (float)Util.Random.NextDouble(),
+                    (float)Util.Random.NextDouble());
+                EnemySpawner.Instance.SpawnEnemy(enemyToSpawn, transform.position + spawnOffset, _targetWaypointIndex);
             }
-            return children;
         }
 
         private void MoveEnemies()
+        {
+            MoveEnemiesServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void MoveEnemiesServerRpc()
         {
             float speed = _enemyProperties.MoveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);

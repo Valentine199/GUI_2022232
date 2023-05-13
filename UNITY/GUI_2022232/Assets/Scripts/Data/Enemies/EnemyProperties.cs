@@ -64,6 +64,8 @@ namespace TowerDefense.Data.Enemies
             }
         }
 
+        public GameObject prefab;
+
         [SerializeField] private int _health;
         [SerializeField] private int _moneyWhenKilled;
         [SerializeField] private bool _canBeFrozen;

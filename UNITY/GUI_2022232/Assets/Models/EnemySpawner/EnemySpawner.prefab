@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8153631680137649769
 MonoBehaviour:
@@ -45,12 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefabs:
-  - {fileID: 9123732952586004592, guid: d8121cce7035f4543bc117246ddc09b2, type: 3}
-  - {fileID: 9123732952586004592, guid: b2860c93da7a43a4e82cac8da82c8ee5, type: 3}
-  - {fileID: 9123732952586004592, guid: 35e31248189dfab469e1dee77163a52a, type: 3}
-  - {fileID: 9123732952586004592, guid: 766dc545a28a17b41af3d415ce349ae9, type: 3}
-  - {fileID: 9123732952586004592, guid: b7f21bf65ecb99149967435f53e21edf, type: 3}
-  - {fileID: 9123732952586004592, guid: 90e339739f088cb42b58c38105e7dee4, type: 3}
-  - {fileID: 9123732952586004592, guid: c2319ba1662e735468f62aa746e2085e, type: 3}
-  - {fileID: 9123732952586004592, guid: bf17317a92e61f4439c82c46ba9f33a4, type: 3}
+  - {fileID: 7643578420151505821, guid: e655afe3a305b224991ccec596eea63f, type: 3}
+  - {fileID: 919132149155446097, guid: 2b44f8d2fe2d8e042bee6b06858f867c, type: 3}
+  - {fileID: 919132149155446097, guid: d6483c74f5e97e340b89e6b563aeca2e, type: 3}
+  - {fileID: 919132149155446097, guid: 6e286b4f5eba00d4ea09c4fcf7643c1c, type: 3}
+  - {fileID: 919132149155446097, guid: 41cc24b6e88b2d243a666e9ae7b707ce, type: 3}
+  - {fileID: 919132149155446097, guid: 10cfdf89842732d468108aa719bd33dd, type: 3}
+  - {fileID: 919132149155446097, guid: a938ab4588df5104aa3c39c3066c5e6b, type: 3}
   _pathController: {fileID: 0}

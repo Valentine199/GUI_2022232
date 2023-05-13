@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
-  m_Name: Egg
+  m_Name: CheeseCut
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7643578420151505821, guid: e655afe3a305b224991ccec596eea63f, type: 3}
+  prefab: {fileID: 4859434739970530200, guid: 9dc881547d01f744caa30be876c3ad9e, type: 3}
   _health: 5
-  _moneyWhenKilled: 1
+  _moneyWhenKilled: 3
   _canBeFrozen: 0
   _canBePoisoned: 0
   _canBeBurnt: 0
-  _moveSpeed: 4
+  _moveSpeed: 6.5
   _enemiesToSpawnWhenKilled: []
-  _enemyType: 0
+  _enemyType: 7

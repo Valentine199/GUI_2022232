@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
   m_Name: Popsicle
   m_EditorClassIdentifier: 
+  prefab: {fileID: 1280976928833878111, guid: 0f6c1130b034798418b33694c3831e67, type: 3}
   _health: 5
   _moneyWhenKilled: 5
-  _moveSpeed: 100
+  _canBeFrozen: 0
+  _canBePoisoned: 0
+  _canBeBurnt: 0
+  _moveSpeed: 10
   _enemiesToSpawnWhenKilled: []
   _enemyType: 4

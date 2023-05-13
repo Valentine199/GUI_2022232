@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using TowerDefense.Data.Core;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Core
 {
-    public class WaveController : MonoBehaviour
+    public class WaveController : NetworkBehaviour
     {
         public void Initialize(GameStatistics gameStatistics)
         {
@@ -20,6 +21,12 @@ namespace TowerDefense.Gameplay.Core
 
         public void StartNextWave()
         {
+            StartNextWaveServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void StartNextWaveServerRpc()
+        {
             StartCoroutine(SpawnEnemiesInWave(_currWave));
         }
 
@@ -29,13 +36,13 @@ namespace TowerDefense.Gameplay.Core
         private void OnEnable()
         {
             _enemySpawner = EnemySpawner.Instance;
-            _enemySpawner.OnEnemySpawned += SubscribeToEnemyEvents;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned += SubscribeToEnemyEvents;
             _gameController.OnGameBegin += PrepareNextRound;
         }
 
         private void OnDisable()
         {
-            _enemySpawner.OnEnemySpawned -= SubscribeToEnemyEvents;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned -= SubscribeToEnemyEvents;
             _gameController.OnGameBegin -= PrepareNextRound;
         }
 

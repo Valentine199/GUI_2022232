@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
   m_Name: Corn
   m_EditorClassIdentifier: 
+  prefab: {fileID: 1489918807469263881, guid: 5feb78a827f0b6d408b8a5e580282810, type: 3}
   _health: 3
   _moneyWhenKilled: 3
-  _moveSpeed: 80
+  _canBeFrozen: 0
+  _canBePoisoned: 0
+  _canBeBurnt: 0
+  _moveSpeed: 8
   _enemiesToSpawnWhenKilled: []
   _enemyType: 2
