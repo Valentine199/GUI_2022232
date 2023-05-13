@@ -33,6 +33,11 @@ namespace TowerDefense.Gameplay.Enemies
 
         public NetworkObject GetEnemyNetworkObject()
         {
+            if (this.TryGetComponent<NetworkObject>(out NetworkObject enemyNetwork))
+            {
+                return enemyNetwork;
+            }
+            
             return null;
         }
 
