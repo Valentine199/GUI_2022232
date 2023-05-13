@@ -113,20 +113,14 @@ namespace TowerDefense.Gameplay.Enemies
             MoveEnemies();
         }
 
-        private EnemyController[] BurstEnemy()
+        private void BurstEnemy()
         {
             OnEnemyKilled?.Invoke(_enemyProperties);
             OnEnemyDie?.Invoke(this);
+
+            Destroy(gameObject);
             if (HasEnemiesToSpawn)
-            {
-                Destroy(gameObject);
-                return SpawnChildEnemies();
-            }
-            else
-            {
-                Destroy(gameObject);
-                return null;
-            }
+                SpawnChildEnemies();
         }
 
         private void SpawnChildEnemies()
