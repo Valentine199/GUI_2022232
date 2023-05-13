@@ -6,6 +6,7 @@ using TowerDefense.Gameplay.Core;
 using TowerDefense.Towers.TowerAttackControllers;
 using TowerDefense.Towers.TowerEnums;
 using TowerDefense.Towers.TowerUpgrades.Interfaces;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,7 +22,8 @@ namespace TowerDefense.Towers.TowerUpgrades
         public UpgradeType UpgradeType => TowerUpgradeProperties.UpgradeType;
         public bool IsPurchased { get; private set; }
 
-        public virtual void PurchaseUpgrade(TowerController towerController)
+        [ServerRpc(RequireOwnership =false)]
+        public virtual void PurchaseUpgradeServerRpc(TowerController towerController)
         {
             IsPurchased = true;
             GameController.Instance.DecrementMoney(Cost);
@@ -50,12 +52,13 @@ namespace TowerDefense.Towers.TowerUpgrades
     {
         private float rangeValue => TowerUpgradeProperties._upgradeValue;
 
-        public override void PurchaseUpgrade(TowerController towerController)
+        [ServerRpc(RequireOwnership = false)]
+        public override void PurchaseUpgradeServerRpc(TowerController towerController)
         {
             if (towerController.EnemyDetector is IUpgradeRange rangeUpdate)
             {
                 rangeUpdate.SetRangeServerRpc(rangeValue);
-                base.PurchaseUpgrade(towerController);
+                base.PurchaseUpgradeServerRpc(towerController);
             }
 
         }
@@ -65,12 +68,13 @@ namespace TowerDefense.Towers.TowerUpgrades
     {
         private float SpeedValue => TowerUpgradeProperties._upgradeValue;
 
-        public override void PurchaseUpgrade(TowerController towerController)
+        [ServerRpc(RequireOwnership = false)]
+        public override void PurchaseUpgradeServerRpc(TowerController towerController)
         {
             if (towerController.ParticleControll is IUpgradeSpeed speedUpdate)
             {
                 speedUpdate.SetFiringRateServerRpc(SpeedValue);
-                base.PurchaseUpgrade(towerController);
+                base.PurchaseUpgradeServerRpc(towerController);
             }
 
         }
