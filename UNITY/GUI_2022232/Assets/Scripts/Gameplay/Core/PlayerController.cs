@@ -22,6 +22,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private float JumpFactor = 260f;
         [SerializeField] private float DistanceToGround = 0.85f;
         [SerializeField] private float AirResistance = 0.8f;
+        [SerializeField] private float jumpDelay = 1f;
         [SerializeField] private LayerMask GroundCheck;
         [SerializeField] private GameObject WeaponHolder;
         [SerializeField] private HandlePlaceCanvas _buildCanvas;
@@ -118,6 +119,7 @@ namespace TowerDefense.Gameplay.Core
                 gunSystem.fpsCam = cam.GetComponent<Camera>();
                 }
             }
+            //WeaponHolderSync();
         }
 
         private void FixedUpdate()
@@ -133,6 +135,7 @@ namespace TowerDefense.Gameplay.Core
         {
             
             CamMovements();
+            WeaponHolderSync();
         }
 
         private void ToggleFreezeCam()
@@ -171,7 +174,22 @@ namespace TowerDefense.Gameplay.Core
             _animator.SetFloat(_yVelHash, _currentVelocity.y);
 
         }
-
+        private void WeaponHolderSync()
+        {
+            WeaponHolderSyncServerRPC();
+        }
+        [ServerRpc(RequireOwnership = false)]
+        private void WeaponHolderSyncServerRPC()
+        {
+            WeaponHolderSyncClientRPC();
+        }
+        [ClientRpc]
+        private void WeaponHolderSyncClientRPC()
+        {
+            if (IsOwner) return;
+            WeaponHolder.transform.position = CameraRoot.position;
+            //WeaponHolder.transform.parent = CameraRoot;
+        }
         private void CamMovements()
         {
             if (!IsOwner) return;
@@ -186,9 +204,20 @@ namespace TowerDefense.Gameplay.Core
             _xRotation = Mathf.Clamp(_xRotation, UpperLimit, BottomLimit);
 
             Camera.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+            RotateWeaponServerRpc(_xRotation);
             _playerRigidbody.MoveRotation(_playerRigidbody.rotation * Quaternion.Euler(0, Mouse_X * MouseSensitivity * Time.smoothDeltaTime, 0));
         }
-
+        [ServerRpc(RequireOwnership = false)]
+        void RotateWeaponServerRpc(float xd)
+        {           
+            RotateWeaponClientRpc(xd);
+        }
+        [ClientRpc]
+        void RotateWeaponClientRpc(float xd)
+        {
+            if (IsOwner) return;
+            WeaponHolder.transform.localRotation = Quaternion.Euler(xd, 0, 0);
+        }
         private void HandleCrouch()
         {
             if (!IsOwner) return;
@@ -198,12 +227,17 @@ namespace TowerDefense.Gameplay.Core
 
         private void HandleJump()
         {
-            if (!IsOwner) return;
-            if (!_hasAnimator) return;
-            if (!_inputManager.Jump) return;
-            if (!_grounded) return;
-            
-            _animator.SetTrigger(_jumpHash);       
+            jumpDelay -= Time.deltaTime;
+            if (jumpDelay <= 0.0f)
+            {
+                if (!IsOwner) return;
+                if (!_hasAnimator) return;
+                if (!_inputManager.Jump) return;
+                if (!_grounded) return;
+
+                _animator.SetTrigger(_jumpHash);
+                jumpDelay = 1f;
+            }
         }
             
         public void JumpAddForce()
