@@ -6,16 +6,6 @@ namespace TowerDefense.Gameplay.Path
 {
     public class PathController : MonoBehaviour
     {
-        private void Awake()
-        {
-            
-        }
-
-        private void Start()
-        {
-            
-        }     
-
         public Vector3 this[int i] => _waypoints[i].transform.position;
 
         public int WaypointCount => _waypoints?.Count ?? 0;
