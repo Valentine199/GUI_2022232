@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
-  _health: 2
+  prefab: {fileID: 1807532238182987528, guid: 31e28a4bb6c9e8b46b41e21c90a8eaca, type: 3}
+  _health: 6
   _moneyWhenKilled: 2
-  _moveSpeed: 60
+  _canBeFrozen: 0
+  _canBePoisoned: 0
+  _canBeBurnt: 0
+  _moveSpeed: 6
   _enemiesToSpawnWhenKilled: []
   _enemyType: 1

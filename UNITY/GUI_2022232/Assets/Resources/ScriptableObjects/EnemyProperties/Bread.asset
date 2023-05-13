@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
   m_Name: Bread
   m_EditorClassIdentifier: 
+  prefab: {fileID: 8541080073472797720, guid: 07048346cd76e844191b81c9fce71a84, type: 3}
   _health: 6
   _moneyWhenKilled: 6
-  _moveSpeed: 70
+  _canBeFrozen: 0
+  _canBePoisoned: 0
+  _canBeBurnt: 0
+  _moveSpeed: 7
   _enemiesToSpawnWhenKilled: []
   _enemyType: 5

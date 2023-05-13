@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
   m_Name: Salad
   m_EditorClassIdentifier: 
+  prefab: {fileID: 200100441308531885, guid: a04a4e65d2ed7fb409f8fad126203bb4, type: 3}
   _health: 4
   _moneyWhenKilled: 4
-  _moveSpeed: 90
+  _canBeFrozen: 0
+  _canBePoisoned: 0
+  _canBeBurnt: 0
+  _moveSpeed: 9
   _enemiesToSpawnWhenKilled: []
   _enemyType: 3
