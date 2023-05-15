@@ -34,6 +34,8 @@ namespace TowerDefense.Towers.TowerAttackControllers
         private float SellTowerMultiplier => GameController.Instance.SellTowerMultiplier;
         public int SellTowerCost => Mathf.FloorToInt(_towerCost * SellTowerMultiplier);
 
+        [SerializeField] GameObject ParticleGO;
+
         private void Awake()
         {
             _enemyDetector.TowerController = this;
@@ -50,13 +52,14 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void Start()
         {
-            GameObject inst = Instantiate(_particleSysGO, _bulletOrigin.transform.position, Quaternion.identity);
-            inst.transform.parent = _bulletOrigin.transform;
+            //GameObject inst = Instantiate(_particleSysGO, _bulletOrigin.transform.position, Quaternion.identity);
+            //inst.transform.parent = _bulletOrigin.transform;
 
-            var bulletScript = GetDamageType(inst);
+            var bulletScript = ParticleGO.GetComponent<TowerDamage>();//GetDamageType(ParticleGO);
             bulletScript.InitDamage(_properties);
 
-            _particleController.ChangeParticleSystem(inst.GetComponent<ParticleSystem>());
+
+            _particleController.ChangeParticleSystem(ParticleGO.GetComponent<ParticleSystem>());
             _towerShooting.ChangeTargetingStyle(TargetingStyle);
 
             _towerCost = _properties.TowerCost;
@@ -89,9 +92,10 @@ namespace TowerDefense.Towers.TowerAttackControllers
             }
         }
 
-        public void Shoot(bool canShoot)
+        [ServerRpc(RequireOwnership =false, Delivery = RpcDelivery.Unreliable)]
+        public void ShootServerRpc(bool canShoot)
         {
-            _particleController.TowerShoot(canShoot);
+            _particleController.TowerShootClientRpc(canShoot);
         }
 
 
