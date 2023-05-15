@@ -4,7 +4,6 @@ using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Towers.TowerUpgrades;
 using UnityEngine;
 using TowerDefense.Towers.TowerEnums;
-using static BulletTypeEnums;
 using TowerDefense.Gameplay.Core;
 using Unity.Netcode;
 
@@ -24,6 +23,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         [SerializeField] private TowerUpgradeController _upgradeController;
         [SerializeField] private GameObject _bulletOrigin;
         [SerializeField] private TowerManager _towerManager;
+        [SerializeField] private GameObject ParticleGO;
 
         public TowerProperties Properties { get { return _properties; } private set { _properties = value; } }
         public TowerEnemyDetector EnemyDetector => _enemyDetector;
@@ -34,7 +34,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         private float SellTowerMultiplier => GameController.Instance.SellTowerMultiplier;
         public int SellTowerCost => Mathf.FloorToInt(_towerCost * SellTowerMultiplier);
 
-        [SerializeField] GameObject ParticleGO;
+        
 
         private void Awake()
         {

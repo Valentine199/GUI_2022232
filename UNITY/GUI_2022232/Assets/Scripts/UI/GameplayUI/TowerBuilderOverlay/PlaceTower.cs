@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TowerDefense.Data.Towers;
 using TowerDefense.Gameplay.Core;
 using Unity.Netcode;
-//using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class PlaceTower : NetworkBehaviour
@@ -58,7 +54,7 @@ public class PlaceTower : NetworkBehaviour
         return TowerList.TowerSOList[index];
     }
 
-    [SerializeField] private Camera _camera;
+    private Camera _camera;
     [SerializeField] private TowerTypeListSO TowerList;
     [SerializeField] private LayerMask _placeableMask = new LayerMask();
 }
