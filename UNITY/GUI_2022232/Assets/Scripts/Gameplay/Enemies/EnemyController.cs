@@ -19,11 +19,15 @@ namespace TowerDefense.Gameplay.Enemies
             _healthRemaining = _enemyProperties.Health;
             _targetWaypointIndex = targetWaypointIndex;
             SetTargetWaypointPosition();
+
         }
 
         public void HitEnemy()
         {
-            HitEnemyServerRpc();
+            if (_healthRemaining > 0)
+            {
+                HitEnemyServerRpc();
+            }
         }
 
         public NetworkObject GetEnemyNetworkObject()
@@ -32,7 +36,7 @@ namespace TowerDefense.Gameplay.Enemies
             {
                 return enemyNetwork;
             }
-            
+
             return null;
         }
 
@@ -78,7 +82,7 @@ namespace TowerDefense.Gameplay.Enemies
         {
             if (e1.LTW > e2.LTW)
                 return e1;
-            if (e1.LTW < e2.LTW) 
+            if (e1.LTW < e2.LTW)
                 return e2;
 
             // Same strength -> target first
@@ -124,6 +128,15 @@ namespace TowerDefense.Gameplay.Enemies
             OnEnemyKilled?.Invoke(_enemyProperties);
             OnEnemyDie?.Invoke(this);
 
+
+            if (ActiveEffects.Count > 0)
+            {
+                foreach (GameObject effect in ActiveEffects)
+                {
+                    Destroy(effect);
+                }
+            }
+            ActiveEffects.Clear();
             Destroy(gameObject);
             if (HasEnemiesToSpawn)
                 SpawnChildEnemies();
@@ -202,9 +215,25 @@ namespace TowerDefense.Gameplay.Enemies
 
         private int _targetWaypointIndex;
         private int _healthRemaining;
+        public int HealthRemaining { get { return this._healthRemaining; } }
+        public List<GameObject> ActiveEffects { get; private set; } = new List<GameObject>();
         private bool _isFrozen;
 
         private Vector3 _targetWaypointPosition;
+
+        public void AddActiveEffect(GameObject effect)
+        {
+            if(!IsServer) { return; }
+            ActiveEffects.Add(effect);
+        }
+
+        public void RemoveActiveEffect(GameObject effect)
+        {
+            if (IsServer && ActiveEffects.Contains(effect))
+            {
+                ActiveEffects.Remove(effect);
+            }            
+        }
 
         private int LTW
         {
