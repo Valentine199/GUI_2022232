@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
-    public class TowerParticleController : MonoBehaviour, IUpgradeSpeed
+    public class TowerParticleController : NetworkBehaviour, IUpgradeSpeed
     {
         [SerializeField] private ParticleSystem ps;
         private bool isShooting = false;
@@ -46,7 +46,8 @@ namespace TowerDefense.Towers.TowerAttackControllers
             main.startSpeed = speed;
         }
 
-        public void TowerShoot(bool canShoot)
+        [ClientRpc(Delivery = RpcDelivery.Unreliable)]
+        public void TowerShootClientRpc(bool canShoot)
         {
 
             if (isShooting && canShoot) { return; }
@@ -76,6 +77,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
             SetFiringRateClientRpc(newCooldownTime);
         }
 
+        [ClientRpc]
         public void SetFiringRateClientRpc(float newCooldownTime)
         {
             firingRate -= newCooldownTime;

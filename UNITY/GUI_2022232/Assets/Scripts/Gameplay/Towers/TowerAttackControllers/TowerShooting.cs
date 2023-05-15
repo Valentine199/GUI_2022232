@@ -28,6 +28,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         [SerializeField] private NetworkObject _target = null;
         private Transform _targetTransform = null;
         private bool _canShoot = false;
+        private bool _prevShootState;
 
 
         private TowerController _towerController;
@@ -172,7 +173,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
             RemoveDeadEnemies();
 
-            if (_targetTransform != null && EnsureSight(_target.GetComponent<EnemyController>()))
+            if (_targetTransform != null && EnsureSight(_targetTransform.GetComponent<EnemyController>()))
             {
                 _canShoot = true;
                 TargetEnemy();
@@ -183,7 +184,9 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 GetTarget();
 
             }
-            _towerController.Shoot(_canShoot);
+                _towerController.ShootServerRpc(_canShoot);
+
+            
         }
 
         private void RemoveDeadEnemies()
