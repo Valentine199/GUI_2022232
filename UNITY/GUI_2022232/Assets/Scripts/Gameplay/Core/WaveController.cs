@@ -92,7 +92,11 @@ namespace TowerDefense.Gameplay.Core
 
         private void PrepareNextRound()
         {
-            ++_currGameStatistics.Waves;
+            if (_currGameStatistics.Waves == 0)
+                ++_currGameStatistics.Waves;
+            else
+                IncrementWaveServerRpc();
+
             if (_currGameStatistics.Waves > _waves.Count)
             {
                 _gameController.DoVictory();
@@ -105,8 +109,19 @@ namespace TowerDefense.Gameplay.Core
 
             _currWave = _waves[CurrWaveIndex];
             _enemiesLeft = _currWave.TotalEnemyCount;
-
             OnPrepareNextRound?.Invoke(_currWave);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void IncrementWaveServerRpc()
+        {
+            IncrementWaveClientRpc();
+        }
+
+        [ClientRpc]
+        private void IncrementWaveClientRpc()
+        {
+            ++_currGameStatistics.Waves;
         }
 
         [SerializeField] private List<WaveProperties> _waves;
