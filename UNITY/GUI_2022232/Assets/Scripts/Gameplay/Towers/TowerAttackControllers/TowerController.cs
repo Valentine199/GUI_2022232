@@ -13,7 +13,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
     [RequireComponent(typeof(TowerManager))]
     public class TowerController : NetworkBehaviour
     {
-        private GameObject _particleSysGO;
+        //private GameObject _particleSysGO;
         private int _towerCost;
 
         [SerializeField] private TowerProperties _properties;
@@ -44,7 +44,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
             _towerManager.TowerController = this;
             _particleController.FiringRate = _properties.TowerFiringRate;
 
-            _particleSysGO = _properties.BulletParticleSystem;
+            //_particleSysGO = _properties.BulletParticleSystem;
             _upgradeController.InitializeUpgrades(this);
 
             TargetingStyle = _properties.DefaultTowerTargetingStyle;

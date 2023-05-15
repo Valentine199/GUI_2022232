@@ -6,7 +6,6 @@ namespace TowerDefense.Data.Towers
     [CreateAssetMenu(fileName = "TowerProperties", menuName = "Scriptable Objects/Tower Properties", order = 1)]
     public class TowerProperties : ScriptableObject
     {
-
         public string TowerName;
         public float TowerRange;
         public int TowerDamage;
@@ -14,8 +13,9 @@ namespace TowerDefense.Data.Towers
         public int TowerBulletSpeed;
         public int TowerCost;
 
-        public GameObject BulletParticleSystem;
-        public GameObject TowerRender;
+        public GameObject TowerModel;
+        public Sprite TowerPicture;
+        public GameObject TowerObject;
         public TargetingStyle DefaultTowerTargetingStyle;
         public TowerEffectProperties Effect;
 

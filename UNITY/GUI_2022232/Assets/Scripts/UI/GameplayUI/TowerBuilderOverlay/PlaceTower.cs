@@ -30,7 +30,7 @@ public class PlaceTower : NetworkBehaviour
         if (GameController.Instance.Money >= towerToPlace.TowerCost)
         {
            
-            GameObject inst = Instantiate(towerToPlace.TowerRender, spawnPoint, Quaternion.identity);
+            GameObject inst = Instantiate(towerToPlace.TowerObject, spawnPoint, Quaternion.identity);
             NetworkObject placingTowerNetworked = inst.GetComponent<NetworkObject>();
             placingTowerNetworked.Spawn(true);
             

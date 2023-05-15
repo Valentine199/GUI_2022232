@@ -5,7 +5,7 @@ namespace TowerDefense.Data.Towers
     [CreateAssetMenu(fileName = "TowerEffects", menuName = "Scriptable Objects/Tower Effects", order = 3)]
     public class TowerEffectProperties : ScriptableObject
     {
-        public string Name { get; }
+        public string Name;
 
         public int DamageOverTime;
         public int SpeedReduction;
@@ -13,7 +13,7 @@ namespace TowerDefense.Data.Towers
         public float TickSpeed;
         public float Duration;
 
-        public GameObject ParticleEffect { get; }
+        public GameObject ParticleEffect;
 
     }
 }

@@ -18,9 +18,10 @@ MonoBehaviour:
   TowerFiringRate: 0.5
   TowerBulletSpeed: 60
   TowerCost: 300
-  BulletParticleSystem: {fileID: 3992624520800305239, guid: 63dcc54ac5ecd77489c6474aa69c1114,
+  TowerModel: {fileID: 919132149155446097, guid: a345cde5ab5ceb14a9655013c3e28664,
     type: 3}
-  TowerRender: {fileID: 1284278413768867390, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
+  TowerPicture: {fileID: 21300000, guid: c263b02d20dc2414e899f98dfe25d002, type: 3}
+  TowerObject: {fileID: 1284278413768867390, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
     type: 3}
   DefaultTowerTargetingStyle: 0
   Effect: {fileID: 0}
