@@ -23,19 +23,7 @@ namespace TowerDefense.Gameplay.Core
 
         public void StartNewWave()
         {
-            StartNewWaveServerRpc();
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void StartNewWaveServerRpc()
-        {
-            StartNewWaveClientRpc();
             _waveController.StartNextWave();
-        }
-
-        [ClientRpc]
-        public void StartNewWaveClientRpc()
-        {
             UpdateWaveText();
         }
 
