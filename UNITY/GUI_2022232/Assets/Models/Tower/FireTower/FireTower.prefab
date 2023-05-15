@@ -240,7 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f955d5e857b04ba47a5c1928b8d5ee9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 0}
 --- !u!114 &6342386912499999568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,15 +285,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _head: {fileID: 5513125881764807809}
-  _bulletOrigin: {fileID: 4333151654402365234}
-  _targetsInRange: []
   _hitLayer:
     serializedVersion: 2
     m_Bits: 255
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  _target: {fileID: 0}
 --- !u!114 &2044520753284234777
 MonoBehaviour:
   m_ObjectHideFlags: 0

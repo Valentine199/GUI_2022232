@@ -18,7 +18,7 @@ MonoBehaviour:
   TowerFiringRate: 1
   TowerBulletSpeed: 60
   TowerCost: 700
-  TowerModel: {fileID: 919132149155446097, guid: 20eaf6df0ba2c814ab993935efa82d55,
+  TowerModel: {fileID: 589559089697168934, guid: e6f99d14b3537c744898227550330ce9,
     type: 3}
   TowerPicture: {fileID: 21300000, guid: ebff2d6bf3ba86b4296a208333c1b57c, type: 3}
   TowerObject: {fileID: 3808576574006083832, guid: 3f66860ed5b95ca48be6d9fd66964ea2,

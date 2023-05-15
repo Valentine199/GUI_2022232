@@ -2,26 +2,77 @@ using TowerDefense.Data.Towers;
 using TowerDefense.Gameplay.Core;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlaceTower : NetworkBehaviour
 {
     private void Start()
     {
         _camera = Camera.main;
+
+        _currentMap = PlayerInput.currentActionMap;
+        _cancelBuildingAction = _currentMap.FindAction("Build");
+        _cancelBuildingAction.performed += OnCancelBuilding;
+
+        _acceptBuildingAction = _currentMap.FindAction("PlaceBuild");
+        _acceptBuildingAction.performed += OnAcceptBuilding;
     }
 
     public void HandleBuildingPlacementRequest(TowerProperties towerToPlace)
     {
+        _towerToPlace = towerToPlace;
+
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f,0.5f, 0));
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) 
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f)) 
         {
             if ((_placeableMask.value & (1 << hit.collider.gameObject.layer)) > 0)
             {
-                PlaceBuildingServerRPC(GetTowerListIndex(towerToPlace), hit.point);
+                _towerModel =  Instantiate(_towerToPlace.TowerModel, hit.point, Quaternion.identity);
+                //PlaceBuildingServerRPC(GetTowerListIndex(towerToPlace), hit.point);
             }  
         }        
     }
+
+    private void Update()
+    {
+        //if (IsServer) { return; }
+        if (_towerModel == null) { return; }
+
+        Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
+        {
+            _towerModel.transform.position = hit.point;
+        }
+
+    }
+
+    private void OnCancelBuilding(InputAction.CallbackContext context)
+    {
+        Destroy(_towerModel);
+        _towerModel = null;
+    }
+
+    private void OnAcceptBuilding(InputAction.CallbackContext context)
+    {
+        if (_towerModel == null && _towerToPlace ==null) { return; }
+        Destroy(_towerModel);
+        _towerModel = null;
+
+        Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
+        {
+            if ((_placeableMask.value & (1 << hit.collider.gameObject.layer)) > 0)
+            {
+                PlaceBuildingServerRPC(GetTowerListIndex(_towerToPlace), hit.point);
+            }
+        }
+
+        _towerToPlace = null;
+    }
+
+
     [ServerRpc(RequireOwnership = false)]
     public void PlaceBuildingServerRPC(int TowerIndex, Vector3 spawnPoint)
     {
@@ -55,6 +106,13 @@ public class PlaceTower : NetworkBehaviour
     }
 
     private Camera _camera;
+    private GameObject _towerModel = null;
+    private TowerProperties _towerToPlace = null;
+
+    private InputAction _cancelBuildingAction;
+    private InputAction _acceptBuildingAction;
+    private InputActionMap _currentMap;
+    [SerializeField] private PlayerInput PlayerInput;
     [SerializeField] private TowerTypeListSO TowerList;
     [SerializeField] private LayerMask _placeableMask = new LayerMask();
 }
