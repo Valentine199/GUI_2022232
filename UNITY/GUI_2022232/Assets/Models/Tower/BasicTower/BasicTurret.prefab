@@ -57,7 +57,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 136
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
@@ -87,7 +87,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f955d5e857b04ba47a5c1928b8d5ee9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 0}
 --- !u!114 &2623084254320537737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,15 +132,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _head: {fileID: 4449611582388923027}
-  _bulletOrigin: {fileID: 8193386161315355320}
-  _targetsInRange: []
   _hitLayer:
     serializedVersion: 2
     m_Bits: 255
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  _target: {fileID: 0}
 --- !u!114 &4994878954540908808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +192,7 @@ GameObject:
   - component: {fileID: 6641777808289442971}
   - component: {fileID: 8513358788829783316}
   - component: {fileID: 6304871552152189927}
+  - component: {fileID: 2689017328158174783}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -296,6 +293,27 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!65 &2689017328158174783
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360978813161901879}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 136
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.969056, y: 3.716405, z: 6.779045}
+  m_Center: {x: 1.4210872e-14, y: 1.8582025, z: 0.5}
 --- !u!1 &2576663426235046504
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +325,7 @@ GameObject:
   - component: {fileID: 8480813111331664222}
   - component: {fileID: 5623938796218554329}
   - component: {fileID: 1723041446622054527}
+  - component: {fileID: 5928913203615197526}
   m_Layer: 0
   m_Name: Stand
   m_TagString: Untagged
@@ -380,6 +399,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5928913203615197526
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2576663426235046504}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 136
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.8284273, y: 5.9071546, z: 4.8284273}
+  m_Center: {x: 1.0496871e-15, y: 1.9535773, z: 1.38810015e-14}
 --- !u!1 &4003404502668878027
 GameObject:
   m_ObjectHideFlags: 0

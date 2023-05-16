@@ -1331,11 +1331,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d821a3e68b0654fab331f82391c6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
-  TowerList: {fileID: 11400000, guid: 25335ee977217c44987f31afbed4d746, type: 2}
   _placeableMask:
     serializedVersion: 2
     m_Bits: 8
+  PlayerInput: {fileID: 7880593013533742836}
+  _invalidMaterial: {fileID: 2100000, guid: 6d204c50f251c8344a7c1d5d378b8733, type: 2}
+  _validMaterial: {fileID: 2100000, guid: e489eeeb799d1b14bbe64dad4a768f51, type: 2}
+  TowerList: {fileID: 11400000, guid: 25335ee977217c44987f31afbed4d746, type: 2}
 --- !u!114 &7880593013533742836
 MonoBehaviour:
   m_ObjectHideFlags: 0

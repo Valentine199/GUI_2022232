@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
 using Unity.Netcode;
@@ -16,19 +14,15 @@ namespace TowerDefense.Towers.TowerAttackControllers
         [Tooltip("Logical, only neccessery for the model")]
         private Transform _head;
 
-        [SerializeField]
-        [Tooltip("Ensures accurate shooting")]
-        private Transform _bulletOrigin;
-
-        [SerializeField] private List<EnemyController> _targetsInRange = new List<EnemyController>();
-        [SerializeField] private Queue<EnemyController> _targetsToRemove = new Queue<EnemyController>();
         [SerializeField] private LayerMask _hitLayer;
         [SerializeField] private LayerMask _enemyLayer;
-        private Vector3 _origin;
-        [SerializeField] private NetworkObject _target = null;
+
+        private List<EnemyController> _targetsInRange = new List<EnemyController>();
+        private Queue<EnemyController> _targetsToRemove = new Queue<EnemyController>();
+        private Transform _origin;
+        private NetworkObject _target = null;
         private Transform _targetTransform = null;
         private bool _canShoot = false;
-        private bool _prevShootState;
 
 
         private TowerController _towerController;
@@ -54,7 +48,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         {
             if (_towerController != null)
             {
-                _origin = _towerController.BulletOrigin.transform.position;
+                _origin = _towerController.BulletOrigin.transform;
             }
 
         }
@@ -91,9 +85,9 @@ namespace TowerDefense.Towers.TowerAttackControllers
             {
                 return false;
             }
-            var direction = target.transform.position - _origin;
-            Debug.DrawRay(_origin, direction);
-            Ray ray = new Ray(_origin, direction);
+            var direction = target.transform.position - _origin.position;
+            Debug.DrawRay(_origin.position, direction);
+            Ray ray = new Ray(_origin.position, direction);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _hitLayer))
             {
@@ -207,7 +201,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
             if (!IsClient) { return; }
 
             _head.LookAt(_targetTransform);
-            _bulletOrigin.LookAt(_targetTransform);
+            _origin.LookAt(_targetTransform);
         }
     }
 }

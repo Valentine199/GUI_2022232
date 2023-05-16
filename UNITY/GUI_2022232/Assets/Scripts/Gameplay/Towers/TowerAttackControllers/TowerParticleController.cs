@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TowerDefense.Towers.TowerUpgrades.Interfaces;
 using Unity.Netcode;
 using UnityEngine;
@@ -9,7 +7,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
 {
     public class TowerParticleController : NetworkBehaviour, IUpgradeSpeed
     {
-        [SerializeField] private ParticleSystem ps;
+        private ParticleSystem ps;
         private bool isShooting = false;
 
         private float firingRate;
