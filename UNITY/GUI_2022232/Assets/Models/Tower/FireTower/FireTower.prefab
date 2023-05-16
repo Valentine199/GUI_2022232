@@ -458,7 +458,8 @@ GameObject:
   - component: {fileID: 7083114620607734542}
   - component: {fileID: 8891763900128413912}
   - component: {fileID: 3561686657132420740}
-  - component: {fileID: 1618667940636896351}
+  - component: {fileID: 6517971332591288094}
+  - component: {fileID: 6932591642875799940}
   m_Layer: 0
   m_Name: Stand
   m_TagString: Untagged
@@ -533,8 +534,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1618667940636896351
-MeshCollider:
+--- !u!136 &6517971332591288094
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837744721845343834}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.39
+  m_Height: 1.34
+  m_Direction: 1
+  m_Center: {x: -0.010587275, y: 0.05, z: -0.1}
+--- !u!65 &6932591642875799940
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -551,10 +575,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -462981019419857548, guid: 20eaf6df0ba2c814ab993935efa82d55, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.3, y: 0.61, z: 1.01}
+  m_Center: {x: -0.010587275, y: 0, z: -0.009980261}
 --- !u!1001 &5058358539186316633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -572,6 +595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FireBulletParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460513866029953058, guid: d16061b2d801fb94897da67ac73ef17d,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8623183045271278274, guid: d16061b2d801fb94897da67ac73ef17d,
         type: 3}
