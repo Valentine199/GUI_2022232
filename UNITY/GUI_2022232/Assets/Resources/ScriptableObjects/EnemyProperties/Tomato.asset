@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tomato
   m_EditorClassIdentifier: 
   prefab: {fileID: 1807532238182987528, guid: 31e28a4bb6c9e8b46b41e21c90a8eaca, type: 3}
-  _health: 6
+  _health: 2
   _moneyWhenKilled: 2
   _canBeFrozen: 0
   _canBePoisoned: 0

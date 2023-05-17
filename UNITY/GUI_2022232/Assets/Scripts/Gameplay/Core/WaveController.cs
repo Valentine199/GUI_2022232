@@ -72,15 +72,15 @@ namespace TowerDefense.Gameplay.Core
 
         private void EnemyKilled(EnemyProperties enemyProperties)
         {
-            DecrementEnemiesLeft(1);
+            DecreaseEnemiesLeft(1);
         }
 
         private void EnemyReachedEnd(EnemyProperties enemyProperties)
         {
-            DecrementEnemiesLeft(enemyProperties.TotalEnemyCount);
+            DecreaseEnemiesLeft(enemyProperties.TotalEnemyCount);
         }
 
-        private void DecrementEnemiesLeft(int amount)
+        private void DecreaseEnemiesLeft(int amount)
         {
             if (_gameController.GameOver)
                 return;
