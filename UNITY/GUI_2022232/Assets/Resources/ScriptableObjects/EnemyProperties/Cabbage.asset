@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
-  m_Name: Salad
+  m_Name: Cabbage
   m_EditorClassIdentifier: 
-  prefab: {fileID: 200100441308531885, guid: a04a4e65d2ed7fb409f8fad126203bb4, type: 3}
-  _health: 4
+  prefab: {fileID: 9098938748246103484, guid: 35980b661ae610245b2100c7eea6ff60, type: 3}
+  _health: 1
   _moneyWhenKilled: 4
   _canBeFrozen: 0
   _canBePoisoned: 0

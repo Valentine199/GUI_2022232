@@ -9,7 +9,7 @@ namespace TowerDefense.Data.Enemies
         egg,
         tomato,
         corn,
-        salad,
+        cabbage,
         popsicle,
         bread,
         cheese,
