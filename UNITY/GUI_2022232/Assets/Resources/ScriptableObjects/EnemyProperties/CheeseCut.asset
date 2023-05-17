@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CheeseCut
   m_EditorClassIdentifier: 
   prefab: {fileID: 4859434739970530200, guid: 9dc881547d01f744caa30be876c3ad9e, type: 3}
-  _health: 5
+  _health: 2
   _moneyWhenKilled: 3
   _canBeFrozen: 0
   _canBePoisoned: 0

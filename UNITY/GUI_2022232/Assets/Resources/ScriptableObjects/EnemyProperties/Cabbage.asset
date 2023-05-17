@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cabbage
   m_EditorClassIdentifier: 
   prefab: {fileID: 9098938748246103484, guid: 35980b661ae610245b2100c7eea6ff60, type: 3}
-  _health: 1
+  _health: 4
   _moneyWhenKilled: 4
   _canBeFrozen: 0
   _canBePoisoned: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Egg
   m_EditorClassIdentifier: 
   prefab: {fileID: 7643578420151505821, guid: e655afe3a305b224991ccec596eea63f, type: 3}
-  _health: 5
+  _health: 1
   _moneyWhenKilled: 1
   _canBeFrozen: 0
   _canBePoisoned: 0
