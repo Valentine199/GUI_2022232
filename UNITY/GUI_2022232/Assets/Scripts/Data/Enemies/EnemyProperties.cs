@@ -57,10 +57,10 @@ namespace TowerDefense.Data.Enemies
             get
             {
                 int total = 1;
-                if (_enemiesToSpawnWhenKilled != null || _enemiesToSpawnWhenKilled.Count <= 0)
+                if (_enemiesToSpawnWhenKilled == null || _enemiesToSpawnWhenKilled.Count <= 0)
                     return total;
 
-                return _enemiesToSpawnWhenKilled.Sum(e => e.TotalEnemyCount);
+                return 1 + _enemiesToSpawnWhenKilled.Sum(e => e.TotalEnemyCount);
             }
         }
 
