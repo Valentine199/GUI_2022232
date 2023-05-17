@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ea40025700fba4f917e80a90354636, type: 3}
   m_Name: BasicTower
   m_EditorClassIdentifier: 
-  TowerName: Orb Shooter
+  TowerName: ORBital Cannon
   TowerRange: 30
   TowerDamage: 10
   TowerFiringRate: 0.5
