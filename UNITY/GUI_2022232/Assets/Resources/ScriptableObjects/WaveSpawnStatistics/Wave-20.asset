@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b093fdee451c2b34f9554ea45e852530, type: 3}
-  m_Name: Wave-1
+  m_Name: Wave-20
   m_EditorClassIdentifier: 
   _spawnPacks:
-  - _enemyType: 0
-    _amountInGroup: 20
-    _timeBetweenEnemies: 1.2
+  - _enemyType: 2
+    _amountInGroup: 30
+    _timeBetweenEnemies: 1.5
     _initialSpawnDelay: 0
