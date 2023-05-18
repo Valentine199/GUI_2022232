@@ -13,31 +13,21 @@ MonoBehaviour:
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 1
     m_Value: 1
   contrast:
     m_OverrideState: 0
     m_Value: 5
-    min: -100
-    max: 100
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
-    hdr: 1
-    showAlpha: 0
-    showEyeDropper: 1
   hueShift:
     m_OverrideState: 0
     m_Value: 0
-    min: -180
-    max: 180
   saturation:
     m_OverrideState: 1
     m_Value: 9
-    min: -100
-    max: 100
 --- !u!114 &-5312551414282756734
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -51,12 +41,9 @@ MonoBehaviour:
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.03
-    min: 0
-    max: 1
 --- !u!114 &-3540842258670775783
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -70,7 +57,6 @@ MonoBehaviour:
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   lift:
     m_OverrideState: 1
     m_Value: {x: 1, y: 0.9975733, z: 0.9902872, w: -0.00037540786}
@@ -114,45 +100,40 @@ MonoBehaviour:
   m_Name: Bloom
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
-  threshold:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 0
-  intensity:
-    m_OverrideState: 1
-    m_Value: 2.17
-    min: 0
-  scatter:
-    m_OverrideState: 1
-    m_Value: 0.75
-    min: 0
-    max: 1
-  clamp:
-    m_OverrideState: 1
-    m_Value: 65472
-    min: 0
-  tint:
-    m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
-  highQualityFiltering:
-    m_OverrideState: 0
-    m_Value: 0
   skipIterations:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 16
+  threshold:
+    m_OverrideState: 1
+    m_Value: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 2.17
+  scatter:
+    m_OverrideState: 1
+    m_Value: 0.75
+  clamp:
+    m_OverrideState: 1
+    m_Value: 65472
+  tint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  downscale:
+    m_OverrideState: 0
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
+    dimension: 1
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
-    min: 0
 --- !u!114 &1124880705115812098
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -166,17 +147,12 @@ MonoBehaviour:
   m_Name: WhiteBalance
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
     m_Value: 11
-    min: -100
-    max: 100
   tint:
     m_OverrideState: 0
     m_Value: 0
-    min: -100
-    max: 100
 --- !u!114 &2589262139569201431
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -190,26 +166,18 @@ MonoBehaviour:
   m_Name: Vignette
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   color:
     m_OverrideState: 1
     m_Value: {r: 0, g: 0, b: 0, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
     m_Value: 0.274
-    min: 0
-    max: 1
   smoothness:
     m_OverrideState: 1
     m_Value: 0.241
-    min: 0.01
-    max: 1
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -226,55 +194,39 @@ MonoBehaviour:
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
     m_Value: 1
   gaussianStart:
     m_OverrideState: 1
     m_Value: 40
-    min: 0
   gaussianEnd:
     m_OverrideState: 1
     m_Value: 60
-    min: 0
   gaussianMaxRadius:
     m_OverrideState: 1
     m_Value: 1.5
-    min: 0.5
-    max: 1.5
   highQualitySampling:
     m_OverrideState: 0
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
     m_Value: 1
-    min: 0.1
   aperture:
     m_OverrideState: 1
     m_Value: 8.6
-    min: 1
-    max: 32
   focalLength:
     m_OverrideState: 1
     m_Value: 40
-    min: 1
-    max: 300
   bladeCount:
     m_OverrideState: 1
     m_Value: 6
-    min: 3
-    max: 9
   bladeCurvature:
     m_OverrideState: 1
     m_Value: 1
-    min: 0
-    max: 1
   bladeRotation:
     m_OverrideState: 1
     m_Value: 56
-    min: -180
-    max: 180
 --- !u!114 &6901200409961517725
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -288,7 +240,6 @@ MonoBehaviour:
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
     m_Value: 2
