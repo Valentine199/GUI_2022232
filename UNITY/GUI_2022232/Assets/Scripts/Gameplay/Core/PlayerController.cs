@@ -26,6 +26,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private LayerMask GroundCheck;
         [SerializeField] private GameObject WeaponHolder;
         [SerializeField] private HandlePlaceCanvas _buildCanvas;
+        [SerializeField] private TowerUpgradeInteract _InteractCanvas;
 
         [SerializeField] private CinemachineExtender cinemachineExtender;
 
@@ -76,12 +77,14 @@ namespace TowerDefense.Gameplay.Core
         {
             //if (!IsOwner) return;
             _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
+            _InteractCanvas.OnUpgradeCanvasToggled += ToggleFreezeCam;
         }
 
         private void OnDisable()
         {
             //if (!IsOwner) return;
             _buildCanvas.OnBuildingsCanvasToggled -= ToggleFreezeCam;
+            _InteractCanvas.OnUpgradeCanvasToggled -= ToggleFreezeCam;
         }
 
         private void Start()
