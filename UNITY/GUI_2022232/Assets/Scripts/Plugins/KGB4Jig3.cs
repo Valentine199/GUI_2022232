@@ -5,8 +5,8 @@ using UnityEngine;
 public class LightFlicker : MonoBehaviour
 {
     public float flickerIntensity = 0.2f;
-    public float flickersPerSecond = 3.0f;
-    public float speedRandomness = 1.0f;
+    public float flickersPerSecond = 1.0f;
+    public float speedRandomness = 5.0f;
 
     private float time;
     private float startingIntensity;
