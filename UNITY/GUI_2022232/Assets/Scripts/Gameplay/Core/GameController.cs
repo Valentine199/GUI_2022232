@@ -158,7 +158,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void EnemyReachedEnd(EnemyProperties enemyProperties)
         {
-            DecrementLives(enemyProperties.TotalEnemyCount);
+            DecrementLives(enemyProperties.WorthInLowestTier);
         }
 
         private void EnemyKilled(EnemyProperties enemyProperties)
