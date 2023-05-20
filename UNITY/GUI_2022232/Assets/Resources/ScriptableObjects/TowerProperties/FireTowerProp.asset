@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerName: Millboard Vulcano
   TowerRange: 70
-  TowerDamage: 5
+  TowerDamage: 2
   TowerFiringRate: 1
   TowerBulletSpeed: 60
   TowerCost: 700

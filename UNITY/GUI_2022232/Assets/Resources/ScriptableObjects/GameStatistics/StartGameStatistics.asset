@@ -15,4 +15,5 @@ MonoBehaviour:
   _waves: 0
   _money: 40000
   _lives: 200
+  _sellTowerMultiplier: 0
   _maxGameStats: {fileID: 0}
