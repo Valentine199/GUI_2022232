@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using TowerDefense.Towers.TowerUpgrades;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
-    public class TowerUpgradeController : MonoBehaviour
+    public class TowerUpgradeController : NetworkBehaviour
     {
         private List<TowerUpgrade> _upgrades = new List<TowerUpgrade>();
 

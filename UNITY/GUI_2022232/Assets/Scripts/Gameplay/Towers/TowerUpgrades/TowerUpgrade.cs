@@ -13,17 +13,19 @@ namespace TowerDefense.Towers.TowerUpgrades
     {
         protected TowerUpgradeProperties TowerUpgradeProperties { get; private set; }
 
-        public string Name { get { return TowerUpgradeProperties.name; } }
+        public string UpgradeName { get { return TowerUpgradeProperties.name; } }
         public int Cost { get { return TowerUpgradeProperties.UpgradeCost; } }
         public UpgradeType UpgradeType => TowerUpgradeProperties.UpgradeType;
         public bool IsPurchased { get; private set; }
 
-        [ServerRpc(RequireOwnership =false)]
-        public virtual void PurchaseUpgradeServerRpc(TowerController towerController)
+        public virtual void PurchaseUpgrade(TowerController towerController)
         {
-            IsPurchased = true;
-            GameController.Instance.DecrementMoney(Cost);
-            towerController.IncreaseTotalTowerCost(Cost);
+            if (GameController.Instance.Money >= Cost)
+            {
+                IsPurchased = true;
+                GameController.Instance.DecrementMoney(Cost);
+                towerController.RequestIncreaseTotalTowerCost(Cost);
+            }
         }
 
         public static TowerUpgrade GetNewUpgrade(TowerUpgradeProperties upgradeProperties)
@@ -48,13 +50,16 @@ namespace TowerDefense.Towers.TowerUpgrades
     {
         private float rangeValue => TowerUpgradeProperties._upgradeValue;
 
-        [ServerRpc(RequireOwnership = false)]
-        public override void PurchaseUpgradeServerRpc(TowerController towerController)
+        public override void PurchaseUpgrade(TowerController towerController)
         {
             if (towerController.EnemyDetector is IUpgradeRange rangeUpdate)
             {
-                rangeUpdate.SetRangeServerRpc(rangeValue);
-                base.PurchaseUpgradeServerRpc(towerController);
+                base.PurchaseUpgrade(towerController);
+                if (IsPurchased)
+                {
+
+                    rangeUpdate.SetRangeServerRpc(rangeValue);
+                }
             }
 
         }
@@ -64,13 +69,16 @@ namespace TowerDefense.Towers.TowerUpgrades
     {
         private float SpeedValue => TowerUpgradeProperties._upgradeValue;
 
-        [ServerRpc(RequireOwnership = false)]
-        public override void PurchaseUpgradeServerRpc(TowerController towerController)
+        public override void PurchaseUpgrade(TowerController towerController)
         {
             if (towerController.ParticleControll is IUpgradeSpeed speedUpdate)
             {
-                speedUpdate.SetFiringRateServerRpc(SpeedValue);
-                base.PurchaseUpgradeServerRpc(towerController);
+                base.PurchaseUpgrade(towerController);
+                if (IsPurchased)
+                {
+                    speedUpdate.SetFiringRateServerRpc(SpeedValue);
+
+                }
             }
 
         }

@@ -1078,7 +1078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4023557727683887574
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5136,6 +5136,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 961553705648171291}
+    - targetCorrespondingSourceObject: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3193059778933148265}
   m_SourcePrefab: {fileID: 100100000, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
 --- !u!95 &749931156236471885 stripped
 Animator:
@@ -5195,6 +5199,7 @@ MonoBehaviour:
     m_Bits: 2147483647
   WeaponHolder: {fileID: 4297644313804093071}
   _buildCanvas: {fileID: 594334517826509746}
+  _InteractCanvas: {fileID: 3193059778933148265}
 --- !u!114 &59013296540452943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,6 +5456,21 @@ MonoBehaviour:
   - m_Rig: {fileID: 1022042375763175293}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &3193059778933148265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303115634917129618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cdf6205d1ddcd40a9ed2600caf5408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactRange: 15
+  PlayerInput: {fileID: 274704630144349302}
+  InteractCanvas: {fileID: 0}
 --- !u!4 &8831127206241536394 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5756760541019062379, guid: 60770bdb4dc667c45bea53db0339dc05,

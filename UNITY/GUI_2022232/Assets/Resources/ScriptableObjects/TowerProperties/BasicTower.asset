@@ -28,4 +28,5 @@ MonoBehaviour:
   TowerUpgradeOptions:
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   - {fileID: 11400000, guid: cc15a98754c8b344490382e273869897, type: 2}
+  - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   BulletTypeEnum: 0
