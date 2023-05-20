@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Wave-16
   m_EditorClassIdentifier: 
   _spawnPacks:
-  - _enemyType: 0
-    _amountInGroup: 5
-    _timeBetweenEnemies: 1.2
+  - _enemyType: 2
+    _amountInGroup: 40
+    _timeBetweenEnemies: 1.3
     _initialSpawnDelay: 0
-  - _enemyType: 1
-    _amountInGroup: 27
-    _timeBetweenEnemies: 1.1
-    _initialSpawnDelay: 6
+  - _enemyType: 3
+    _amountInGroup: 8
+    _timeBetweenEnemies: 1
+    _initialSpawnDelay: 18

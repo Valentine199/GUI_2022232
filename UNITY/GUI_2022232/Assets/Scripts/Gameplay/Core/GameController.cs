@@ -102,13 +102,11 @@ namespace TowerDefense.Gameplay.Core
         private void OnEnable()
         {
             EnemySpawnerMultiplayer.Instance.OnEnemySpawned += SubscribeToEnemyEvents;
-            _waveController.OnWaveCompleted += WaveCompleted;
         }
 
         private void OnDisable()
         {
             EnemySpawnerMultiplayer.Instance.OnEnemySpawned -= SubscribeToEnemyEvents;
-            _waveController.OnWaveCompleted -= WaveCompleted;
         }
 
         private void SubscribeToEnemyEvents(EnemyController enemyController)
@@ -128,11 +126,6 @@ namespace TowerDefense.Gameplay.Core
             OnWaveChanged?.Invoke(_currGameStatistics.Waves);
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);
             OnLivesChanged?.Invoke(_currGameStatistics.Lives);
-        }
-
-        private void WaveCompleted(WaveProperties waveProperties)
-        {
-            // Give money to player if needed
         }
 
         private void UpdateWaveText()
@@ -177,12 +170,14 @@ namespace TowerDefense.Gameplay.Core
         private void DoGameOver()
         {
             _gameOver = true;
+            Debug.Log("Game over.");
             OnGameOver?.Invoke();
         }
 
         public void DoVictory()
         {
             _isWon = true;
+            Debug.Log("You win!");
             DoGameOver();
         }
 

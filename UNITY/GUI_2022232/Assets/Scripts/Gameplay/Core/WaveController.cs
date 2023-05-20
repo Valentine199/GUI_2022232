@@ -7,6 +7,7 @@ using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TowerDefense.Gameplay.Core
 {
@@ -27,11 +28,38 @@ namespace TowerDefense.Gameplay.Core
         [ServerRpc(RequireOwnership = false)]
         public void StartNextWaveServerRpc()
         {
+            StartNextWaveClientRpc();
             StartCoroutine(SpawnEnemiesInWave(_currWave));
         }
 
-        public event Action<WaveProperties> OnWaveCompleted;
+        [ClientRpc]
+        public void StartNextWaveClientRpc()
+        {
+            OnWaveStarted?.Invoke();
+        }
+
+        public static WaveController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = FindObjectOfType(typeof(WaveController)) as WaveController;
+                return _instance;
+            }
+            set
+            {
+                _instance = value;
+            }
+        }
+
+        public event Action OnWaveStarted;
+        public event Action OnWaveCompleted;
         public event Action<WaveProperties> OnPrepareNextRound;
+
+        private void Awake()
+        {
+            _instance = this;
+        }
 
         private void OnEnable()
         {
@@ -102,11 +130,8 @@ namespace TowerDefense.Gameplay.Core
                 _gameController.DoVictory();
                 return;
             }
-            if (_currGameStatistics.Waves != 1)
-            {
-                OnWaveCompleted?.Invoke(_currWave);
-            }
 
+            OnWaveCompleted?.Invoke();
             _currWave = _waves[CurrWaveIndex];
             _enemiesLeft = _currWave.TotalEnemyCount;
             OnPrepareNextRound?.Invoke(_currWave);
@@ -126,6 +151,8 @@ namespace TowerDefense.Gameplay.Core
 
         [SerializeField] private List<WaveProperties> _waves;
         [SerializeField] private GameController _gameController;
+
+        private static WaveController _instance;
 
         private int _enemiesLeft;
         private WaveProperties _currWave;

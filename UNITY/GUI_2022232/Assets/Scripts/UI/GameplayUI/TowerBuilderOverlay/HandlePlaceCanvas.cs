@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TowerDefense.Data.Towers;
+using TowerDefense.Gameplay.Core;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,9 @@ public class HandlePlaceCanvas : NetworkBehaviour
 {
     private void Awake()
     {
+        WaveController.Instance.OnWaveStarted += DisableStartNewButton;
+        WaveController.Instance.OnWaveCompleted += EnableStartNewWaveButton;
+
         _currentMap = PlayerInput.currentActionMap;
         _buildAction = _currentMap.FindAction("Build");
         _buildAction.performed += onBuild;
@@ -33,6 +37,16 @@ public class HandlePlaceCanvas : NetworkBehaviour
     {
         if(!IsOwner) { return; }
         ToggleBuildingsCanvas();
+    }
+
+    private void EnableStartNewWaveButton()
+    {
+        _startNewWaveButton.SetActive(true);
+    }
+
+    private void DisableStartNewButton()
+    {
+        _startNewWaveButton.SetActive(false);
     }
 
     public void ToggleBuildingsCanvas()
@@ -66,6 +80,8 @@ public class HandlePlaceCanvas : NetworkBehaviour
     [SerializeField] private TowerTypeListSO TowerList; //instead of _towers
     [SerializeField] private GameObject _buildMenuItem;  // What to instantiate as a building option
     [SerializeField] private PlayerInput PlayerInput;
+
+    [SerializeField] private GameObject _startNewWaveButton;
 
     private bool _toggle = false;
 
