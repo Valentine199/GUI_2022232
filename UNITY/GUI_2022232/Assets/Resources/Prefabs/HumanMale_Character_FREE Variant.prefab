@@ -1319,6 +1319,7 @@ MonoBehaviour:
   _buildMenuItem: {fileID: 4219125253120236336, guid: b1b1aec4cff8b844283e1db730d27828,
     type: 3}
   PlayerInput: {fileID: 7880593013533742836}
+  _startNewWaveButton: {fileID: 4236223369630183981}
 --- !u!114 &5302784210935870226
 MonoBehaviour:
   m_ObjectHideFlags: 0
