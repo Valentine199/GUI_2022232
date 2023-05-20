@@ -131,10 +131,22 @@ namespace TowerDefense.Gameplay.Core
                 return;
             }
 
-            OnWaveCompleted?.Invoke();
+            PrepareNextRoundServerRpc();
             _currWave = _waves[CurrWaveIndex];
             _enemiesLeft = _currWave.TotalEnemyCount;
             OnPrepareNextRound?.Invoke(_currWave);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PrepareNextRoundServerRpc()
+        {
+            PrepareNextRoundClientRpc();
+        }
+
+        [ClientRpc]
+        private void PrepareNextRoundClientRpc()
+        {
+            OnWaveCompleted?.Invoke();
         }
 
         [ServerRpc(RequireOwnership = false)]
