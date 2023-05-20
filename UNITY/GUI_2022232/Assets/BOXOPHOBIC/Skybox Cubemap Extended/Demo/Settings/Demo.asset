@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-700945205023792942
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 10
+  threshold:
+    overrideState: 0
+    value: 1
+  softKnee:
+    overrideState: 0
+    value: 0.5
+  clamp:
+    overrideState: 0
+    value: 65472
+  diffusion:
+    overrideState: 0
+    value: 7
+  anamorphicRatio:
+    overrideState: 0
+    value: 0
+  color:
+    overrideState: 0
+    value: {r: 1, g: 1, b: 1, a: 1}
+  fastMode:
+    overrideState: 0
+    value: 0
+  dirtTexture:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  dirtIntensity:
+    overrideState: 0
+    value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,12 +61,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 114094930955229750}
-  - {fileID: 114753784628472484}
   - {fileID: 114905349723521868}
   - {fileID: 114059884413532516}
   - {fileID: 114232185289346146}
   - {fileID: 114288678441462590}
   - {fileID: 114964227162046496}
+  - {fileID: -700945205023792942}
 --- !u!114 &114059884413532516
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1458,53 +1505,6 @@ MonoBehaviour:
   opacity:
     overrideState: 1
     value: 1
---- !u!114 &114753784628472484
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
-  m_Name: Bloom
-  m_EditorClassIdentifier: 
-  active: 0
-  enabled:
-    overrideState: 1
-    value: 1
-  intensity:
-    overrideState: 1
-    value: 2
-  threshold:
-    overrideState: 1
-    value: 1
-  softKnee:
-    overrideState: 1
-    value: 0.5
-  clamp:
-    overrideState: 1
-    value: 65472
-  diffusion:
-    overrideState: 1
-    value: 10
-  anamorphicRatio:
-    overrideState: 1
-    value: 0
-  color:
-    overrideState: 1
-    value: {r: 1, g: 1, b: 1, a: 1}
-  fastMode:
-    overrideState: 1
-    value: 1
-  dirtTexture:
-    overrideState: 1
-    value: {fileID: 2800000, guid: a2960ffde020f27409e070d92fb2e00b, type: 3}
-    defaultState: 1
-  dirtIntensity:
-    overrideState: 1
-    value: 1000
 --- !u!114 &114905349723521868
 MonoBehaviour:
   m_ObjectHideFlags: 3
