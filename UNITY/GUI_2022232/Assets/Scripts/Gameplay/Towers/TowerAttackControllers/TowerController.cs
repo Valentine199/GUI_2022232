@@ -10,7 +10,6 @@ using Unity.Netcode;
 namespace TowerDefense.Towers.TowerAttackControllers
 {
     [RequireComponent(typeof(TowerUpgradeController))]
-    [RequireComponent(typeof(TowerManager))]
     public class TowerController : NetworkBehaviour
     {
         //private GameObject _particleSysGO;
@@ -30,6 +29,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         public TowerParticleController ParticleControll => _particleController;
         public GameObject BulletOrigin { get { return _bulletOrigin; } private set { _bulletOrigin = value; } }
         public TargetingStyle TargetingStyle { get; private set; }
+        public event Action OnTargetingStyleChanged;
 
         private float SellTowerMultiplier => GameController.Instance.SellTowerMultiplier;
         public int SellTowerCost => Mathf.FloorToInt(_towerCost * SellTowerMultiplier);
@@ -60,7 +60,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
 
             _particleController.ChangeParticleSystem(ParticleGO.GetComponent<ParticleSystem>());
-            _towerShooting.ChangeTargetingStyle(TargetingStyle);
+            OnTargetingStyleChanged?.Invoke();
 
             _towerCost = _properties.TowerCost;
 
@@ -68,10 +68,14 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         }
 
-        public void SellTower()
+        [ServerRpc(RequireOwnership =false)]
+        public void SellTowerServerRpc()
         {
             GameController.Instance.IncrementMoney(SellTowerCost);
             StopAllCoroutines();
+
+            NetworkObject networkTower = gameObject.GetComponent<NetworkObject>();
+            networkTower.Despawn();
             Destroy(gameObject);
         }
 
@@ -99,12 +103,19 @@ namespace TowerDefense.Towers.TowerAttackControllers
         }
 
 
-        public void IncreaseTotalTowerCost(int cost)
+        public void RequestIncreaseTotalTowerCost(int cost)
+        {
+            IncreaseTotalTowerCostClientRpc(cost);
+        }
+
+        [ClientRpc]
+        private void IncreaseTotalTowerCostClientRpc(int cost)
         {
             _towerCost += cost;
         }
 
-        public void CycleTargetingMode()
+        [ServerRpc(RequireOwnership = false)]
+        public void CycleTargetingModeServerRpc()
         {
             int val = (int)TargetingStyle;
             val++;
@@ -113,10 +124,20 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 val = 0;
             }
 
-            TargetingStyle = (TargetingStyle)val;
-            _towerShooting.ChangeTargetingStyle(TargetingStyle);
+            SetOwnTargetingStyleClientRpc(val);
         }
-        public void CycleTargetingModeBackwards()
+
+        [ClientRpc]
+        public void SetOwnTargetingStyleClientRpc(int val)
+        {
+            TargetingStyle = (TargetingStyle)val;
+            OnTargetingStyleChanged?.Invoke();
+
+        }
+
+
+        [ServerRpc(RequireOwnership = false)]
+        public void CycleTargetingModeBackwardsServerRpc()
         {
             int val = (int)TargetingStyle;
             val--;
@@ -125,8 +146,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 val = Enum.GetNames(typeof(TargetingStyle)).Length - 1;
             }
 
-            TargetingStyle = (TargetingStyle)val;
-            _towerShooting.ChangeTargetingStyle(TargetingStyle);
+            SetOwnTargetingStyleClientRpc(val);
         }
 
         public TowerUpgrade FetchTowerUpgrade()

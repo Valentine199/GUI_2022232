@@ -38,9 +38,9 @@ namespace TowerDefense.Towers.TowerAttackControllers
             }
         }
 
-        public void ChangeTargetingStyle(TowerEnums.TargetingStyle attack)
+        public void TargetingStyleChanged()
         {
-            _targetingStyle = attack;
+            _targetingStyle = _towerController.TargetingStyle;
             GetTarget();
         }
 
@@ -49,6 +49,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
             if (_towerController != null)
             {
                 _origin = _towerController.BulletOrigin.transform;
+                _towerController.OnTargetingStyleChanged += TargetingStyleChanged;
             }
 
         }
