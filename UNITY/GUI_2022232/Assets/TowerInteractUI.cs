@@ -64,7 +64,7 @@ public class TowerInteractUI : MonoBehaviour
     {
         _currentTargeting.text = _towerManager.GetTargetingInfo().ToString();
 
-
+        return;
         int val = (int)_towerManager.GetTargetingInfo();
         int prevVal = val;
         val++;
