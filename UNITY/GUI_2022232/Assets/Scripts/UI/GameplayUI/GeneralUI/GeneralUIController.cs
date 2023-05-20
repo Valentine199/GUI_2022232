@@ -11,6 +11,7 @@ public class GeneralUIController : MonoBehaviour
     [SerializeField] private TMP_Text _moneyText;
     [SerializeField] private TMP_Text _livesText;
     [SerializeField] private TMP_Text _buildMoneyText;
+    
     //[SerializeField] private Button _startRoundButton;
     private GameController _gameController;
     //[SerializeField] private WaveController _roundController;

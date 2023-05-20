@@ -23,4 +23,9 @@ public class CanvasChanger : MonoBehaviour
         options.SetActive(true);
     }
 
+    public void SelfDisable(string gameObjectToDisable)
+    {
+        gameObject.transform.Find(gameObjectToDisable).gameObject.SetActive(false);
+    }
+
 }
