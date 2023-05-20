@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerInteract : MonoBehaviour,IInteractable
+public class TowerInteract : MonoBehaviour //,IInteractable
 {
-    public void Interact()
+    public void InteractUpgrade()
     {
         Debug.Log("XD");
     }
