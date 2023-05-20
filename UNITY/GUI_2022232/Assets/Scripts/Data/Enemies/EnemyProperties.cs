@@ -44,7 +44,7 @@ namespace TowerDefense.Data.Enemies
             get
             {
                 int equiv = _health;
-                if (_enemiesToSpawnWhenKilled != null || _enemiesToSpawnWhenKilled.Count <= 0)
+                if (_enemiesToSpawnWhenKilled == null || _enemiesToSpawnWhenKilled.Count <= 0)
                     return equiv;
 
                 return _enemiesToSpawnWhenKilled.Sum(e => e.WorthInLowestTier);
