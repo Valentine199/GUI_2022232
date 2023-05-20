@@ -14,10 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPacks:
   - _enemyType: 0
-    _amountInGroup: 35
-    _timeBetweenEnemies: 0.95
+    _amountInGroup: 20
+    _timeBetweenEnemies: 1.4
     _initialSpawnDelay: 0
   - _enemyType: 1
-    _amountInGroup: 18
+    _amountInGroup: 10
+    _timeBetweenEnemies: 0.5
+    _initialSpawnDelay: 10
+  - _enemyType: 2
+    _amountInGroup: 12
+    _timeBetweenEnemies: 0.7
+    _initialSpawnDelay: 23
+  - _enemyType: 3
+    _amountInGroup: 10
+    _timeBetweenEnemies: 1.2
+    _initialSpawnDelay: 20
+  - _enemyType: 4
+    _amountInGroup: 5
     _timeBetweenEnemies: 1.7
-    _initialSpawnDelay: 17.5
+    _initialSpawnDelay: 26

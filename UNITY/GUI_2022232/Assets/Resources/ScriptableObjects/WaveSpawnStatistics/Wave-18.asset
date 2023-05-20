@@ -13,15 +13,7 @@ MonoBehaviour:
   m_Name: Wave-18
   m_EditorClassIdentifier: 
   _spawnPacks:
-  - _enemyType: 0
-    _amountInGroup: 20
+  - _enemyType: 2
+    _amountInGroup: 80
     _timeBetweenEnemies: 0.95
     _initialSpawnDelay: 0
-  - _enemyType: 1
-    _amountInGroup: 20
-    _timeBetweenEnemies: 1.1
-    _initialSpawnDelay: 4
-  - _enemyType: 2
-    _amountInGroup: 5
-    _timeBetweenEnemies: 1.1
-    _initialSpawnDelay: 15
