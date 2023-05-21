@@ -4740,7 +4740,7 @@ MonoBehaviour:
     m_Bits: 2147483647
   WeaponHolder: {fileID: 4297644313804093071}
   _buildCanvas: {fileID: 594334517826509746}
-  _InteractCanvas: {fileID: 3193059778933148265}
+  _InteractCanvas: {fileID: 6829637580765773049}
 --- !u!114 &59013296540452943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5566,6 +5566,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7701201093011088628}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6829637580765773049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3758138056976439309, guid: e1ccd5afb0580884f882e82110acc53e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7701201093011088628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2734467527206748565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74a1e5571cab15458fae4ea765c395e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8982232388798737578 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1605363203307325534, guid: e1ccd5afb0580884f882e82110acc53e,
