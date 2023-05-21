@@ -170,14 +170,24 @@ namespace TowerDefense.Gameplay.Core
         private void DoGameOver()
         {
             _gameOver = true;
-            Debug.Log("Game over.");
+            DoGameOverServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DoGameOverServerRpc()
+        {
+            DoGameOverClientRpc();
+        }
+
+        [ClientRpc]
+        private void DoGameOverClientRpc()
+        {
             OnGameOver?.Invoke();
         }
 
         public void DoVictory()
         {
             _isWon = true;
-            Debug.Log("You win!");
             DoGameOver();
         }
 
