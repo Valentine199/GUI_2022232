@@ -12,6 +12,7 @@ using TowerDefense.Towers.TowerEnums;
 public class TowerInteractUI : MonoBehaviour
 {
     private IInteractable _towerManager;
+    public event Action OnUpgradeCanvasToggled;
     public IInteractable TowerManager
     {
         get
@@ -37,11 +38,33 @@ public class TowerInteractUI : MonoBehaviour
 
     public void InitSelf(IInteractable interactable)
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        OnUpgradeCanvasToggled?.Invoke();
+
+
         _towerManager = interactable;
         ShowTowerInfo(_towerManager.GetUpgradeInfo());
         _towerManager.OnNewUpgrade += ShowTowerInfo;
         _towerManager.OnTargetingStyleChange += ChangeTargetingText;
         ChangeTargetingText();
+
+        ShowRange();
+
+    }
+
+    private void ShowRange()
+    {
+        _towerManager.ShowTowerRange();
+    }
+
+    public void CloseSelf()
+    {
+        _towerManager.HideTowerRange();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        OnUpgradeCanvasToggled?.Invoke();
+        this.gameObject.SetActive(false);
     }
 
     private void OnDisable()
@@ -72,25 +95,23 @@ public class TowerInteractUI : MonoBehaviour
         _currentTargeting.text = _towerManager.GetTargetingInfo().ToString();
 
         return;
-        int val = (int)_towerManager.GetTargetingInfo();
-        int prevVal = val;
-        val++;
-        if (val >= Enum.GetNames(typeof(TargetingStyle)).Length)
-        {
-            val = 0;
-        }
+        //int val = (int)_towerManager.GetTargetingInfo();
+        //int prevVal = val;
+        //val++;
+        //if (val >= Enum.GetNames(typeof(TargetingStyle)).Length)
+        //{
+        //    val = 0;
+        //}
 
-        _nextTargeting.text = ((TargetingStyle)val).ToString();
+        //_nextTargeting.text = ((TargetingStyle)val).ToString();
 
-        val = prevVal;
-        val--;
-        if (val < 0)
-        {
-            val = Enum.GetNames(typeof(TargetingStyle)).Length - 1;
-        }
-        _prevTargeting.text = ((TargetingStyle)val).ToString();
-        
-
+        //val = prevVal;
+        //val--;
+        //if (val < 0)
+        //{
+        //    val = Enum.GetNames(typeof(TargetingStyle)).Length - 1;
+        //}
+        //_prevTargeting.text = ((TargetingStyle)val).ToString();
     }
 
     public void NextTargeting()
@@ -130,5 +151,6 @@ public class TowerInteractUI : MonoBehaviour
     public void Sell()
     {
         _towerManager.SellTower();
+        CloseSelf();
     }
 }

@@ -26,7 +26,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private LayerMask GroundCheck;
         [SerializeField] private GameObject WeaponHolder;
         [SerializeField] private HandlePlaceCanvas _buildCanvas;
-        [SerializeField] private TowerUpgradeInteract _InteractCanvas;
+        [SerializeField] private TowerInteractUI _InteractCanvas;
 
         [SerializeField] private CinemachineExtender cinemachineExtender;
 

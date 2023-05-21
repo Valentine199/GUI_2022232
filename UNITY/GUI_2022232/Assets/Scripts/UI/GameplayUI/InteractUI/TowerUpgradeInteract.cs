@@ -24,12 +24,12 @@ public class TowerUpgradeInteract : MonoBehaviour
     private void onInteract(InputAction.CallbackContext context)
     {
         ToggleInteractCanvas();
-        OnUpgradeCanvasToggled?.Invoke();
+        
     }
 
     private void ToggleInteractCanvas()
     {
-        _toggle = !_toggle;
+        //_toggle = !_toggle;
         
         if(!InteractCanvas.activeInHierarchy)
         {
@@ -43,20 +43,18 @@ public class TowerUpgradeInteract : MonoBehaviour
                     //interactObj.InteractUpgrade();
                     InteractCanvas.SetActive(true);
                     InteractCanvas.GetComponent<TowerInteractUI>().InitSelf(interactObj);
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
+                    
                 }
             }
         }
         else
         {
-            InteractCanvas.SetActive(false);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            InteractCanvas.GetComponent<TowerInteractUI>().CloseSelf();
+            
         }
     }
 
-    public event Action OnUpgradeCanvasToggled;
+    
 
     [SerializeField] private float _interactRange;
     private Transform _transform;
@@ -73,6 +71,9 @@ public interface IInteractable
 {
     public event Action<TowerUpgrade> OnNewUpgrade;
     public event Action OnTargetingStyleChange;
+
+    public void ShowTowerRange();
+    public void HideTowerRange();
 
     public void CycleTargetingStyleForward();
     public void CycleTargetingStyleBackwards();

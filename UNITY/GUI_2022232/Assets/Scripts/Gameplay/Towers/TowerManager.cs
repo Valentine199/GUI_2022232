@@ -101,6 +101,14 @@ namespace TowerDefense.Towers
             _towerController.SellTowerServerRpc();
         }
 
+        public void ShowTowerRange()
+        { 
+            _towerController.EnemyDetector.GetComponent<MeshRenderer>().enabled = true;
+        }
 
+        public void HideTowerRange()
+        {
+            _towerController.EnemyDetector.GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 }
