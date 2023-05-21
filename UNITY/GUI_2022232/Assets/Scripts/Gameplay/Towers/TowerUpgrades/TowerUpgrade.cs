@@ -13,7 +13,7 @@ namespace TowerDefense.Towers.TowerUpgrades
     {
         protected TowerUpgradeProperties TowerUpgradeProperties { get; private set; }
 
-        public string UpgradeName { get { return TowerUpgradeProperties.name; } }
+        public string UpgradeName { get { return TowerUpgradeProperties.UpgradeName; } }
         public int Cost { get { return TowerUpgradeProperties.UpgradeCost; } }
         public UpgradeType UpgradeType => TowerUpgradeProperties.UpgradeType;
         public bool IsPurchased { get; private set; }
