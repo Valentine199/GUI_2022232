@@ -13,7 +13,7 @@ public class SFXManager : NetworkBehaviour
     private AudioSource _audioSource;
     private bool _multipleSongs = false;
 
-    private void Awake()
+    private void OnEnable()
     {
         _audioSource = GetComponent<AudioSource>();
 
@@ -22,6 +22,15 @@ public class SFXManager : NetworkBehaviour
         soundRequester.PlayAmbiance += PlayAmbiance;
         soundRequester.StopAmbiance += StopAllSound;
         soundRequester.PlayEndSound += PlayDeadSound;
+    }
+
+    private void OnDisable()
+    {
+        SoundPlayer soundRequester = GetComponent<SoundPlayer>();
+        soundRequester.PlayInitSound -= PlayInitSound;
+        soundRequester.PlayAmbiance -= PlayAmbiance;
+        soundRequester.StopAmbiance -= StopAllSound;
+        soundRequester.PlayEndSound -= PlayDeadSound;
     }
 
     //caller functions

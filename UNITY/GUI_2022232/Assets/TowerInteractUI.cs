@@ -44,6 +44,13 @@ public class TowerInteractUI : MonoBehaviour
         ChangeTargetingText();
     }
 
+    private void OnDisable()
+    {
+        _towerManager.OnNewUpgrade -= ShowTowerInfo;
+        _towerManager.OnTargetingStyleChange -= ChangeTargetingText;
+        _towerManager = null;
+    }
+
     private void ShowTowerInfo(TowerUpgrade obj)
     {
         if(obj != null)
