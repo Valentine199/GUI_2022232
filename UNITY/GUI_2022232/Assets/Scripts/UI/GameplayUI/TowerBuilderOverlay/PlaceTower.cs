@@ -27,11 +27,11 @@ public class PlaceTower : NetworkBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
         {
-            if ((_placeableMask.value & (1 << hit.collider.gameObject.layer)) > 0)
-            {
+            //if ((_placeableMask.value & (1 << hit.collider.gameObject.layer)) > 0)
+            //{
                 _towerModel = Instantiate(_towerToPlace.TowerModel, hit.point, Quaternion.identity);
                 //PlaceBuildingServerRPC(GetTowerListIndex(towerToPlace), hit.point);
-            }
+            //}
         }
     }
 

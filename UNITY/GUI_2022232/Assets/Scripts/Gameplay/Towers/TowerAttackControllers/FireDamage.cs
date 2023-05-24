@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class FireDamage : TowerDamage
 {
-    private bool _isOnFire = false;
     public TowerEffectProperties EffectProperties { get; private set; }
 
     public override void InitDamage(TowerProperties properties)
@@ -25,6 +24,7 @@ public class FireDamage : TowerDamage
 
         psNetworkObject.transform.parent = enemy.transform;
         enemy.AddActiveEffect(ps);
+        enemy.SetOnFire();
         //SpawnFireEffectServerRpc(enemy.GetEnemyNetworkObject());
 
         float startTime = Time.time;
@@ -41,6 +41,7 @@ public class FireDamage : TowerDamage
         if (enemy.HealthRemaining > 0)
         {
             enemy.RemoveActiveEffect(ps);
+            enemy.RemoveFire();
             NetworkObject psNetwork = ps.GetComponent<NetworkObject>();
             psNetwork.Despawn();
             Destroy(ps);
@@ -57,10 +58,11 @@ public class FireDamage : TowerDamage
     {
         base.DoDamage(enemy);
 
-        if (!_isOnFire)
+        if (!enemy.IsOnFire)
         {
             //Debug.Log("FireDamage");
             StartCoroutine(ApplyEffect(enemy));
+           
         }
     }
 }
