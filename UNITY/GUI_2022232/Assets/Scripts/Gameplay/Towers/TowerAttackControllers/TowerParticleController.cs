@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
-    public class TowerParticleController : NetworkBehaviour, IUpgradeSpeed, SoundPlayer
+    public class TowerParticleController : NetworkBehaviour, IUpgradeSpeed, ISoundPlayer
     {
         private ParticleSystem ps;
         private bool isShooting = false;
