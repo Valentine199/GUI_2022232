@@ -20,8 +20,13 @@ public class TowerUpgradeInteract : MonoBehaviour, ConflictDetectorInterface
         _currentMap = PlayerInput.currentActionMap;
         _interactAction = _currentMap.FindAction("Interact");
         _interactAction.performed += onInteract;
-    }       
-    
+    }
+
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
+
     private void onInteract(InputAction.CallbackContext context)
     {
         if(OtherIsOpen()) { return; }
@@ -34,8 +39,7 @@ public class TowerUpgradeInteract : MonoBehaviour, ConflictDetectorInterface
         
         if(!InteractCanvas.activeInHierarchy)
         {
-            _transform = this.transform;
-            Ray r = new Ray(_transform.position, _transform.forward);
+            Ray r = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             if (Physics.Raycast(r,out RaycastHit hitInfo, _interactRange))
             {
                 Debug.Log(hitInfo.collider.gameObject.name);
@@ -62,7 +66,7 @@ public class TowerUpgradeInteract : MonoBehaviour, ConflictDetectorInterface
 
 
 
-
+    private Camera _camera;
     [SerializeField] private float _interactRange;
     private Transform _transform;
     [SerializeField] private PlayerInput PlayerInput;
