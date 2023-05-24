@@ -124,14 +124,18 @@ public class PlaceTower : NetworkBehaviour
         
         foreach (Transform modelPart in _towerModel.transform)
         {
-            Material[] mats = new Material[modelPart.GetComponent<Renderer>().materials.Length];
-
-            for (int i = 0; i < mats.Length; i++)
+            if (modelPart.TryGetComponent<Renderer>(out Renderer renderer))
             {
-                mats[i] = newMaterial;
-            }
+                Material[] mats = new Material[renderer.materials.Length];
 
-            modelPart.GetComponent<Renderer>().materials = mats;
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    mats[i] = newMaterial;
+                }
+
+                renderer.materials = mats;
+            }
+           
         }
     }
 
