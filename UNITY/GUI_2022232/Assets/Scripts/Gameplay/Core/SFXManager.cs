@@ -17,7 +17,7 @@ public class SFXManager : NetworkBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
 
-        SoundPlayer soundRequester = GetComponent<SoundPlayer>();
+        ISoundPlayer soundRequester = GetComponent<ISoundPlayer>();
         soundRequester.PlayInitSound += PlayInitSound;
         soundRequester.PlayAmbiance += PlayAmbiance;
         soundRequester.StopAmbiance += StopAllSound;
@@ -26,7 +26,7 @@ public class SFXManager : NetworkBehaviour
 
     private void OnDisable()
     {
-        SoundPlayer soundRequester = GetComponent<SoundPlayer>();
+        ISoundPlayer soundRequester = GetComponent<ISoundPlayer>();
         soundRequester.PlayInitSound -= PlayInitSound;
         soundRequester.PlayAmbiance -= PlayAmbiance;
         soundRequester.StopAmbiance -= StopAllSound;
@@ -64,8 +64,8 @@ public class SFXManager : NetworkBehaviour
     {
         _multipleSongs = false;
         if(!_audioSource.isPlaying) { return; }
-        StopAllCoroutines();
-        _audioSource.Stop();
+
+        StartCoroutine(StartFade(0));
     }
 
     private void PlayDeadSound()
@@ -103,6 +103,7 @@ public class SFXManager : NetworkBehaviour
     {
         AudioClip nextSong = _ambianceSound[i];
         StartCoroutine(PlaySound(nextSong));
+        StartCoroutine(StartFade(0.07f));
     }
 
     private IEnumerator PlaySoundOnLoop(AudioClip audio)
@@ -118,9 +119,32 @@ public class SFXManager : NetworkBehaviour
         yield return null;
     }
 
+    private  IEnumerator StartFade(float targetVolume)
+    {
+
+        float duration = 3.5f;
+
+        float currentTime = 0;
+        float start = _audioSource.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            _audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+
+        if (targetVolume <= 0)
+        {
+            _audioSource.Stop();
+            StopAllCoroutines();
+        }
+        
+        yield break;
+    }
+
 }
 
-public interface SoundPlayer
+public interface ISoundPlayer
 {
     public event Action PlayInitSound;
     public event Action PlayAmbiance;
