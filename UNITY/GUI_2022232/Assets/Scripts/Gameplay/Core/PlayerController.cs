@@ -147,8 +147,7 @@ namespace TowerDefense.Gameplay.Core
         }
 
         public void ToggleFreezeCam()
-        {
-            Debug.Log("XD");
+        {         
             if (!IsOwner) return;
             _cameraFreezed = !_cameraFreezed;
         }
