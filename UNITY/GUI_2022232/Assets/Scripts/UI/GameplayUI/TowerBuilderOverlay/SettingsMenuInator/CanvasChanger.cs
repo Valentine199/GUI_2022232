@@ -28,4 +28,15 @@ public class CanvasChanger : MonoBehaviour
         gameObject.transform.Find(gameObjectToDisable).gameObject.SetActive(false);
     }
 
+    public void EnableCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void DisableCursor() 
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }
