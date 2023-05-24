@@ -30,6 +30,8 @@ namespace TowerDefense.Gameplay.Core
 
         [SerializeField] private CinemachineExtender cinemachineExtender;
 
+        private GameController _gameController;
+
         private Rigidbody _playerRigidbody;
 
         private InputManager _inputManager;
@@ -73,11 +75,12 @@ namespace TowerDefense.Gameplay.Core
             //cam.GetComponent<Camera>().enabled = true;
             //cam.SetActive(true);
         }
-    private void OnEnable()
+        private void OnEnable()
         {
             //if (!IsOwner) return;
             _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
             _InteractCanvas.OnUpgradeCanvasToggled += ToggleFreezeCam;
+    
         }
 
         private void OnDisable()
@@ -89,6 +92,8 @@ namespace TowerDefense.Gameplay.Core
 
         private void Start()
         {
+            _gameController = GameController.Instance;
+            _gameController.OnGameOver += ToggleFreezeCam;
             _hasAnimator = TryGetComponent<Animator>(out _animator);
             _playerRigidbody = GetComponent<Rigidbody>();
             _inputManager = GetComponent<InputManager>();
@@ -141,8 +146,9 @@ namespace TowerDefense.Gameplay.Core
             WeaponHolderSync();
         }
 
-        private void ToggleFreezeCam()
+        public void ToggleFreezeCam()
         {
+            Debug.Log("XD");
             if (!IsOwner) return;
             _cameraFreezed = !_cameraFreezed;
         }
