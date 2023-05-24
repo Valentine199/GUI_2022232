@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TowerDefense.Towers.TowerUpgrades.Interfaces;
 using Unity.Netcode;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
-    public class TowerParticleController : NetworkBehaviour, IUpgradeSpeed
+    public class TowerParticleController : NetworkBehaviour, IUpgradeSpeed, ISoundPlayer
     {
         private ParticleSystem ps;
         private bool isShooting = false;
@@ -20,6 +21,12 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
 
         private TowerController _towerController;
+
+        public event Action PlayInitSound;
+        public event Action PlayAmbiance;
+        public event Action StopAmbiance;
+        public event Action PlayEndSound;
+
         public TowerController TowerController
         {
             get
@@ -65,6 +72,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         {
             isShooting = true;
             ps.Emit(1);
+            PlayInitSound?.Invoke();
             yield return new WaitForSeconds(firingRate);
             isShooting = false;
         }
