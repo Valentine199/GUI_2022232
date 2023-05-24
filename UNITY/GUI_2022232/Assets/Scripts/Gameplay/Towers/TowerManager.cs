@@ -53,11 +53,6 @@ namespace TowerDefense.Towers
             _towerController.CycleTargetingModeBackwardsServerRpc();
         }
 
-
-
-
-
-
         [ClientRpc]
         private void GetUpgradeClientRpc()
         {
@@ -90,7 +85,6 @@ namespace TowerDefense.Towers
         }
 
 
-
         public int GetSellPrice()
         {
             return _towerController.SellTowerCost;
@@ -102,13 +96,18 @@ namespace TowerDefense.Towers
         }
 
         public void ShowTowerRange()
-        { 
-            _towerController.EnemyDetector.GetComponent<MeshRenderer>().enabled = true;
+        {
+            _towerController.ChangeRangeVisibilityServerRpc(true);
         }
 
         public void HideTowerRange()
         {
-            _towerController.EnemyDetector.GetComponent<MeshRenderer>().enabled = false;
+            _towerController.ChangeRangeVisibilityServerRpc(false);
+        }
+
+        public string ShowName()
+        {
+            return _towerController.Properties.TowerName;
         }
     }
 }
