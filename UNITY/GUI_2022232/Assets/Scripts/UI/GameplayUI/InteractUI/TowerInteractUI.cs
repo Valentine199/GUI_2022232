@@ -25,7 +25,7 @@ public class TowerInteractUI : MonoBehaviour
 
         }
     }
-
+    [SerializeField] private TMP_Text _towerName;
     [SerializeField] private TMP_Text _upgradeText;
     [SerializeField] private TMP_Text _upgradeCost;
 
@@ -42,15 +42,14 @@ public class TowerInteractUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         OnUpgradeCanvasToggled?.Invoke();
 
-
         _towerManager = interactable;
-        ShowTowerInfo(_towerManager.GetUpgradeInfo());
+
         _towerManager.OnNewUpgrade += ShowTowerInfo;
         _towerManager.OnTargetingStyleChange += ChangeTargetingText;
+
+        ShowTowerInfo(_towerManager.GetUpgradeInfo());
         ChangeTargetingText();
-
         ShowRange();
-
     }
 
     private void ShowRange()
@@ -88,6 +87,7 @@ public class TowerInteractUI : MonoBehaviour
         }
 
         _SellPrice.text = _towerManager.GetSellPrice().ToString() +"$";
+        _towerName.text = _towerManager.ShowName();
     }
 
     private void ChangeTargetingText()
