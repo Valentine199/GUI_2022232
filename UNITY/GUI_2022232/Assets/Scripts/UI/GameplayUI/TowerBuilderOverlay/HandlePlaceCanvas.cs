@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TowerDefense.Data.Towers;
 using TowerDefense.Gameplay.Core;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HandlePlaceCanvas : NetworkBehaviour
+public class HandlePlaceCanvas : NetworkBehaviour, ConflictDetectorInterface
 {
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class HandlePlaceCanvas : NetworkBehaviour
     private void onBuild(InputAction.CallbackContext context)
     {
         if(!IsOwner) { return; }
+        if(OtherIsOpen()) { return; }
         ToggleBuildingsCanvas();
     }
 
@@ -71,6 +73,11 @@ public class HandlePlaceCanvas : NetworkBehaviour
         OnBuildingsCanvasToggled?.Invoke();
     }
 
+    public bool OtherIsOpen()
+    {
+        return _conflictCanvas.Any(x => x.activeInHierarchy);
+    }
+
     public event Action OnBuildingsCanvasToggled;
 
     [SerializeField] private Canvas _inGameCanvas;
@@ -83,8 +90,12 @@ public class HandlePlaceCanvas : NetworkBehaviour
 
     [SerializeField] private GameObject _startNewWaveButton;
 
+    [SerializeField] private GameObject[] _conflictCanvas;
+
     private bool _toggle = false;
 
     private InputAction _buildAction;
     private InputActionMap _currentMap;
+
+
 }

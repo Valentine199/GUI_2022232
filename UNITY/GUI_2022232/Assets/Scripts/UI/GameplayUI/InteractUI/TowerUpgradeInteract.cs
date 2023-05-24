@@ -10,8 +10,9 @@ using static Unity.Burst.Intrinsics.X86;
 using UnityEngine.Windows;
 using TowerDefense.Towers.TowerUpgrades;
 using TowerDefense.Towers.TowerEnums;
+using System.Linq;
 
-public class TowerUpgradeInteract : MonoBehaviour
+public class TowerUpgradeInteract : MonoBehaviour, ConflictDetectorInterface
 {
 
     private void Awake()
@@ -23,13 +24,13 @@ public class TowerUpgradeInteract : MonoBehaviour
     
     private void onInteract(InputAction.CallbackContext context)
     {
+        if(OtherIsOpen()) { return; }
         ToggleInteractCanvas();
         
     }
 
     private void ToggleInteractCanvas()
     {
-        //_toggle = !_toggle;
         
         if(!InteractCanvas.activeInHierarchy)
         {
@@ -54,14 +55,20 @@ public class TowerUpgradeInteract : MonoBehaviour
         }
     }
 
-    
+    public bool OtherIsOpen()
+    {
+        return _conflictCanvas.Any(x => x.activeInHierarchy);
+    }
+
+
+
 
     [SerializeField] private float _interactRange;
     private Transform _transform;
     [SerializeField] private PlayerInput PlayerInput;
     [SerializeField] private GameObject InteractCanvas;
-
-    private bool _toggle = false;
+    [SerializeField] private GameObject[] _conflictCanvas;
+    
 
     private InputAction _interactAction;
     private InputActionMap _currentMap;
@@ -73,6 +80,7 @@ public interface IInteractable
     public event Action OnTargetingStyleChange;
 
     public void ShowTowerRange();
+    public string ShowName();
     public void HideTowerRange();
 
     public void CycleTargetingStyleForward();
