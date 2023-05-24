@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TowerDefense.Data.Towers;
 using TowerDefense.Gameplay.Core;
 using Unity.Netcode;
@@ -40,6 +41,15 @@ public class PlaceTower : NetworkBehaviour
         //if (IsServer) { return; }
         if (_towerModel == null) { return; }
 
+        if (!_isDrawing)
+        {
+            StartCoroutine(DrawRaycast());
+        }
+    }
+
+    private IEnumerator DrawRaycast()
+    {
+        _isDrawing = true;
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
@@ -56,6 +66,8 @@ public class PlaceTower : NetworkBehaviour
                 ChangeColor(_invalidMaterial);
             }
         }
+        _isDrawing = false;
+        yield return null;
     }
 
    
@@ -145,6 +157,7 @@ public class PlaceTower : NetworkBehaviour
     private TowerProperties _towerToPlace = null;
     private bool _isPlaceable = false;
     [SerializeField] private LayerMask _placeableMask = new LayerMask();
+    private bool _isDrawing = false;
     //Input actions 
     private InputAction _cancelBuildingAction;
     private InputAction _acceptBuildingAction;

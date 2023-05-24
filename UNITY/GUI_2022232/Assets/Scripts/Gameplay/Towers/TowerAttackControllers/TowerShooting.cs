@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
@@ -23,6 +24,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         private NetworkObject _target = null;
         private Transform _targetTransform = null;
         private bool _canShoot = false;
+        private bool _isCheckingTarget = false;
 
 
         private TowerController _towerController;
@@ -168,6 +170,18 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
             RemoveDeadEnemies();
 
+            if (!_isCheckingTarget)
+            {
+                StartCoroutine(CheckTarget());
+            }
+
+            
+        }
+
+        private IEnumerator CheckTarget()
+        {
+            _isCheckingTarget = true;
+
             if (_targetTransform != null && EnsureSight(_targetTransform.GetComponent<EnemyController>()))
             {
                 _canShoot = true;
@@ -179,9 +193,10 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 GetTarget();
 
             }
-                _towerController.ShootServerRpc(_canShoot);
+            _towerController.ShootServerRpc(_canShoot);
 
-            
+            _isCheckingTarget=false;
+            yield return null;
         }
 
         private void RemoveDeadEnemies()
