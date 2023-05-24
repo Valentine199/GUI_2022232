@@ -117,6 +117,7 @@ namespace TowerDefense.Gameplay.Enemies
         }
 
         public bool IsFrozen => _isFrozen;
+        public bool IsOnFire => _isOnFire;
 
         private void Update()
         {
@@ -218,6 +219,7 @@ namespace TowerDefense.Gameplay.Enemies
         public int HealthRemaining { get { return this._healthRemaining; } }
         public List<GameObject> ActiveEffects { get; private set; } = new List<GameObject>();
         private bool _isFrozen;
+        private bool _isOnFire = false;
 
         private Vector3 _targetWaypointPosition;
 
@@ -233,6 +235,16 @@ namespace TowerDefense.Gameplay.Enemies
             {
                 ActiveEffects.Remove(effect);
             }            
+        }
+
+        public void SetOnFire()
+        {
+            _isOnFire = true;
+        }
+
+        public void RemoveFire()
+        {
+            _isOnFire = false;
         }
 
         private int LTW

@@ -79,6 +79,18 @@ namespace TowerDefense.Towers.TowerAttackControllers
             Destroy(gameObject);
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        public void ChangeRangeVisibilityServerRpc(bool enabled)
+        {
+            ChangeRangeVisibilityClientRpc(enabled);
+        }
+
+        [ClientRpc]
+        private void ChangeRangeVisibilityClientRpc(bool isEnabled)
+        {
+            EnemyDetector.GetComponent<MeshRenderer>().enabled = isEnabled;
+        }
+
         public void EnemyDetected(Collider other)
         {
             EnemyController target = other.gameObject.GetComponent<EnemyController>();
