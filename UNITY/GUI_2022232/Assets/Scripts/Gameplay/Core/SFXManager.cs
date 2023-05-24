@@ -65,7 +65,7 @@ public class SFXManager : NetworkBehaviour
         _multipleSongs = false;
         if(!_audioSource.isPlaying) { return; }
 
-        StartCoroutine(StartFade(0));
+        StartFade(0);
     }
 
     private void PlayDeadSound()
@@ -103,7 +103,7 @@ public class SFXManager : NetworkBehaviour
     {
         AudioClip nextSong = _ambianceSound[i];
         StartCoroutine(PlaySound(nextSong));
-        StartCoroutine(StartFade(0.07f));
+        StartFade(0.07f);
     }
 
     private IEnumerator PlaySoundOnLoop(AudioClip audio)
@@ -119,7 +119,7 @@ public class SFXManager : NetworkBehaviour
         yield return null;
     }
 
-    private  IEnumerator StartFade(float targetVolume)
+    private  void StartFade(float targetVolume)
     {
 
         float duration = 3.5f;
@@ -130,7 +130,6 @@ public class SFXManager : NetworkBehaviour
         {
             currentTime += Time.deltaTime;
             _audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
-            yield return null;
         }
 
         if (targetVolume <= 0)
@@ -138,8 +137,6 @@ public class SFXManager : NetworkBehaviour
             _audioSource.Stop();
             StopAllCoroutines();
         }
-        
-        yield break;
     }
 
 }
