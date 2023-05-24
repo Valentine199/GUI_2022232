@@ -44,7 +44,7 @@ namespace TowerDefense.Data.Enemies
             get
             {
                 int equiv = _health;
-                if (_enemiesToSpawnWhenKilled != null || _enemiesToSpawnWhenKilled.Count <= 0)
+                if (_enemiesToSpawnWhenKilled == null || _enemiesToSpawnWhenKilled.Count <= 0)
                     return equiv;
 
                 return _enemiesToSpawnWhenKilled.Sum(e => e.WorthInLowestTier);
@@ -57,12 +57,14 @@ namespace TowerDefense.Data.Enemies
             get
             {
                 int total = 1;
-                if (_enemiesToSpawnWhenKilled != null || _enemiesToSpawnWhenKilled.Count <= 0)
+                if (_enemiesToSpawnWhenKilled == null || _enemiesToSpawnWhenKilled.Count <= 0)
                     return total;
 
-                return _enemiesToSpawnWhenKilled.Sum(e => e.TotalEnemyCount);
+                return 1 + _enemiesToSpawnWhenKilled.Sum(e => e.TotalEnemyCount);
             }
         }
+
+        public GameObject prefab;
 
         [SerializeField] private int _health;
         [SerializeField] private int _moneyWhenKilled;

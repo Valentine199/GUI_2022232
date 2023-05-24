@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 6551356711483606254}
   - component: {fileID: 6350109242523331967}
   - component: {fileID: 8153225698407951069}
+  - component: {fileID: -8183439128509074450}
   m_Layer: 0
   m_Name: Building placement
   m_TagString: Untagged
@@ -249,7 +250,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d821a3e68b0654fab331f82391c6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
+  _placeableMask:
+    serializedVersion: 2
+    m_Bits: 0
+  PlayerInput: {fileID: 0}
+  _invalidMaterial: {fileID: 0}
+  _validMaterial: {fileID: 0}
+  TowerList: {fileID: 0}
 --- !u!114 &8153225698407951069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,9 +269,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a203fc08ac62f0e4593bcf2b4ac6de31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inGameCanvas: {fileID: 0}
   _selectionCanvas: {fileID: 9196824851271049388}
   _buildBg: {fileID: 2904871658920072961}
-  _towers:
-  - {fileID: 2215512835269905292, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072, type: 3}
+  TowerList: {fileID: 11400000, guid: 25335ee977217c44987f31afbed4d746, type: 2}
   _buildMenuItem: {fileID: 4219125253120236336, guid: b1b1aec4cff8b844283e1db730d27828,
     type: 3}
+  PlayerInput: {fileID: -8183439128509074450}
+--- !u!114 &-8183439128509074450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598979505881484472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 9ed02a406f23b384f95c703bd363ab0a,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

@@ -2,16 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using TMPro.EditorUtilities;
+//using TMPro.EditorUtilities;
 using TowerDefense.Data.Core;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Core
 {
-    public class GameController : MonoBehaviour
+    public class GameController : NetworkBehaviour
     {
         public void SetupNewGame()
         {
@@ -22,17 +23,41 @@ namespace TowerDefense.Gameplay.Core
 
         public void StartNewWave()
         {
-            UpdateWaveText();
             _waveController.StartNextWave();
+            UpdateWaveText();
         }
 
         public void IncrementMoney(int amount)
+        {
+            IncrementMoneyServerRpc(amount);
+        }
+
+        [ServerRpc]
+        public void IncrementMoneyServerRpc(int amount)
+        {
+            IncrementMoneyClientRpc(amount);
+        }
+
+        [ClientRpc]
+        public void IncrementMoneyClientRpc(int amount)
         {
             _currGameStatistics.Money += amount;
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);
         }
 
         public void DecrementMoney(int amount)
+        {
+            DecrementMoneyServerRpc(amount);
+        }
+
+        [ServerRpc]
+        public void DecrementMoneyServerRpc(int amount)
+        {
+            DecrementMoneyClientRpc(amount);
+        }
+
+        [ClientRpc]
+        public void DecrementMoneyClientRpc(int amount)
         {
             _currGameStatistics.Money -= amount;
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);
@@ -60,7 +85,7 @@ namespace TowerDefense.Gameplay.Core
         }
 
         public bool GameOver => _gameOver;
-        public bool IsWon => _isWon; 
+        public bool IsWon => _isWon;
         public int Money => _currGameStatistics.Money;
         public float SellTowerMultiplier => _currGameStatistics.SellTowerMultiplier;
 
@@ -76,15 +101,12 @@ namespace TowerDefense.Gameplay.Core
 
         private void OnEnable()
         {
-            _enemySpawner = EnemySpawner.Instance;
-            _enemySpawner.OnEnemySpawned += SubscribeToEnemyEvents;
-            _waveController.OnWaveCompleted += WaveCompleted;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned += SubscribeToEnemyEvents;
         }
 
         private void OnDisable()
         {
-            _enemySpawner.OnEnemySpawned -= SubscribeToEnemyEvents;
-            _waveController.OnWaveCompleted -= WaveCompleted;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned -= SubscribeToEnemyEvents;
         }
 
         private void SubscribeToEnemyEvents(EnemyController enemyController)
@@ -99,16 +121,11 @@ namespace TowerDefense.Gameplay.Core
             _waveController.Initialize(_currGameStatistics);
         }
 
-        private void InitUI()
+        public void InitUI()
         {
             OnWaveChanged?.Invoke(_currGameStatistics.Waves);
             OnMoneyChanged?.Invoke(_currGameStatistics.Money);
             OnLivesChanged?.Invoke(_currGameStatistics.Lives);
-        }
-
-        private void WaveCompleted(WaveProperties waveProperties)
-        {
-            // Give money to player if needed
         }
 
         private void UpdateWaveText()
@@ -117,6 +134,18 @@ namespace TowerDefense.Gameplay.Core
         }
 
         private void DecrementLives(int amount)
+        {
+            DecrementLivesServerRpc(amount);
+        }
+
+        [ServerRpc]
+        private void DecrementLivesServerRpc(int amount)
+        {
+            DecrementLivesClientRpc(amount);
+        }
+
+        [ClientRpc]
+        private void DecrementLivesClientRpc(int amount)
         {
             if (_gameOver)
                 return;
@@ -129,7 +158,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void EnemyReachedEnd(EnemyProperties enemyProperties)
         {
-            DecrementLives(enemyProperties.TotalEnemyCount);
+            DecrementLives(enemyProperties.WorthInLowestTier);
         }
 
         private void EnemyKilled(EnemyProperties enemyProperties)
@@ -141,6 +170,18 @@ namespace TowerDefense.Gameplay.Core
         private void DoGameOver()
         {
             _gameOver = true;
+            DoGameOverServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DoGameOverServerRpc()
+        {
+            DoGameOverClientRpc();
+        }
+
+        [ClientRpc]
+        private void DoGameOverClientRpc()
+        {
             OnGameOver?.Invoke();
         }
 

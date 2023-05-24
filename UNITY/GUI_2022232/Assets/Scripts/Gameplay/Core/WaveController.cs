@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
+//using TMPro.EditorUtilities;
 using TowerDefense.Data.Core;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TowerDefense.Gameplay.Core
 {
-    public class WaveController : MonoBehaviour
+    public class WaveController : NetworkBehaviour
     {
         public void Initialize(GameStatistics gameStatistics)
         {
@@ -20,22 +22,55 @@ namespace TowerDefense.Gameplay.Core
 
         public void StartNextWave()
         {
+            StartNextWaveServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void StartNextWaveServerRpc()
+        {
+            StartNextWaveClientRpc();
             StartCoroutine(SpawnEnemiesInWave(_currWave));
         }
 
-        public event Action<WaveProperties> OnWaveCompleted;
+        [ClientRpc]
+        public void StartNextWaveClientRpc()
+        {
+            OnWaveStarted?.Invoke();
+        }
+
+        public static WaveController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = FindObjectOfType(typeof(WaveController)) as WaveController;
+                return _instance;
+            }
+            set
+            {
+                _instance = value;
+            }
+        }
+
+        public event Action OnWaveStarted;
+        public event Action OnWaveCompleted;
         public event Action<WaveProperties> OnPrepareNextRound;
+
+        private void Awake()
+        {
+            _instance = this;
+        }
 
         private void OnEnable()
         {
             _enemySpawner = EnemySpawner.Instance;
-            _enemySpawner.OnEnemySpawned += SubscribeToEnemyEvents;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned += SubscribeToEnemyEvents;
             _gameController.OnGameBegin += PrepareNextRound;
         }
 
         private void OnDisable()
         {
-            _enemySpawner.OnEnemySpawned -= SubscribeToEnemyEvents;
+            EnemySpawnerMultiplayer.Instance.OnEnemySpawned -= SubscribeToEnemyEvents;
             _gameController.OnGameBegin -= PrepareNextRound;
         }
 
@@ -65,15 +100,15 @@ namespace TowerDefense.Gameplay.Core
 
         private void EnemyKilled(EnemyProperties enemyProperties)
         {
-            DecrementEnemiesLeft(1);
+            DecreaseEnemiesLeft(1);
         }
 
         private void EnemyReachedEnd(EnemyProperties enemyProperties)
         {
-            DecrementEnemiesLeft(enemyProperties.TotalEnemyCount);
+            DecreaseEnemiesLeft(enemyProperties.TotalEnemyCount);
         }
 
-        private void DecrementEnemiesLeft(int amount)
+        private void DecreaseEnemiesLeft(int amount)
         {
             if (_gameController.GameOver)
                 return;
@@ -85,25 +120,51 @@ namespace TowerDefense.Gameplay.Core
 
         private void PrepareNextRound()
         {
-            ++_currGameStatistics.Waves;
+            if (_currGameStatistics.Waves == 0)
+                ++_currGameStatistics.Waves;
+            else
+                IncrementWaveServerRpc();
+
             if (_currGameStatistics.Waves > _waves.Count)
             {
                 _gameController.DoVictory();
                 return;
             }
-            if (_currGameStatistics.Waves != 1)
-            {
-                OnWaveCompleted?.Invoke(_currWave);
-            }
 
+            PrepareNextRoundServerRpc();
             _currWave = _waves[CurrWaveIndex];
             _enemiesLeft = _currWave.TotalEnemyCount;
-
             OnPrepareNextRound?.Invoke(_currWave);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PrepareNextRoundServerRpc()
+        {
+            PrepareNextRoundClientRpc();
+        }
+
+        [ClientRpc]
+        private void PrepareNextRoundClientRpc()
+        {
+            OnWaveCompleted?.Invoke();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void IncrementWaveServerRpc()
+        {
+            IncrementWaveClientRpc();
+        }
+
+        [ClientRpc]
+        private void IncrementWaveClientRpc()
+        {
+            ++_currGameStatistics.Waves;
         }
 
         [SerializeField] private List<WaveProperties> _waves;
         [SerializeField] private GameController _gameController;
+
+        private static WaveController _instance;
 
         private int _enemiesLeft;
         private WaveProperties _currWave;

@@ -12,19 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ea40025700fba4f917e80a90354636, type: 3}
   m_Name: BasicTower
   m_EditorClassIdentifier: 
-  TowerName: Orb Shooter
+  TowerName: ORBital Cannon
   TowerRange: 30
   TowerDamage: 10
   TowerFiringRate: 0.5
   TowerBulletSpeed: 60
   TowerCost: 300
-  BulletParticleSystem: {fileID: 4062542256611867654, guid: ca927226afe0ab7469c5531f37886df4,
+  TowerModel: {fileID: 6013129910860680078, guid: 9f28ce10a416a0b469970b60986cc100,
     type: 3}
-  TowerRender: {fileID: 2215512835269905292, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072,
+  TowerPicture: {fileID: 21300000, guid: c263b02d20dc2414e899f98dfe25d002, type: 3}
+  TowerObject: {fileID: 3239935641662030738, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
     type: 3}
   DefaultTowerTargetingStyle: 0
   Effect: {fileID: 0}
   TowerUpgradeOptions:
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   - {fileID: 11400000, guid: cc15a98754c8b344490382e273869897, type: 2}
+  - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   BulletTypeEnum: 0

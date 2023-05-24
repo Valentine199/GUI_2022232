@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TowerDefense.Towers.TowerUpgrades.Interfaces
 {
     public interface IUpgradeRange
     {
-        void SetRange(float range);
+        void SetRangeServerRpc(float range);
+
+        void SetRangeClientRpc(Vector3 newRange);
     }
 }

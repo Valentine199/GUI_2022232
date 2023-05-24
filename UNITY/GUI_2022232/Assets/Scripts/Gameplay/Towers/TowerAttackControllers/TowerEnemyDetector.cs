@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TowerDefense.Towers.TowerUpgrades.Interfaces;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TowerDefense.Towers.TowerAttackControllers
@@ -33,11 +31,20 @@ namespace TowerDefense.Towers.TowerAttackControllers
             }
         }
 
-        public void SetRange(float range)
+        
+
+        [ServerRpc(RequireOwnership =false)]
+        public void SetRangeServerRpc(float range)
         {
             var rangeNow = transform.localScale;
             float newRangeValue = range * 2;
             Vector3 newRange = new Vector3(rangeNow.x + newRangeValue, 0.1f, rangeNow.z + newRangeValue);
+            SetRangeClientRpc(newRange);
+        }
+
+        [ClientRpc]
+        public void SetRangeClientRpc(Vector3 newRange)
+        {
             transform.localScale = newRange;
         }
 

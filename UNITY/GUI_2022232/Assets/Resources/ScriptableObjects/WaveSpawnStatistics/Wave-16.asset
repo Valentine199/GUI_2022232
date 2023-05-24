@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b093fdee451c2b34f9554ea45e852530, type: 3}
+  m_Name: Wave-16
+  m_EditorClassIdentifier: 
+  _spawnPacks:
+  - _enemyType: 2
+    _amountInGroup: 40
+    _timeBetweenEnemies: 1.3
+    _initialSpawnDelay: 0
+  - _enemyType: 3
+    _amountInGroup: 8
+    _timeBetweenEnemies: 1
+    _initialSpawnDelay: 18
+  - _enemyType: 5
+    _amountInGroup: 6
+    _timeBetweenEnemies: 0.9
+    _initialSpawnDelay: 24

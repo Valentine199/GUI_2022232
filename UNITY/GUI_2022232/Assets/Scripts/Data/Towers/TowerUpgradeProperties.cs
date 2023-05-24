@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TowerDefense.Towers.TowerEnums;
 using UnityEngine;
 
@@ -11,6 +9,7 @@ namespace TowerDefense.Data.Towers
         public string UpgradeName;
         public int UpgradeCost;
         public UpgradeType UpgradeType;
+        [Tooltip("How much it changes the original value")]
         public float _upgradeValue;
     }
 }

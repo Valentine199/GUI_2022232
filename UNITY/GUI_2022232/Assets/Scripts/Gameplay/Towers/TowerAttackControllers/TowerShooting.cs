@@ -1,30 +1,27 @@
-using System;
 using System.Collections.Generic;
-using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
+using Unity.Netcode;
 using UnityEngine;
 
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
-    public class TowerShooting : MonoBehaviour
+    public class TowerShooting : NetworkBehaviour
     {
         private TowerEnums.TargetingStyle _targetingStyle;
         [SerializeField]
         [Tooltip("Logical, only neccessery for the model")]
         private Transform _head;
 
-        [SerializeField]
-        [Tooltip("Ensures accurate shooting")]
-        private Transform _bulletOrigin;
-
-        [SerializeField] private List<EnemyController> _targetsInRange = new List<EnemyController>();
-        [SerializeField] private Queue<EnemyController> _targetsToRemove = new Queue<EnemyController>();
         [SerializeField] private LayerMask _hitLayer;
         [SerializeField] private LayerMask _enemyLayer;
-        private Vector3 _origin;
-        [SerializeField] private Transform _target = null;
+
+        private List<EnemyController> _targetsInRange = new List<EnemyController>();
+        private Queue<EnemyController> _targetsToRemove = new Queue<EnemyController>();
+        private Transform _origin;
+        private NetworkObject _target = null;
+        private Transform _targetTransform = null;
         private bool _canShoot = false;
 
 
@@ -41,9 +38,9 @@ namespace TowerDefense.Towers.TowerAttackControllers
             }
         }
 
-        public void ChangeTargetingStyle(TowerEnums.TargetingStyle attack)
+        public void TargetingStyleChanged()
         {
-            _targetingStyle = attack;
+            _targetingStyle = _towerController.TargetingStyle;
             GetTarget();
         }
 
@@ -51,42 +48,47 @@ namespace TowerDefense.Towers.TowerAttackControllers
         {
             if (_towerController != null)
             {
-                _origin = _towerController.BulletOrigin.transform.position;
+                _origin = _towerController.BulletOrigin.transform;
+                _towerController.OnTargetingStyleChanged += TargetingStyleChanged;
             }
 
         }
 
-        public void AddTargetToInRange(EnemyController target)
+        [ServerRpc(RequireOwnership = false)]
+        public void AddTargetToInRangeServerRpc(NetworkObjectReference target)
         {
-            _targetsInRange.Add(target);
-            target.OnEnemyDie += HandleOnEnemyKilled;
-            //EnsureSight();
+            target.TryGet(out NetworkObject networkTarget);
+
+            EnemyController targetEnemyController = networkTarget.GetComponent<EnemyController>();
+
+            _targetsInRange.Add(targetEnemyController);
+            targetEnemyController.OnEnemyDie += HandleOnEnemyKilled;
             GetTarget();
         }
 
-        public void RemoveTargetFromInRange(EnemyController target)
+        [ServerRpc(RequireOwnership = false)]
+        public void RemoveTargetFromInRangeServerRpc(NetworkObjectReference target)
         {
-            _targetsInRange.Remove(target);
-            //if (_targetsInSight.Contains(target))
-            //{
-            //    _targetsInSight.Remove(target);
-            //}
+            target.TryGet(out NetworkObject networkTarget);
 
-            target.OnEnemyDie -= HandleOnEnemyKilled;
+            EnemyController targetEnemyController = networkTarget.GetComponent<EnemyController>();
 
-            //EnsureSight();
+            _targetsInRange.Remove(targetEnemyController);
+            targetEnemyController.OnEnemyDie -= HandleOnEnemyKilled;
             GetTarget();
         }
 
         private bool EnsureSight(EnemyController target)
         {
+            if (!IsServer) { return false; }
+
             if (target == null)
             {
                 return false;
             }
-            var direction = target.transform.position - _origin;
-            Debug.DrawRay(_origin, direction);
-            Ray ray = new Ray(_origin, direction);
+            var direction = target.transform.position - _origin.position;
+            Debug.DrawRay(_origin.position, direction);
+            Ray ray = new Ray(_origin.position, direction);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _hitLayer))
             {
@@ -107,6 +109,8 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void GetTarget()
         {
+            if (!IsServer) { return; }
+
             List<EnemyController> targetsInSight = new List<EnemyController>();
 
             foreach (EnemyController target in _targetsInRange)
@@ -141,49 +145,33 @@ namespace TowerDefense.Towers.TowerAttackControllers
                         break;
                 }
 
-                //if (_target != null)
-                //{
-
-                //        _target.GetComponent<EnemyController>().OnEnemyKilled += HandleOnEnemyKilled;
-                //}
+                SetTargetClientRpc(_target);
             }
+        }
+
+        [ClientRpc]
+        private void SetTargetClientRpc(NetworkObjectReference target)
+        {
+            target.TryGet(out NetworkObject networkTarget);
+
+            _targetTransform = networkTarget.GetComponent<Transform>();
         }
 
         private void HandleOnEnemyKilled(EnemyController enemy)
         {
-            //EnemyController enemyScript = _target.GetComponent<EnemyController>();
-
-
+            if (!IsServer) { return; }
             _targetsToRemove.Enqueue(enemy);
-            //RemoveTargetFromInRange(enemy);
-            //_target = null;
-
-
-            //_targetsInRange.Remove(enemyScript);
-            //Debug.Log("enemyRemoved");
-
-            //if (_targetsInSight.Contains(enemyScript))
-            //{
-            //    _targetsInSight.Remove(enemyScript);
-            //    Debug.Log("enemyRemoved from sight");
-            //}
-            //_target = null;
-            ////enemyScript.OnEnemyKilled -= HandleOnEnemyKilled;
-            //GetTarget();
-
         }
 
         private void Update()
         {
-            if(_targetsToRemove.Count>0)
-            {
-                RemoveDeadEnemies();
-            }
 
-            if (_target != null && EnsureSight(_target.GetComponent<EnemyController>()))
+            RemoveDeadEnemies();
+
+            if (_targetTransform != null && EnsureSight(_targetTransform.GetComponent<EnemyController>()))
             {
                 _canShoot = true;
-                TargetEnemy();   
+                TargetEnemy();
             }
             else
             {
@@ -191,11 +179,14 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 GetTarget();
 
             }
-            _towerController.Shoot(_canShoot);
+                _towerController.ShootServerRpc(_canShoot);
+
+            
         }
 
         private void RemoveDeadEnemies()
         {
+            if (!IsServer || _targetsToRemove.Count <= 0) { return; }
             foreach (EnemyController target in _targetsToRemove)
             {
                 _targetsInRange.Remove(target);
@@ -208,23 +199,10 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void TargetEnemy()
         {
-            _head.LookAt(_target);
-            _bulletOrigin.LookAt(_target);
+            if (!IsClient) { return; }
+
+            _head.LookAt(_targetTransform);
+            _origin.LookAt(_targetTransform);
         }
-
-
-
-        ////public void SetTarget(Enemy enemy)
-        ////{
-        ////    _target = enemy.transform;
-        ////}
-        //public void SetTargetToNull()
-        //{
-        //    _target = null;
-        //}
-
-
-
-
     }
 }

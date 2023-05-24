@@ -36,7 +36,7 @@ ModelImporter:
       name: Jump
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
+      firstFrame: 29.8
       lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
@@ -44,7 +44,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -57,7 +57,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.5
+      - time: 0
         functionName: JumpAddForce
         data: 
         objectReferenceParameter: {instanceID: 0}

@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TowerDefense.Data.Towers;
 using TowerDefense.Gameplay.Core;
 using TowerDefense.Towers.TowerAttackControllers;
 using TowerDefense.Towers.TowerEnums;
 using TowerDefense.Towers.TowerUpgrades.Interfaces;
-using Unity.VisualScripting;
-using UnityEngine;
+using Unity.Netcode;
 
 
 namespace TowerDefense.Towers.TowerUpgrades
@@ -16,16 +13,19 @@ namespace TowerDefense.Towers.TowerUpgrades
     {
         protected TowerUpgradeProperties TowerUpgradeProperties { get; private set; }
 
-        public string Name { get { return TowerUpgradeProperties.name; } }
+        public string UpgradeName { get { return TowerUpgradeProperties.UpgradeName; } }
         public int Cost { get { return TowerUpgradeProperties.UpgradeCost; } }
         public UpgradeType UpgradeType => TowerUpgradeProperties.UpgradeType;
         public bool IsPurchased { get; private set; }
 
         public virtual void PurchaseUpgrade(TowerController towerController)
         {
-            IsPurchased = true;
-            GameController.Instance.DecrementMoney(Cost);
-            towerController.IncreaseTotalTowerCost(Cost);
+            if (GameController.Instance.Money >= Cost)
+            {
+                IsPurchased = true;
+                GameController.Instance.DecrementMoney(Cost);
+                towerController.RequestIncreaseTotalTowerCost(Cost);
+            }
         }
 
         public static TowerUpgrade GetNewUpgrade(TowerUpgradeProperties upgradeProperties)
@@ -54,8 +54,12 @@ namespace TowerDefense.Towers.TowerUpgrades
         {
             if (towerController.EnemyDetector is IUpgradeRange rangeUpdate)
             {
-                rangeUpdate.SetRange(rangeValue);
                 base.PurchaseUpgrade(towerController);
+                if (IsPurchased)
+                {
+
+                    rangeUpdate.SetRangeServerRpc(rangeValue);
+                }
             }
 
         }
@@ -69,8 +73,12 @@ namespace TowerDefense.Towers.TowerUpgrades
         {
             if (towerController.ParticleControll is IUpgradeSpeed speedUpdate)
             {
-                speedUpdate.SetFiringRate(SpeedValue);
                 base.PurchaseUpgrade(towerController);
+                if (IsPurchased)
+                {
+                    speedUpdate.SetFiringRateServerRpc(SpeedValue);
+
+                }
             }
 
         }

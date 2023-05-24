@@ -733,6 +733,7 @@ GameObject:
   - component: {fileID: 486829858822970215}
   - component: {fileID: 7048185260981359950}
   - component: {fileID: 7904583036139220950}
+  - component: {fileID: 354682041991801044}
   m_Layer: 8
   m_Name: UI
   m_TagString: Untagged
@@ -756,7 +757,7 @@ Transform:
   - {fileID: 3529260256580780788}
   - {fileID: 1045429770685216801}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7920961283939313480
 MonoBehaviour:
@@ -799,8 +800,7 @@ MonoBehaviour:
   _inGameCanvas: {fileID: 873443335128101768}
   _selectionCanvas: {fileID: 8599835330972417618}
   _buildBg: {fileID: 5284709861031443762}
-  _towers:
-  - {fileID: 2215512835269905292, guid: 1ffd86276e4a2cb41a6bcdad7fdaf072, type: 3}
+  TowerList: {fileID: 11400000, guid: 25335ee977217c44987f31afbed4d746, type: 2}
   _buildMenuItem: {fileID: 4219125253120236336, guid: b1b1aec4cff8b844283e1db730d27828,
     type: 3}
   PlayerInput: {fileID: 7904583036139220950}
@@ -816,10 +816,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d821a3e68b0654fab331f82391c6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
   _placeableMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  PlayerInput: {fileID: 0}
+  _invalidMaterial: {fileID: 0}
+  _validMaterial: {fileID: 0}
+  TowerList: {fileID: 11400000, guid: 25335ee977217c44987f31afbed4d746, type: 2}
 --- !u!114 &7904583036139220950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,6 +854,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &354682041991801044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615904738654553552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1701044793364983862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,8 +1690,7 @@ MonoBehaviour:
   _roundText: {fileID: 7095550051476410265}
   _moneyText: {fileID: 7667427366130009590}
   _livesText: {fileID: 2959231691896499093}
-  _startRoundButton: {fileID: 0}
-  _gameController: {fileID: 0}
+  _buildMoneyText: {fileID: 0}
 --- !u!1 &5843456652228724309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,6 +1703,7 @@ GameObject:
   - component: {fileID: 824824849418474838}
   - component: {fileID: 6349396936721327091}
   - component: {fileID: 2104426866950002711}
+  - component: {fileID: 1337278634431293269}
   m_Layer: 0
   m_Name: StartWaveButton
   m_TagString: Untagged
@@ -1795,9 +1814,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TowerDefense.Gameplay.Core.GameController, Assembly-CSharp
-        m_MethodName: StartNewWave
+      - m_Target: {fileID: 1337278634431293269}
+        m_TargetAssemblyTypeName: StartNextWaveInator, Assembly-CSharp
+        m_MethodName: StartNextWave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1807,6 +1826,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1337278634431293269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5843456652228724309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225f2b66f30e4c74cbeee0b1f56da60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6001693056933890129
 GameObject:
   m_ObjectHideFlags: 0

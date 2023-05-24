@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,9 +9,10 @@ using UnityEngine.InputSystem.Interactions;
 
 namespace TowerDefense.Gameplay.Core
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : NetworkBehaviour
     {
         [SerializeField] private PlayerInput PlayerInput;
+        [SerializeField] private PlayerControlls _playerControlls;
 
         public Vector2 Move { get; private set; }
 
@@ -37,7 +39,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void Awake()
         {
-
+            //if (!IsOwner) return;
             HideCursor();
             _currentMap = PlayerInput.currentActionMap;
             _moveAction = _currentMap.FindAction("Move");
@@ -57,6 +59,8 @@ namespace TowerDefense.Gameplay.Core
             _runAction.canceled += onRun;
             _jumpAction.canceled += onJump;
             _crouchAction.canceled += onCrouch;
+
+            //_playerControlls = new PlayerControlls();
         }
 
         private void HideCursor()
@@ -86,14 +90,21 @@ namespace TowerDefense.Gameplay.Core
             Crouch = context.ReadValueAsButton();
         }
 
+        //public Vector2 GetMouseDelta()
+        //{
+        //    return _playerControlls.Player.Look.ReadValue<Vector2>();
+        //}
+
         private void OnEnable()
         {
             _currentMap.Enable();
+            //_playerControlls.Enable();
         }
 
         private void OnDisable()
         {
             _currentMap.Disable();
+            //_playerControlls.Disable();
         }
     }
 }

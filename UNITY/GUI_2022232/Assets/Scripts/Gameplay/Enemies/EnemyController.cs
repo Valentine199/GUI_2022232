@@ -1,15 +1,17 @@
+using Assets.Scripts.Gameplay.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Data.Enemies;
 using TowerDefense.Gameplay.Path;
-using TowerDefense.Towers.TowerAttackControllers;
+using Unity.Mathematics;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TowerDefense.Gameplay.Enemies
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : NetworkBehaviour
     {
         public void InitEnemy(EnemyProperties enemyProperties, int targetWaypointIndex)
         {
@@ -17,27 +19,35 @@ namespace TowerDefense.Gameplay.Enemies
             _healthRemaining = _enemyProperties.Health;
             _targetWaypointIndex = targetWaypointIndex;
             SetTargetWaypointPosition();
+
         }
 
-        public bool HitEnemy()
+        public void HitEnemy()
+        {
+            if (_healthRemaining > 0)
+            {
+                HitEnemyServerRpc();
+            }
+        }
+
+        public NetworkObject GetEnemyNetworkObject()
+        {
+            if (this.TryGetComponent<NetworkObject>(out NetworkObject enemyNetwork))
+            {
+                return enemyNetwork;
+            }
+
+            return null;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void HitEnemyServerRpc()
         {
             --_healthRemaining;
             if (_healthRemaining < 0)
-                return false;
+                return;
             if (_healthRemaining <= 0)
                 BurstEnemy();
-
-            return true;
-        }
-
-        public bool HitEnemy(out EnemyController[] spawnedEnemies)
-        {
-            spawnedEnemies = null;
-            --_healthRemaining;
-            if (_healthRemaining < 0)
-                return false;
-            spawnedEnemies = _healthRemaining <= 0 ? BurstEnemy() : new EnemyController[1] { this };
-            return true;
         }
 
         public static EnemyController CompareFirst(EnemyController e1, EnemyController e2)
@@ -72,7 +82,7 @@ namespace TowerDefense.Gameplay.Enemies
         {
             if (e1.LTW > e2.LTW)
                 return e1;
-            if (e1.LTW < e2.LTW) 
+            if (e1.LTW < e2.LTW)
                 return e2;
 
             // Same strength -> target first
@@ -107,41 +117,52 @@ namespace TowerDefense.Gameplay.Enemies
         }
 
         public bool IsFrozen => _isFrozen;
+        public bool IsOnFire => _isOnFire;
 
         private void Update()
         {
             MoveEnemies();
         }
 
-        private EnemyController[] BurstEnemy()
+        private void BurstEnemy()
         {
             OnEnemyKilled?.Invoke(_enemyProperties);
             OnEnemyDie?.Invoke(this);
+
+
+            if (ActiveEffects.Count > 0)
+            {
+                foreach (GameObject effect in ActiveEffects)
+                {
+                    Destroy(effect);
+                }
+            }
+            ActiveEffects.Clear();
+            Destroy(gameObject);
             if (HasEnemiesToSpawn)
-            {
-                Destroy(gameObject);
-                return SpawnChildEnemies();
-            }
-            else
-            {
-                Destroy(gameObject);
-                return null;
-            }
+                SpawnChildEnemies();
         }
 
-        private EnemyController[] SpawnChildEnemies()
+        private void SpawnChildEnemies()
         {
-            var children = new EnemyController[_enemyProperties.EnemiesToSpawnWhenKilled.Count];
             for (int i = 0; i < _enemyProperties.EnemiesToSpawnWhenKilled.Count; i++)
             {
-                var enemyToSpawn = _enemyProperties.EnemiesToSpawnWhenKilled[i];
-                var newEnemy = EnemySpawner.Instance.SpawnEnemy(enemyToSpawn, transform.position, _targetWaypointIndex);
-                children[i] = newEnemy;
+                EnemyProperties enemyToSpawn = _enemyProperties.EnemiesToSpawnWhenKilled[i];
+                Vector3 spawnOffset = new Vector3(
+                    (float)Util.Random.NextDouble(),
+                    (float)Util.Random.NextDouble(),
+                    (float)Util.Random.NextDouble());
+                EnemySpawner.Instance.SpawnEnemy(enemyToSpawn, transform.position + spawnOffset, _targetWaypointIndex);
             }
-            return children;
         }
 
         private void MoveEnemies()
+        {
+            MoveEnemiesServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void MoveEnemiesServerRpc()
         {
             float speed = _enemyProperties.MoveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);
@@ -195,9 +216,36 @@ namespace TowerDefense.Gameplay.Enemies
 
         private int _targetWaypointIndex;
         private int _healthRemaining;
+        public int HealthRemaining { get { return this._healthRemaining; } }
+        public List<GameObject> ActiveEffects { get; private set; } = new List<GameObject>();
         private bool _isFrozen;
+        private bool _isOnFire = false;
 
         private Vector3 _targetWaypointPosition;
+
+        public void AddActiveEffect(GameObject effect)
+        {
+            if(!IsServer) { return; }
+            ActiveEffects.Add(effect);
+        }
+
+        public void RemoveActiveEffect(GameObject effect)
+        {
+            if (IsServer && ActiveEffects.Contains(effect))
+            {
+                ActiveEffects.Remove(effect);
+            }            
+        }
+
+        public void SetOnFire()
+        {
+            _isOnFire = true;
+        }
+
+        public void RemoveFire()
+        {
+            _isOnFire = false;
+        }
 
         private int LTW
         {

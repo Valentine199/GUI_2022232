@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using TowerDefense.Gameplay.Enemies;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GunSystem : MonoBehaviour
+public class GunSystem : NetworkBehaviour
 {
     //Gun stats
     [SerializeField] int damage;
@@ -29,8 +30,9 @@ public class GunSystem : MonoBehaviour
     bool shooting;
     bool readyToShoot;
     bool reloading;
+    List<GameObject> weaponGameObject = new List<GameObject>();
 
-    [SerializeField] Camera fpsCam;
+    public Camera fpsCam;
     [SerializeField] Transform attackPoint;
     [SerializeField] RaycastHit rayHit;
     [SerializeField] LayerMask whatIsEnemy;
@@ -43,13 +45,24 @@ public class GunSystem : MonoBehaviour
         bulletsLeft = magazineSize;
         readyToShoot = true;
     }
+    private void Start()
+    {
+        weaponGameObject.Add(muzzleFlash);
+        weaponGameObject.Add(bulletHoleGraphic);
+    }
+
     private void Update()
     {
+        if (!IsOwner) return;
+
         MyInput();
 
         text.SetText(bulletsLeft + " / " + magazineSize);
     }
-
+    private GameObject GetweaponGameObject(int index)
+    { 
+        return weaponGameObject[index];
+    }
     private void MyInput()
     {
         if (allowButtonHold)
@@ -85,9 +98,9 @@ public class GunSystem : MonoBehaviour
 
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position,direction,out rayHit,range)) 
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
         {
-            Debug.Log(rayHit.collider.name);
+            //Debug.Log(rayHit.collider.name);
 
             if ((whatIsEnemy.value & (1 << rayHit.collider.gameObject.layer)) > 0)
             {
@@ -99,10 +112,12 @@ public class GunSystem : MonoBehaviour
             }
         }
 
-        Destroy(Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0)),0.1f);
+        Destroy(Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0)), 0.1f);
+        BulletHoleServerRPC(rayHit.point);
         //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
 
-        Destroy(Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity),0.01f);
+        Destroy(Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity), 0.01f);
+        MuzzleFlashServerRPC(attackPoint.position);
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         bulletsLeft--;
@@ -115,6 +130,34 @@ public class GunSystem : MonoBehaviour
             Invoke("Shoot", timeBetweenShots);
         }
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void BulletHoleServerRPC(Vector3 hit)
+    {
+        BulletHoleClientRPC(hit);
+    }
+    [ClientRpc]
+    public void BulletHoleClientRPC(Vector3 hit)
+    {
+        if (IsOwner) return;
+        Destroy(Instantiate(GetweaponGameObject(1), hit, Quaternion.Euler(0, 180, 0)),0.1f);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void MuzzleFlashServerRPC(Vector3 hit)
+    {
+        MuzzleFlashClientRPC(hit);
+    }
+    [ClientRpc]
+    public void MuzzleFlashClientRPC(Vector3 hit)
+    {
+        if (IsOwner) return;
+        var GG = Instantiate(GetweaponGameObject(0), hit, Quaternion.Euler(0, 180, 0));
+        //GG.transform.parent = gameObject.transform.GetChild(0).transform;
+        //GG.transform.position = Vector3.zero;
+        Destroy(GG,0.05f);
+    }
+
     private void ResetShot()
     {
         readyToShoot = true;

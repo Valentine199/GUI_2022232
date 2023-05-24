@@ -4,16 +4,15 @@ using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Towers.TowerUpgrades;
 using UnityEngine;
 using TowerDefense.Towers.TowerEnums;
-using static BulletTypeEnums;
 using TowerDefense.Gameplay.Core;
+using Unity.Netcode;
 
 namespace TowerDefense.Towers.TowerAttackControllers
 {
     [RequireComponent(typeof(TowerUpgradeController))]
-    [RequireComponent(typeof(TowerManager))]
-    public class TowerController : MonoBehaviour
+    public class TowerController : NetworkBehaviour
     {
-        private GameObject _particleSysGO;
+        //private GameObject _particleSysGO;
         private int _towerCost;
 
         [SerializeField] private TowerProperties _properties;
@@ -23,15 +22,19 @@ namespace TowerDefense.Towers.TowerAttackControllers
         [SerializeField] private TowerUpgradeController _upgradeController;
         [SerializeField] private GameObject _bulletOrigin;
         [SerializeField] private TowerManager _towerManager;
+        [SerializeField] private GameObject ParticleGO;
 
         public TowerProperties Properties { get { return _properties; } private set { _properties = value; } }
         public TowerEnemyDetector EnemyDetector => _enemyDetector;
         public TowerParticleController ParticleControll => _particleController;
         public GameObject BulletOrigin { get { return _bulletOrigin; } private set { _bulletOrigin = value; } }
         public TargetingStyle TargetingStyle { get; private set; }
+        public event Action OnTargetingStyleChanged;
 
         private float SellTowerMultiplier => GameController.Instance.SellTowerMultiplier;
         public int SellTowerCost => Mathf.FloorToInt(_towerCost * SellTowerMultiplier);
+
+        
 
         private void Awake()
         {
@@ -41,7 +44,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
             _towerManager.TowerController = this;
             _particleController.FiringRate = _properties.TowerFiringRate;
 
-            _particleSysGO = _properties.BulletParticleSystem;
+            //_particleSysGO = _properties.BulletParticleSystem;
             _upgradeController.InitializeUpgrades(this);
 
             TargetingStyle = _properties.DefaultTowerTargetingStyle;
@@ -49,14 +52,15 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void Start()
         {
-            GameObject inst = Instantiate(_particleSysGO, _bulletOrigin.transform.position, Quaternion.identity);
-            inst.transform.parent = _bulletOrigin.transform;
+            //GameObject inst = Instantiate(_particleSysGO, _bulletOrigin.transform.position, Quaternion.identity);
+            //inst.transform.parent = _bulletOrigin.transform;
 
-            var bulletScript = GetDamageType(inst);
+            var bulletScript = ParticleGO.GetComponent<TowerDamage>();//GetDamageType(ParticleGO);
             bulletScript.InitDamage(_properties);
 
-            _particleController.ChangeParticleSystem(inst.GetComponent<ParticleSystem>());
-            _towerShooting.ChangeTargetingStyle(TargetingStyle);
+
+            _particleController.ChangeParticleSystem(ParticleGO.GetComponent<ParticleSystem>());
+            OnTargetingStyleChanged?.Invoke();
 
             _towerCost = _properties.TowerCost;
 
@@ -64,11 +68,27 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         }
 
-        public void SellTower()
+        [ServerRpc(RequireOwnership =false)]
+        public void SellTowerServerRpc()
         {
             GameController.Instance.IncrementMoney(SellTowerCost);
             StopAllCoroutines();
+
+            NetworkObject networkTower = gameObject.GetComponent<NetworkObject>();
+            networkTower.Despawn();
             Destroy(gameObject);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void ChangeRangeVisibilityServerRpc(bool enabled)
+        {
+            ChangeRangeVisibilityClientRpc(enabled);
+        }
+
+        [ClientRpc]
+        private void ChangeRangeVisibilityClientRpc(bool isEnabled)
+        {
+            EnemyDetector.GetComponent<MeshRenderer>().enabled = isEnabled;
         }
 
         public void EnemyDetected(Collider other)
@@ -76,31 +96,38 @@ namespace TowerDefense.Towers.TowerAttackControllers
             EnemyController target = other.gameObject.GetComponent<EnemyController>();
             if (target != null)
             {
-                _towerShooting.AddTargetToInRange(target);
+                _towerShooting.AddTargetToInRangeServerRpc(target.GetEnemyNetworkObject());
             }
         }
-
         public void OnEnemyExit(Collider other)
         {
             EnemyController target = other.gameObject.GetComponent<EnemyController>();
             if (target != null)
             {
-                _towerShooting.RemoveTargetFromInRange(target);
+                _towerShooting.RemoveTargetFromInRangeServerRpc(target.GetEnemyNetworkObject());
             }
         }
 
-        public void Shoot(bool canShoot)
+        [ServerRpc(RequireOwnership =false, Delivery = RpcDelivery.Unreliable)]
+        public void ShootServerRpc(bool canShoot)
         {
-            _particleController.TowerShoot(canShoot);
+            _particleController.TowerShootClientRpc(canShoot);
         }
 
 
-        public void IncreaseTotalTowerCost(int cost)
+        public void RequestIncreaseTotalTowerCost(int cost)
+        {
+            IncreaseTotalTowerCostClientRpc(cost);
+        }
+
+        [ClientRpc]
+        private void IncreaseTotalTowerCostClientRpc(int cost)
         {
             _towerCost += cost;
         }
 
-        public void CycleTargetingMode()
+        [ServerRpc(RequireOwnership = false)]
+        public void CycleTargetingModeServerRpc()
         {
             int val = (int)TargetingStyle;
             val++;
@@ -109,10 +136,20 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 val = 0;
             }
 
-            TargetingStyle = (TargetingStyle)val;
-            _towerShooting.ChangeTargetingStyle(TargetingStyle);
+            SetOwnTargetingStyleClientRpc(val);
         }
-        public void CycleTargetingModeBackwards()
+
+        [ClientRpc]
+        public void SetOwnTargetingStyleClientRpc(int val)
+        {
+            TargetingStyle = (TargetingStyle)val;
+            OnTargetingStyleChanged?.Invoke();
+
+        }
+
+
+        [ServerRpc(RequireOwnership = false)]
+        public void CycleTargetingModeBackwardsServerRpc()
         {
             int val = (int)TargetingStyle;
             val--;
@@ -121,8 +158,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 val = Enum.GetNames(typeof(TargetingStyle)).Length - 1;
             }
 
-            TargetingStyle = (TargetingStyle)val;
-            _towerShooting.ChangeTargetingStyle(TargetingStyle);
+            SetOwnTargetingStyleClientRpc(val);
         }
 
         public TowerUpgrade FetchTowerUpgrade()
@@ -149,35 +185,5 @@ namespace TowerDefense.Towers.TowerAttackControllers
                     return null;
             }
         }
-
-
-        //private void GetCurrentTarget()
-        //{
-        //    if (targetsInRange.Count <= 0)
-        //    {
-        //        currentTarget = null;
-        //        OnTargetLost?.Invoke();
-        //        return;
-        //    }
-
-        //    if (currentTarget != null)
-        //    {
-        //        currentTarget.OnDeath -= HandleTargetDeath;
-        //    }
-
-        //    currentTarget.OnDeath += HandleTargetDeath;
-
-        //    OnTargetFound?.Invoke(currentTarget);
-        //}
-
-
-
-        //private void HandleTargetDeath()
-        //{
-        //    //RemoveTargetFromInRangeList(currentTarget);
-        //    //currentTarget.OnDeath -= HandleTargetDeath;
-        //    GetCurrentTarget();
-        //}
-
     }
 }

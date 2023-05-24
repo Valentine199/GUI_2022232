@@ -16,7 +16,7 @@ MonoBehaviour:
   - _enemyType: 0
     _amountInGroup: 10
     _timeBetweenEnemies: 1.2
-    _initialSpawnDelay: 10
+    _initialSpawnDelay: 0
   - _enemyType: 1
     _amountInGroup: 20
     _timeBetweenEnemies: 1.4

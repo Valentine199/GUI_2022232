@@ -4,22 +4,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TowerDefense.Gameplay.Core;
+using Unity.Netcode;
+using Cinemachine;
 
 namespace TowerDefense.Gameplay.Core
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : NetworkBehaviour
     {
 
         [SerializeField] private float AnimBlendSpeed = 8.9f;
         [SerializeField] private Transform CameraRoot;
         [SerializeField] private Transform Camera;
+        [SerializeField] private GameObject cam;
         [SerializeField] private float UpperLimit = -40f;
         [SerializeField] private float BottomLimit = 70f;
         [SerializeField] private float MouseSensitivity = 21.9f;
         [SerializeField] private float JumpFactor = 260f;
         [SerializeField] private float DistanceToGround = 0.85f;
         [SerializeField] private float AirResistance = 0.8f;
-        [SerializeField] private LayerMask GroundCheck;        
+        [SerializeField] private float jumpDelay = 1f;
+        [SerializeField] private LayerMask GroundCheck;
+        [SerializeField] private GameObject WeaponHolder;
+        [SerializeField] private HandlePlaceCanvas _buildCanvas;
+        [SerializeField] private TowerInteractUI _InteractCanvas;
+
+        [SerializeField] private CinemachineExtender cinemachineExtender;
+
+        private GameController _gameController;
 
         private Rigidbody _playerRigidbody;
 
@@ -57,19 +68,32 @@ namespace TowerDefense.Gameplay.Core
         private Vector2 _currentVelocity;
 
         //public bool CameraFreezed { get { return _cameraFreezed; } set { _cameraFreezed = value; } }
-
+        public override void OnGainedOwnership()
+        {
+            //cam.isActiveAndEnabled = true;
+            //cam.enabled = true;
+            //cam.GetComponent<Camera>().enabled = true;
+            //cam.SetActive(true);
+        }
         private void OnEnable()
         {
-            HandlePlaceCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
+            //if (!IsOwner) return;
+            _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
+            _InteractCanvas.OnUpgradeCanvasToggled += ToggleFreezeCam;
+    
         }
 
         private void OnDisable()
         {
-            HandlePlaceCanvas.OnBuildingsCanvasToggled -= ToggleFreezeCam;
+            //if (!IsOwner) return;
+            _buildCanvas.OnBuildingsCanvasToggled -= ToggleFreezeCam;
+            _InteractCanvas.OnUpgradeCanvasToggled -= ToggleFreezeCam;
         }
 
         private void Start()
         {
+            _gameController = GameController.Instance;
+            _gameController.OnGameOver += ToggleFreezeCam;
             _hasAnimator = TryGetComponent<Animator>(out _animator);
             _playerRigidbody = GetComponent<Rigidbody>();
             _inputManager = GetComponent<InputManager>();
@@ -81,10 +105,34 @@ namespace TowerDefense.Gameplay.Core
             _fallingHash = Animator.StringToHash("Falling");
             _zVelHash = Animator.StringToHash("Z_Velocity");
             _crouchVelHash = Animator.StringToHash("Crouch");
+            
+            //PlayerCamera.Instance.FollowPlayer(transform.Find("PlayerCameraRoot"));
+            //CinemachineVirtualCamera virtualcam = GameObject.Find("Main Camera").GetComponent<CinemachineVirtualCamera>();
+            //if (IsOwner) virtualcam.Follow = CameraRoot;
+            Camera = GameObject.Find("Main Camera").transform;
+            cam = GameObject.Find("Main Camera");
+            //cinemachineExtender.Sensitivity = MouseSensitivity;
+            //cinemachineExtender.inputManger = GetComponent<InputManager>();
+            //virtualcam.AddExtension(cinemachineExtender);
+            if (!IsOwner) return;
+            cam.transform.SetParent(transform);
+            WeaponHolder.transform.SetParent(cam.transform);
+            WeaponHolder.transform.localPosition = Vector3.zero;
+            WeaponHolder.transform.localRotation = Quaternion.identity;
+            foreach (Transform child in WeaponHolder.transform)
+            {
+                child.transform.GetChild(0).TryGetComponent<GunSystem>(out var gunSystem);
+                if (gunSystem != null)
+                {
+                gunSystem.fpsCam = cam.GetComponent<Camera>();
+                }
+            }
+            //WeaponHolderSync();
         }
 
         private void FixedUpdate()
         {
+            
             SampleGround();
             Move();
             HandleJump();
@@ -93,16 +141,20 @@ namespace TowerDefense.Gameplay.Core
 
         private void LateUpdate()
         {
+            
             CamMovements();
+            WeaponHolderSync();
         }
 
-        private void ToggleFreezeCam()
-        {
+        public void ToggleFreezeCam()
+        {         
+            if (!IsOwner) return;
             _cameraFreezed = !_cameraFreezed;
         }
 
         private void Move()
         {
+            if (!IsOwner) return;
             if (!_hasAnimator) return;
 
             float tartgetSpeed = _inputManager.Run ? _runSpeed : _walkSpeed;
@@ -130,11 +182,27 @@ namespace TowerDefense.Gameplay.Core
             _animator.SetFloat(_yVelHash, _currentVelocity.y);
 
         }
-
+        private void WeaponHolderSync()
+        {
+            WeaponHolderSyncServerRPC();
+        }
+        [ServerRpc(RequireOwnership = false)]
+        private void WeaponHolderSyncServerRPC()
+        {
+            WeaponHolderSyncClientRPC();
+        }
+        [ClientRpc]
+        private void WeaponHolderSyncClientRPC()
+        {
+            if (IsOwner) return;
+            WeaponHolder.transform.position = CameraRoot.position;
+            //WeaponHolder.transform.parent = CameraRoot;
+        }
         private void CamMovements()
         {
+            if (!IsOwner) return;
             if (!_hasAnimator) return;
-            if (_cameraFreezed)  return; 
+            if (_cameraFreezed) return;
 
             var Mouse_X = _inputManager.Look.x;
             var Mouse_Y = _inputManager.Look.y;
@@ -143,32 +211,55 @@ namespace TowerDefense.Gameplay.Core
             _xRotation -= Mouse_Y * MouseSensitivity * Time.deltaTime;
             _xRotation = Mathf.Clamp(_xRotation, UpperLimit, BottomLimit);
 
-            Camera.localRotation = Quaternion.Euler(_xRotation,0,0);
+            Camera.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+            RotateWeaponServerRpc(_xRotation);
             _playerRigidbody.MoveRotation(_playerRigidbody.rotation * Quaternion.Euler(0, Mouse_X * MouseSensitivity * Time.smoothDeltaTime, 0));
         }
-
+        [ServerRpc(RequireOwnership = false)]
+        void RotateWeaponServerRpc(float xd)
+        {           
+            RotateWeaponClientRpc(xd);
+        }
+        [ClientRpc]
+        void RotateWeaponClientRpc(float xd)
+        {
+            if (IsOwner) return;
+            WeaponHolder.transform.localRotation = Quaternion.Euler(xd, 0, 0);
+        }
         private void HandleCrouch()
         {
+            if (!IsOwner) return;
+            
             _animator.SetBool(_crouchVelHash, _inputManager.Crouch);
         }
 
         private void HandleJump()
         {
-            if (!_hasAnimator) return;
-            if (!_inputManager.Jump) return;
-            if (!_grounded) return;            
-            _animator.SetTrigger(_jumpHash);       
+            jumpDelay -= Time.deltaTime;
+            if (jumpDelay <= 0.0f)
+            {
+                if (!IsOwner) return;
+                if (!_hasAnimator) return;
+                if (!_inputManager.Jump) return;
+                if (!_grounded) return;
+
+                _animator.SetTrigger(_jumpHash);
+                jumpDelay = 1f;
+            }
         }
             
         public void JumpAddForce()
         {
+            if (!IsOwner) return;
             _playerRigidbody.AddForce(-_playerRigidbody.velocity.y*Vector3.up,ForceMode.VelocityChange);
             _playerRigidbody.AddForce(Vector3.up * JumpFactor, ForceMode.Impulse);
+            
             _animator.ResetTrigger(_jumpHash);
         }
 
         private void SampleGround()
         {
+            if (!IsOwner) return;
             if (!_hasAnimator) return;
 
             RaycastHit hitInfo;
@@ -188,6 +279,8 @@ namespace TowerDefense.Gameplay.Core
 
         private void SetAnimationGrounding()
         {
+            if (!IsOwner) return;
+            
             _animator.SetBool(_fallingHash, !_grounded);
             _animator.SetBool(_groundHash, _grounded);
         }
