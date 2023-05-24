@@ -65,7 +65,7 @@ public class SFXManager : NetworkBehaviour
         _multipleSongs = false;
         if(!_audioSource.isPlaying) { return; }
 
-        StartFade(0);
+        //StartFade(0);
     }
 
     private void PlayDeadSound()
@@ -94,16 +94,16 @@ public class SFXManager : NetworkBehaviour
     private void SyncedSoundServerRpc()
     {
         int r = UnityEngine.Random.Range(0, _ambianceSound.Length);
-
-        SyncedSoundClientRpc(r);
+        AudioClip nextSong = _ambianceSound[r];
+        StartCoroutine(PlaySound(nextSong));
+        //StartFade(0.07f);
+        //SyncedSoundClientRpc(r);
     }
 
     [ClientRpc]
     private void SyncedSoundClientRpc(int i)
     {
-        AudioClip nextSong = _ambianceSound[i];
-        StartCoroutine(PlaySound(nextSong));
-        StartFade(0.07f);
+        
     }
 
     private IEnumerator PlaySoundOnLoop(AudioClip audio)

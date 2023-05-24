@@ -14,8 +14,8 @@ public class ChillMusicStarter : MonoBehaviour, ISoundPlayer, IMusicStarter
     private void OnEnable()
     {
         WaveController controller = WaveController.Instance;
-        controller.OnWaveStarted += StopMusic;
-        controller.OnWaveCompleted += StartMusic;
+        //controller.OnWaveStarted += StopMusic;
+        //controller.OnWaveCompleted += StartMusic;
     }
 
     private void Start()
