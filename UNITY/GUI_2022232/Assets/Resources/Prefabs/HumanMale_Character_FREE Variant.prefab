@@ -1415,6 +1415,30 @@ MonoBehaviour:
           m_StringArgument: EndGameCanvas
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1910101917290599810}
+        m_TargetAssemblyTypeName: CanvasChanger, Assembly-CSharp
+        m_MethodName: DisableCursor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7935314263171385650}
+        m_TargetAssemblyTypeName: TowerDefense.Gameplay.Core.PlayerController, Assembly-CSharp
+        m_MethodName: ToggleFreezeCam
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &9092404027466200369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2203,6 +2227,7 @@ GameObject:
   - component: {fileID: 5302784210935870226}
   - component: {fileID: 7880593013533742836}
   - component: {fileID: 7831278644825084421}
+  - component: {fileID: 8041035196429969865}
   m_Layer: 8
   m_Name: UI
   m_TagString: Untagged
@@ -2345,6 +2370,19 @@ MonoBehaviour:
   InteractCanvas: {fileID: 413626020218736269}
   _conflictCanvas:
   - {fileID: 4423642955157798573}
+--- !u!114 &8041035196429969865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423132989707494283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e09ce83cdbe0941b6dcf0bc84f0b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endGameCanvas: {fileID: 5204429949089334123}
 --- !u!1 &4423642955157798573
 GameObject:
   m_ObjectHideFlags: 0
@@ -5841,13 +5879,73 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7243428439331325743}
     - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Sell
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TowerInteractUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CanvasChanger, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5697878355823125857, guid: e1ccd5afb0580884f882e82110acc53e,
         type: 3}
