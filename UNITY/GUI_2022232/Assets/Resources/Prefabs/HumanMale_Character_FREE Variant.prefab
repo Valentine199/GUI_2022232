@@ -5324,6 +5324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimBlendSpeed: 8.9
   CameraRoot: {fileID: 7177571914670288320}
+  ShoulderRoot: {fileID: 8997674477332979574}
   Camera: {fileID: 0}
   cam: {fileID: 0}
   UpperLimit: -40
