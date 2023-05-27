@@ -95,8 +95,7 @@ namespace TowerDefense.Gameplay.Core
         }
 
         private void Start()
-        {
-            Application.targetFrameRate = 100;
+        { 
             _gameController = GameController.Instance;
             _gameController.OnGameOver += ToggleFreezeCam;
             _hasAnimator = TryGetComponent<Animator>(out _animator);
@@ -132,7 +131,7 @@ namespace TowerDefense.Gameplay.Core
                     gunSystem.fpsCam = cam.GetComponent<Camera>();
                 }
             }
-            //WeaponHolderSync();
+            //WeaponHolderSync(); 
         }
 
         private void FixedUpdate()
@@ -142,13 +141,14 @@ namespace TowerDefense.Gameplay.Core
             Move();
             HandleJump();
             HandleCrouch();
+            Checkmovement();
         }
 
         private void LateUpdate()
         {
             CamMovements();
             WeaponHolderSync();
-            Checkmovement();
+            //Checkmovement();
         }
 
         void Checkmovement()
@@ -156,9 +156,9 @@ namespace TowerDefense.Gameplay.Core
             //Debug.Log("GG");
             //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
             if (!IsOwner) return;
-            if (Math.Abs(prevposx-transform.position.x)>0.2 || Math.Abs(prevposz - transform.position.z)> 0.2)
+            if (Math.Abs(prevposx-transform.position.x)>0.5 || Math.Abs(prevposz - transform.position.z)> 0.5)
             {
-                Debug.Log("GG");
+                Debug.Log("Teleport");
                 transform.position = new Vector3(prevposx, transform.position.y,prevposz);                
             }
             prevposx = transform.position.x;
