@@ -234,8 +234,8 @@ namespace TowerDefense.Gameplay.Core
         private void WeaponHolderSyncClientRPC()
         {
             if (IsOwner) return;
-            WeaponHolder.transform.position = ShoulderRoot.position;
-            //WeaponHolder.transform.parent = CameraRoot;
+            //WeaponHolder.transform.position = ShoulderRoot.position;
+            WeaponHolder.transform.parent = CameraRoot;
         }
         private void CamMovements()
         {
