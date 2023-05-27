@@ -1124,7 +1124,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6841063841149113295}
         m_TargetAssemblyTypeName: BackToMenu, Assembly-CSharp
-        m_MethodName: BackToMenuXD
+        m_MethodName: ExitApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main Menu
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e6c5e0f3781abcf4abc3d4e2900e99c6, type: 2}
   m_sharedMaterial: {fileID: -2013300387120857368, guid: e6c5e0f3781abcf4abc3d4e2900e99c6,
