@@ -54,7 +54,7 @@ public class TowerUpgradeInteract : MonoBehaviour, ConflictDetectorInterface
         }
         else
         {
-            InteractCanvas.GetComponent<TowerInteractUI>().CloseSelf();
+            InteractCanvas.GetComponent<TowerInteractUI>().CloseSelf(false);
             
         }
     }

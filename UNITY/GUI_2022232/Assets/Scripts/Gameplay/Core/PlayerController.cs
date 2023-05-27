@@ -156,7 +156,7 @@ namespace TowerDefense.Gameplay.Core
             //Debug.Log("GG");
             //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
             if (!IsOwner) return;
-            if (Math.Abs(prevposx-transform.position.x)>0.5 || Math.Abs(prevposz - transform.position.z)> 0.5)
+            if (Math.Abs(prevposx-transform.position.x)>0.2 || Math.Abs(prevposz - transform.position.z)> 0.2)
             {
                 Debug.Log("Teleport");
                 transform.position = new Vector3(prevposx, transform.position.y,prevposz);                

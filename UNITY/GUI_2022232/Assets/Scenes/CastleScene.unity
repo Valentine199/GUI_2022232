@@ -22696,7 +22696,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 60
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 84.2.96.93
+    Address: 127.0.0.1
     Port: 7777
     ServerListenAddress: 0.0.0.0
   DebugSimulator:
@@ -22730,7 +22730,7 @@ MonoBehaviour:
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
-      Prefab: {fileID: 3239935641662030738, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
+      Prefab: {fileID: 6788418410635772472, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
         type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0

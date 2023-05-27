@@ -21,7 +21,7 @@ MonoBehaviour:
   TowerModel: {fileID: 6013129910860680078, guid: 9f28ce10a416a0b469970b60986cc100,
     type: 3}
   TowerPicture: {fileID: 21300000, guid: c263b02d20dc2414e899f98dfe25d002, type: 3}
-  TowerObject: {fileID: 3239935641662030738, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
+  TowerObject: {fileID: 6788418410635772472, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
     type: 3}
   DefaultTowerTargetingStyle: 0
   Effect: {fileID: 0}
