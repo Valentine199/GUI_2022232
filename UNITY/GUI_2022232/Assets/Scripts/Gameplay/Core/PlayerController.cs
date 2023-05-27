@@ -14,7 +14,6 @@ namespace TowerDefense.Gameplay.Core
 
         [SerializeField] private float AnimBlendSpeed = 8.9f;
         [SerializeField] private Transform CameraRoot;
-        [SerializeField] private Transform ShoulderRoot;
         [SerializeField] private Transform Camera;
         [SerializeField] private GameObject cam;
         [SerializeField] private float UpperLimit = -40f;
@@ -156,7 +155,6 @@ namespace TowerDefense.Gameplay.Core
         {
             //Debug.Log("GG");
             //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
-            if (!IsOwner) return;
             if (Math.Abs(prevposx-transform.position.x)>0.2 || Math.Abs(prevposz - transform.position.z)> 0.2)
             {
                 Debug.Log("Teleport");
@@ -234,7 +232,7 @@ namespace TowerDefense.Gameplay.Core
         private void WeaponHolderSyncClientRPC()
         {
             if (IsOwner) return;
-            WeaponHolder.transform.position = ShoulderRoot.position;
+            WeaponHolder.transform.position = CameraRoot.position;
             //WeaponHolder.transform.parent = CameraRoot;
         }
         private void CamMovements()
