@@ -67,6 +67,9 @@ namespace TowerDefense.Gameplay.Core
 
         private Vector2 _currentVelocity;
 
+        private float prevposx;
+        private float prevposz;
+
         //public bool CameraFreezed { get { return _cameraFreezed; } set { _cameraFreezed = value; } }
         public override void OnGainedOwnership()
         {
@@ -80,7 +83,7 @@ namespace TowerDefense.Gameplay.Core
             //if (!IsOwner) return;
             _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
             _InteractCanvas.OnUpgradeCanvasToggled += ToggleFreezeCam;
-    
+
         }
 
         private void OnDisable()
@@ -92,6 +95,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void Start()
         {
+            Application.targetFrameRate = 100;
             _gameController = GameController.Instance;
             _gameController.OnGameOver += ToggleFreezeCam;
             _hasAnimator = TryGetComponent<Animator>(out _animator);
@@ -105,7 +109,7 @@ namespace TowerDefense.Gameplay.Core
             _fallingHash = Animator.StringToHash("Falling");
             _zVelHash = Animator.StringToHash("Z_Velocity");
             _crouchVelHash = Animator.StringToHash("Crouch");
-            
+
             //PlayerCamera.Instance.FollowPlayer(transform.Find("PlayerCameraRoot"));
             //CinemachineVirtualCamera virtualcam = GameObject.Find("Main Camera").GetComponent<CinemachineVirtualCamera>();
             //if (IsOwner) virtualcam.Follow = CameraRoot;
@@ -124,7 +128,7 @@ namespace TowerDefense.Gameplay.Core
                 child.transform.GetChild(0).TryGetComponent<GunSystem>(out var gunSystem);
                 if (gunSystem != null)
                 {
-                gunSystem.fpsCam = cam.GetComponent<Camera>();
+                    gunSystem.fpsCam = cam.GetComponent<Camera>();
                 }
             }
             //WeaponHolderSync();
@@ -132,7 +136,7 @@ namespace TowerDefense.Gameplay.Core
 
         private void FixedUpdate()
         {
-            
+
             SampleGround();
             Move();
             HandleJump();
@@ -141,25 +145,39 @@ namespace TowerDefense.Gameplay.Core
 
         private void LateUpdate()
         {
-            
             CamMovements();
             WeaponHolderSync();
+            Checkmovement();
         }
 
+        void Checkmovement()
+        {
+            //Debug.Log("GG");
+            //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
+            if (Math.Abs(prevposx-transform.position.x)>0.2 || Math.Abs(prevposz - transform.position.z)> 0.2)
+            {
+                Debug.Log("GG");
+                transform.position = new Vector3(prevposx, transform.position.y,prevposz);                
+            }
+            prevposx = transform.position.x;
+            prevposz = transform.position.z;
+        }
+                
         public void ToggleFreezeCam()
-        {         
+        {
             if (!IsOwner) return;
             _cameraFreezed = !_cameraFreezed;
         }
 
         private void Move()
         {
+            if (!IsClient) return;
             if (!IsOwner) return;
             if (!_hasAnimator) return;
 
             float tartgetSpeed = _inputManager.Run ? _runSpeed : _walkSpeed;
             if (_inputManager.Crouch) tartgetSpeed = 1.5f;
-            
+
             if (_inputManager.Move == Vector2.zero) tartgetSpeed = 0;
 
             if (_grounded)
@@ -167,20 +185,36 @@ namespace TowerDefense.Gameplay.Core
                 _currentVelocity.x = Mathf.Lerp(_currentVelocity.x, _inputManager.Move.x * tartgetSpeed, AnimBlendSpeed * Time.fixedDeltaTime);
                 _currentVelocity.y = Mathf.Lerp(_currentVelocity.y, _inputManager.Move.y * tartgetSpeed, AnimBlendSpeed * Time.fixedDeltaTime);
 
-                var xVelDifference = _currentVelocity.x - _playerRigidbody.velocity.x;
-                var zVelDifference = _currentVelocity.y - _playerRigidbody.velocity.z;
-
-                _playerRigidbody.AddForce(transform.TransformVector(new Vector3(xVelDifference, 0, zVelDifference)), ForceMode.VelocityChange);
+                float xVelDifference = _currentVelocity.x - _playerRigidbody.velocity.x;
+                float zVelDifference = _currentVelocity.y - _playerRigidbody.velocity.z;
+                //if (_currentVelocity.y > 20 || _currentVelocity.x > 20)
+                //{
+                //    Debug.Log("XD");
+                //    Debug.Break();
+                //}
+                //_playerRigidbody.AddForce(transform.TransformVector(new Vector3(xVelDifference, 0, zVelDifference)), ForceMode.VelocityChange);
+                StartCoroutine(MoveCoroutine1(xVelDifference,zVelDifference));
 
             }
             else
             {
-                _playerRigidbody.AddForce(transform.TransformVector(new Vector3(_currentVelocity.x* AirResistance,0,_currentVelocity.y * AirResistance)),ForceMode.VelocityChange);
+                //_playerRigidbody.AddForce(transform.TransformVector(new Vector3(_currentVelocity.x * AirResistance, 0, _currentVelocity.y * AirResistance)), ForceMode.VelocityChange);
+                StartCoroutine(MoveCoroutine2());
             }
-            
+
             _animator.SetFloat(_xVelHash, _currentVelocity.x);
             _animator.SetFloat(_yVelHash, _currentVelocity.y);
 
+        }
+        IEnumerator MoveCoroutine1(float xVelDiff,float zVelDiff)
+        {
+            _playerRigidbody.AddForce(transform.TransformVector(new Vector3(xVelDiff, 0, zVelDiff)), ForceMode.VelocityChange);
+            yield return null;
+        }
+        IEnumerator MoveCoroutine2() 
+        {
+            _playerRigidbody.AddForce(transform.TransformVector(new Vector3(_currentVelocity.x * AirResistance, 0, _currentVelocity.y * AirResistance)), ForceMode.VelocityChange);
+            yield return null;
         }
         private void WeaponHolderSync()
         {
