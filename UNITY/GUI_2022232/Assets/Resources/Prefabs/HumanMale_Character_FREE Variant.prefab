@@ -5328,7 +5328,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   UpperLimit: -40
   BottomLimit: 70
-  MouseSensitivity: 21.9
+  MouseSensitivity: 7
   JumpFactor: 260
   DistanceToGround: 0.85
   AirResistance: 0.8
