@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class GunSystem : NetworkBehaviour
 {
-    //[SerializeField] GameObject character;
+    [SerializeField] GameObject character;
     //Gun stats
     [SerializeField] int damage;
 

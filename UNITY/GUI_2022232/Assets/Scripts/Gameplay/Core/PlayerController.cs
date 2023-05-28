@@ -137,7 +137,7 @@ namespace TowerDefense.Gameplay.Core
             Move();
             HandleJump();
             HandleCrouch();
-            Checkmovement();
+            //Checkmovement();
             WeaponHolderSync();
         }
 
@@ -147,7 +147,7 @@ namespace TowerDefense.Gameplay.Core
             CamMovements();
             WeaponHolderSync();
         }
-
+        public event Action CamFreeze;
         public void ToggleFreezeCam()
         {         
             if (!IsOwner) return;

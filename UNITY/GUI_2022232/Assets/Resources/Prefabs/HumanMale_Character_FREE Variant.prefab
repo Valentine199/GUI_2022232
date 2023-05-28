@@ -5339,7 +5339,6 @@ MonoBehaviour:
   WeaponHolder: {fileID: 4297644313804093071}
   _buildCanvas: {fileID: 594334517826509746}
   _InteractCanvas: {fileID: 7243428439331325743}
-  _cameraFreezed: 0
 --- !u!114 &59013296540452943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5746,7 +5745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e413c89497b380488e566a9c2ae024a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 3303115634917129618}
   damage: 20
   timeBetweenShooting: 0.05
   spread: 0.02
