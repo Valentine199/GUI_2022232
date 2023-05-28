@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 105007298175218313}
   - component: {fileID: 1586196483502610142}
   - component: {fileID: -974626915198617390}
+  - component: {fileID: -7947883770952043466}
   m_Layer: 7
   m_Name: Cheese
   m_TagString: Untagged
@@ -289,6 +290,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037545007433684203}
   m_Mesh: {fileID: 8423939151319037134, guid: a938ab4588df5104aa3c39c3066c5e6b, type: 3}
+--- !u!114 &-7947883770952043466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037545007433684203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1885996390432867218
 GameObject:
   m_ObjectHideFlags: 0

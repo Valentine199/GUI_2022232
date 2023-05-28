@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -7705567100517098129}
   - component: {fileID: -6297673036733585443}
   - component: {fileID: 2235713429361474300}
+  - component: {fileID: 7533130006145195787}
   m_Layer: 7
   m_Name: CheeseCut
   m_TagString: Untagged
@@ -192,3 +193,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4, y: 0.05, z: 0.31}
   m_Center: {x: 0, y: 0.01, z: 0}
+--- !u!114 &7533130006145195787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4859434739970530200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
