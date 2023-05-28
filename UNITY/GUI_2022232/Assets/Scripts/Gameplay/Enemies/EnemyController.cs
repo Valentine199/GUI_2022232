@@ -117,7 +117,7 @@ namespace TowerDefense.Gameplay.Enemies
         public bool IsFrozen => _isFrozen;
         public bool IsOnFire => _isOnFire;
 
-        private void Update()
+        private void FixedUpdate()
         {
             MoveEnemies();
         }
@@ -155,13 +155,15 @@ namespace TowerDefense.Gameplay.Enemies
 
         private void MoveEnemies()
         {
+            if (!IsServer) 
+                return;
             MoveEnemiesServerRpc();
         }
 
-        [ServerRpc(RequireOwnership = false)]
+        [ServerRpc]
         private void MoveEnemiesServerRpc()
         {
-            float speed = _enemyProperties.MoveSpeed * Time.deltaTime;
+            float speed = _enemyProperties.MoveSpeed * Time.fixedDeltaTime;
             Debug.Log(speed);
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);
 
