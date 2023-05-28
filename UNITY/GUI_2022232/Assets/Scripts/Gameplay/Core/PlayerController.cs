@@ -127,7 +127,7 @@ namespace TowerDefense.Gameplay.Core
                 gunSystem.fpsCam = cam.GetComponent<Camera>();
                 }
             }
-            //WeaponHolderSync();
+            //WeaponHolderSync(); 
         }
 
         private void FixedUpdate()
@@ -137,6 +137,8 @@ namespace TowerDefense.Gameplay.Core
             Move();
             HandleJump();
             HandleCrouch();
+            //Checkmovement();
+            WeaponHolderSync();
         }
 
         private void LateUpdate()
@@ -145,11 +147,13 @@ namespace TowerDefense.Gameplay.Core
             CamMovements();
             WeaponHolderSync();
         }
-
+        public event Action CamFreeze;
         public void ToggleFreezeCam()
         {         
             if (!IsOwner) return;
             _cameraFreezed = !_cameraFreezed;
+            CamFreeze?.Invoke();
+
         }
 
         private void Move()

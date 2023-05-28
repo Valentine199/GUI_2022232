@@ -44,8 +44,6 @@ namespace TowerDefense.Gameplay.Enemies
         public void HitEnemyServerRpc()
         {
             --_healthRemaining;
-            if (_healthRemaining < 0)
-                return;
             if (_healthRemaining <= 0)
                 BurstEnemy();
         }
@@ -119,7 +117,7 @@ namespace TowerDefense.Gameplay.Enemies
         public bool IsFrozen => _isFrozen;
         public bool IsOnFire => _isOnFire;
 
-        private void Update()
+        private void FixedUpdate()
         {
             MoveEnemies();
         }
@@ -128,7 +126,6 @@ namespace TowerDefense.Gameplay.Enemies
         {
             OnEnemyKilled?.Invoke(_enemyProperties);
             OnEnemyDie?.Invoke(this);
-
 
             if (ActiveEffects.Count > 0)
             {
@@ -158,13 +155,16 @@ namespace TowerDefense.Gameplay.Enemies
 
         private void MoveEnemies()
         {
+            if (!IsServer) 
+                return;
             MoveEnemiesServerRpc();
         }
 
-        [ServerRpc(RequireOwnership = false)]
+        [ServerRpc]
         private void MoveEnemiesServerRpc()
         {
-            float speed = _enemyProperties.MoveSpeed * Time.deltaTime;
+            float speed = _enemyProperties.MoveSpeed * Time.fixedDeltaTime;
+            Debug.Log(speed);
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);
 
             if (PercentToNextWaypoint <= PERCENT_THRESHOLD || (100.0f - PercentToNextWaypoint) <= PERCENT_THRESHOLD)

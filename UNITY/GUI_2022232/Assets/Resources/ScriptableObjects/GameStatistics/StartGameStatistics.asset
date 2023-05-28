@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StartGameStatistics
   m_EditorClassIdentifier: 
   _waves: 0
-  _money: 40000
+  _money: 1000
   _lives: 200
   _sellTowerMultiplier: 0.75
   _maxGameStats: {fileID: 0}

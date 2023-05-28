@@ -57,10 +57,11 @@ public class TowerInteractUI : MonoBehaviour
         _towerManager.ShowTowerRange();
     }
 
-    public void CloseSelf()
-    {
-        _towerManager.HideTowerRange();
-        Cursor.visible = false;
+    public void CloseSelf(bool isSold)
+    {        
+        if (!isSold) {_towerManager.HideTowerRange();}
+        //_towerManager.HideTowerRange(); 
+        Cursor.visible = false;        
         Cursor.lockState = CursorLockMode.Locked;
         OnUpgradeCanvasToggled?.Invoke();
         this.gameObject.SetActive(false);
@@ -149,8 +150,8 @@ public class TowerInteractUI : MonoBehaviour
     }
 
     public void Sell()
-    {
+    {        
         _towerManager.SellTower();
-        CloseSelf();
+        CloseSelf(true);
     }
 }

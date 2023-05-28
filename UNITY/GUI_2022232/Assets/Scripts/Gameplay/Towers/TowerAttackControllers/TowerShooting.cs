@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Gameplay.Enemies;
 using TowerDefense.Gameplay.Helpers;
@@ -179,9 +180,9 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 GetTarget();
 
             }
-                _towerController.ShootServerRpc(_canShoot);
+            _towerController.ShootServerRpc(_canShoot);
 
-            
+
         }
 
         private void RemoveDeadEnemies()

@@ -2,14 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TowerDefense.Gameplay.Core;
 using TowerDefense.Gameplay.Enemies;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
 
 public class GunSystem : NetworkBehaviour
 {
+    [SerializeField] GameObject character;
     //Gun stats
     [SerializeField] int damage;
 
@@ -44,13 +47,17 @@ public class GunSystem : NetworkBehaviour
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        character.GetComponent<PlayerController>().CamFreeze += CanShoot;
     }
     private void Start()
     {
         weaponGameObject.Add(muzzleFlash);
         weaponGameObject.Add(bulletHoleGraphic);
     }
-
+    private void CanShoot()
+    {
+        readyToShoot = !readyToShoot;
+    }
     private void Update()
     {
         if (!IsOwner) return;

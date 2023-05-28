@@ -1124,7 +1124,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6841063841149113295}
         m_TargetAssemblyTypeName: BackToMenu, Assembly-CSharp
-        m_MethodName: BackToMenuXD
+        m_MethodName: ExitApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main Menu
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e6c5e0f3781abcf4abc3d4e2900e99c6, type: 2}
   m_sharedMaterial: {fileID: -2013300387120857368, guid: e6c5e0f3781abcf4abc3d4e2900e99c6,
@@ -5328,7 +5328,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   UpperLimit: -40
   BottomLimit: 70
-  MouseSensitivity: 21.9
+  MouseSensitivity: 7
   JumpFactor: 260
   DistanceToGround: 0.85
   AirResistance: 0.8
@@ -5745,6 +5745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e413c89497b380488e566a9c2ae024a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 3303115634917129618}
   damage: 20
   timeBetweenShooting: 0.05
   spread: 0.02
@@ -5879,13 +5880,73 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7243428439331325743}
     - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Sell
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TowerInteractUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CanvasChanger, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102704918216474545, guid: e1ccd5afb0580884f882e82110acc53e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5697878355823125857, guid: e1ccd5afb0580884f882e82110acc53e,
         type: 3}
@@ -6159,6 +6220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e413c89497b380488e566a9c2ae024a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 3303115634917129618}
   damage: 20
   timeBetweenShooting: 0.05
   spread: 0.02
