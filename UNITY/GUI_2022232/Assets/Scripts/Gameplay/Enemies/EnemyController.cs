@@ -44,8 +44,6 @@ namespace TowerDefense.Gameplay.Enemies
         public void HitEnemyServerRpc()
         {
             --_healthRemaining;
-            if (_healthRemaining < 0)
-                return;
             if (_healthRemaining <= 0)
                 BurstEnemy();
         }
@@ -128,7 +126,6 @@ namespace TowerDefense.Gameplay.Enemies
         {
             OnEnemyKilled?.Invoke(_enemyProperties);
             OnEnemyDie?.Invoke(this);
-
 
             if (ActiveEffects.Count > 0)
             {
