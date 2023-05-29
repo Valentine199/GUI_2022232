@@ -33,6 +33,11 @@ namespace TowerDefense.Towers
             _towerController.OnTargetingStyleChanged += TargetingChanged;
         }
 
+        public Camera GetSnapshotCam()
+        {
+            return _towerController.SnapshotCam;
+        }
+
         public TargetingStyle GetTargetingInfo()
         {
             return _towerController.TargetingStyle;

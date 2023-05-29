@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ea40025700fba4f917e80a90354636, type: 3}
   m_Name: BasicTower
   m_EditorClassIdentifier: 
-  TowerName: ORBital Cannon
+  TowerName: Gumball Machine
   TowerRange: 30
   TowerDamage: 10
   TowerFiringRate: 0.5
@@ -20,7 +20,7 @@ MonoBehaviour:
   TowerCost: 300
   TowerModel: {fileID: 6013129910860680078, guid: 9f28ce10a416a0b469970b60986cc100,
     type: 3}
-  TowerPicture: {fileID: 21300000, guid: c263b02d20dc2414e899f98dfe25d002, type: 3}
+  TowerPicture: {fileID: 21300000, guid: bbd7ce14ab5599046b569d4ab8bea75c, type: 3}
   TowerObject: {fileID: 6788418410635772472, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
     type: 3}
   DefaultTowerTargetingStyle: 0

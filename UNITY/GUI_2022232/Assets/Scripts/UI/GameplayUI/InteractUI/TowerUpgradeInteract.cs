@@ -94,6 +94,7 @@ public interface IInteractable
 
     public TowerUpgrade GetUpgradeInfo();
     public void InteractUpgradeServerRpc();
+    public Camera GetSnapshotCam();
 
     public int GetSellPrice();
     public void SellTower();

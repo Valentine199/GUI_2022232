@@ -8,6 +8,7 @@ using UnityEngine;
 using TMPro;
 using Unity.Netcode;
 using TowerDefense.Towers.TowerEnums;
+using UnityEngine.UI;
 
 public class TowerInteractUI : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class TowerInteractUI : MonoBehaviour
     [SerializeField] private TMP_Text _currentTargeting;
     [SerializeField] private TMP_Text _nextTargeting;
 
+    [SerializeField] private RawImage _TowerShow;
+
 
     public void InitSelf(IInteractable interactable)
     {
@@ -50,6 +53,7 @@ public class TowerInteractUI : MonoBehaviour
         ShowTowerInfo(_towerManager.GetUpgradeInfo());
         ChangeTargetingText();
         ShowRange();
+        ShowRenderImage(true);
     }
 
     private void ShowRange()
@@ -60,7 +64,7 @@ public class TowerInteractUI : MonoBehaviour
     public void CloseSelf(bool isSold)
     {        
         if (!isSold) {_towerManager.HideTowerRange();}
-        //_towerManager.HideTowerRange(); 
+        ShowRenderImage(false); 
         Cursor.visible = false;        
         Cursor.lockState = CursorLockMode.Locked;
         OnUpgradeCanvasToggled?.Invoke();
@@ -153,5 +157,21 @@ public class TowerInteractUI : MonoBehaviour
     {        
         _towerManager.SellTower();
         CloseSelf(true);
+    }
+
+    private void ShowRenderImage(bool isSetup)
+    {
+        if (isSetup)
+        {
+            Camera showCam = _towerManager.GetSnapshotCam();
+            showCam.gameObject.SetActive(true);
+            showCam.targetTexture = (RenderTexture)_TowerShow.texture;
+        }
+        else
+        {
+            Camera showCam = _towerManager.GetSnapshotCam();
+            showCam.gameObject.SetActive(false);
+            showCam.targetTexture = null;
+        }
     }
 }

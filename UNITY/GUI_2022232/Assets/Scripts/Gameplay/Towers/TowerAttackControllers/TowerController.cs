@@ -23,8 +23,10 @@ namespace TowerDefense.Towers.TowerAttackControllers
         [SerializeField] private GameObject _bulletOrigin;
         [SerializeField] private TowerManager _towerManager;
         [SerializeField] private GameObject ParticleGO;
+        [SerializeField] private Camera _snapshotCamera;
 
         public TowerProperties Properties { get { return _properties; } private set { _properties = value; } }
+        public Camera SnapshotCam { get { return _snapshotCamera; } }
         public TowerEnemyDetector EnemyDetector => _enemyDetector;
         public TowerParticleController ParticleControll => _particleController;
         public GameObject BulletOrigin { get { return _bulletOrigin; } private set { _bulletOrigin = value; } }
