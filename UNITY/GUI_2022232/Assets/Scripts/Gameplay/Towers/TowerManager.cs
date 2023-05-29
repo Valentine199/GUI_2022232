@@ -27,10 +27,13 @@ namespace TowerDefense.Towers
         public event Action <TowerUpgrade> OnNewUpgrade;
         public event Action OnTargetingStyleChange;
 
+        private int _openCount;
+
         private void Start()
         {
             GetUpgrade();
             _towerController.OnTargetingStyleChanged += TargetingChanged;
+            _openCount = 0;
         }
 
         public Camera GetSnapshotCam()
@@ -102,12 +105,17 @@ namespace TowerDefense.Towers
 
         public void ShowTowerRange()
         {
+            _openCount++;
             _towerController.ChangeRangeVisibilityServerRpc(true);
         }
 
         public void HideTowerRange()
         {
-            _towerController.ChangeRangeVisibilityServerRpc(false);
+            _openCount--;
+            if(_openCount == 0 )
+            {
+                _towerController.ChangeRangeVisibilityServerRpc(false);
+            }
         }
 
         public string ShowName()
