@@ -67,6 +67,9 @@ namespace TowerDefense.Gameplay.Core
 
         private Vector2 _currentVelocity;
 
+        private float prevposx;
+        private float prevposz;
+
         //public bool CameraFreezed { get { return _cameraFreezed; } set { _cameraFreezed = value; } }
         public override void OnGainedOwnership()
         {
@@ -137,7 +140,7 @@ namespace TowerDefense.Gameplay.Core
             Move();
             HandleJump();
             HandleCrouch();
-            //Checkmovement();
+            Checkmovement();
             WeaponHolderSync();
         }
 
@@ -146,6 +149,18 @@ namespace TowerDefense.Gameplay.Core
             
             CamMovements();
             WeaponHolderSync();
+        }
+        void Checkmovement()
+        {
+            //Debug.Log("GG");
+            //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
+            if (Math.Abs(prevposx - transform.position.x) > 0.2 || Math.Abs(prevposz - transform.position.z) > 0.2)
+            {
+                Debug.Log("Teleportation prevented");
+                transform.position = new Vector3(prevposx, transform.position.y, prevposz);
+            }
+            prevposx = transform.position.x;
+            prevposz = transform.position.z;
         }
         public event Action CamFreeze;
         public void ToggleFreezeCam()
