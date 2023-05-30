@@ -132,7 +132,7 @@ namespace TowerDefense.Gameplay.Core
                 }
             }
             checkMovement = false;
-            _playerRigidbody.position = new Vector3(15,0,-25);                        
+            _playerRigidbody.position = new Vector3(20.5f,0,-30);                        
             checkMovement = true;
             //WeaponHolderSync(); 
             if (!PlayerPrefs.HasKey("volume"))
