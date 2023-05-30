@@ -184,7 +184,12 @@ namespace TowerDefense.Gameplay.Core
             CamFreeze?.Invoke();
 
         }
-
+        public void UnStuck()
+        {
+            checkMovement = false;
+            _playerRigidbody.position = new Vector3(15, 0, -25);
+            checkMovement = true;
+        }
         private void Move()
         {
             if (!IsOwner) return;
