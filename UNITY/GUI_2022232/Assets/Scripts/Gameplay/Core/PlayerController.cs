@@ -69,6 +69,7 @@ namespace TowerDefense.Gameplay.Core
 
         private float prevposx;
         private float prevposz;
+        private bool checkMovement;
 
         //public bool CameraFreezed { get { return _cameraFreezed; } set { _cameraFreezed = value; } }
         public override void OnGainedOwnership()
@@ -130,6 +131,9 @@ namespace TowerDefense.Gameplay.Core
                 gunSystem.fpsCam = cam.GetComponent<Camera>();
                 }
             }
+            checkMovement = false;
+            _playerRigidbody.position = new Vector3(15,0,-25);                        
+            checkMovement = true;
             //WeaponHolderSync(); 
         }
 
@@ -152,6 +156,7 @@ namespace TowerDefense.Gameplay.Core
         }
         void Checkmovement()
         {
+            if (checkMovement) return; 
             //Debug.Log("GG");
             //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
             if (Math.Abs(prevposx - transform.position.x) > 0.2 || Math.Abs(prevposz - transform.position.z) > 0.2)
