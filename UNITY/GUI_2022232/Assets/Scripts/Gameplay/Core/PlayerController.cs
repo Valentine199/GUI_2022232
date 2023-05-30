@@ -135,6 +135,15 @@ namespace TowerDefense.Gameplay.Core
             _playerRigidbody.position = new Vector3(15,0,-25);                        
             checkMovement = true;
             //WeaponHolderSync(); 
+            if (!PlayerPrefs.HasKey("volume"))
+            {
+                PlayerPrefs.SetFloat("volume", 0.1f);
+                Load();
+        }
+            else
+            {
+                Load();
+            }
         }
 
         private void FixedUpdate()
