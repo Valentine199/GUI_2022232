@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08053298, g: 0.09992869, b: 0.30135012, a: 1}
+  m_IndirectSpecularColor: {r: 0.080470726, g: 0.09986065, b: 0.3012684, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -24406,7 +24406,7 @@ MonoBehaviour:
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
-      Prefab: {fileID: 3808576574006083832, guid: 3f66860ed5b95ca48be6d9fd66964ea2,
+      Prefab: {fileID: 7099451243035808599, guid: 3f66860ed5b95ca48be6d9fd66964ea2,
         type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
