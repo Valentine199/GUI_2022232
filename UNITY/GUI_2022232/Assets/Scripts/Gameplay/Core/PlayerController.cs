@@ -139,16 +139,15 @@ namespace TowerDefense.Gameplay.Core
             {
                 PlayerPrefs.SetFloat("volume", 0.1f);
                 Load();
-        }
+            }
             else
             {
                 Load();
             }
         }
-
+       
         private void FixedUpdate()
-        {
-            
+        {           
             SampleGround();
             Move();
             HandleJump();
@@ -168,7 +167,7 @@ namespace TowerDefense.Gameplay.Core
             if (checkMovement) return; 
             //Debug.Log("GG");
             //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
-            if (Math.Abs(prevposx - transform.position.x) > 0.2 || Math.Abs(prevposz - transform.position.z) > 0.2)
+            if (Math.Abs(prevposx - transform.position.x) > 0.5 || Math.Abs(prevposz - transform.position.z) > 0.5)
             {
                 Debug.Log("Teleportation prevented");
                 transform.position = new Vector3(prevposx, transform.position.y, prevposz);
@@ -321,6 +320,10 @@ namespace TowerDefense.Gameplay.Core
             
             _animator.SetBool(_fallingHash, !_grounded);
             _animator.SetBool(_groundHash, _grounded);
+        }
+        void Load()
+        {
+            AudioListener.volume = PlayerPrefs.GetFloat("volume");
         }
     }
 }
