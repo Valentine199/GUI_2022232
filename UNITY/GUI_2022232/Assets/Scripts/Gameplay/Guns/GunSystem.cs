@@ -102,7 +102,7 @@ public class GunSystem : NetworkBehaviour,ISoundPlayer
     }
 
     private void Shoot()
-    {
+    {        
         readyToShoot = false;
         PlayInitSound?.Invoke();
         //Spread
