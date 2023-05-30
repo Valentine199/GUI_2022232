@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Gameplay.Core;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ChillMusicStarter : MonoBehaviour, ISoundPlayer, IMusicStarter
+public class ChillMusicStarter : NetworkBehaviour, ISoundPlayer, IMusicStarter
 {
     public event Action PlayInitSound;
     public event Action PlayAmbiance;
@@ -18,9 +19,15 @@ public class ChillMusicStarter : MonoBehaviour, ISoundPlayer, IMusicStarter
     //    //controller.OnWaveCompleted += StartMusic;
     //}
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        StartMusic();
+    }
+
     private void Start()
     {
-        StartMusic();
+        
     }
 
     //private void OnDisable()
