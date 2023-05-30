@@ -6100,13 +6100,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 3303115634917129618}
-  damage: 20
-  timeBetweenShooting: 0.05
+  damage: 1
+  timeBetweenShooting: 0.3
   spread: 0.02
   range: 100
   reloadTime: 1
   timeBetweenShots: 0
-  magazineSize: 30
+  magazineSize: 12
   bulletsPerTap: 1
   allowButtonHold: 1
   fpsCam: {fileID: 0}
@@ -6587,11 +6587,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 3303115634917129618}
-  damage: 20
+  damage: 5
   timeBetweenShooting: 0.05
   spread: 0.02
   range: 100
-  reloadTime: 1
+  reloadTime: 2
   timeBetweenShots: 0
   magazineSize: 30
   bulletsPerTap: 1
