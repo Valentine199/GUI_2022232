@@ -53,6 +53,7 @@ public class HandlePlaceCanvas : NetworkBehaviour, ConflictDetectorInterface
 
     public void ToggleBuildingsCanvas()
     {
+        settingsCanvas.SetActive(false);
         _toggle = !_toggle;
         //GetComponent<PlayerController>().CameraFreezed = _toggle;
 
@@ -80,6 +81,7 @@ public class HandlePlaceCanvas : NetworkBehaviour, ConflictDetectorInterface
 
     public event Action OnBuildingsCanvasToggled;
 
+    [SerializeField] private GameObject settingsCanvas;
     [SerializeField] private Canvas _inGameCanvas;
     [SerializeField] private Canvas _selectionCanvas; // The canvas which handles the UI
     [SerializeField] private GameObject _buildBg;     // The direct parent to the build elements  
