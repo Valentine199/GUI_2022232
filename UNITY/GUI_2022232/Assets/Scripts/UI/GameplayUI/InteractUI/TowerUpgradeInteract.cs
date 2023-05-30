@@ -11,8 +11,9 @@ using UnityEngine.Windows;
 using TowerDefense.Towers.TowerUpgrades;
 using TowerDefense.Towers.TowerEnums;
 using System.Linq;
+using Unity.Netcode;
 
-public class TowerUpgradeInteract : MonoBehaviour, ConflictDetectorInterface
+public class TowerUpgradeInteract : NetworkBehaviour, ConflictDetectorInterface
 {
 
     private void Awake()
@@ -29,7 +30,7 @@ public class TowerUpgradeInteract : MonoBehaviour, ConflictDetectorInterface
 
     private void onInteract(InputAction.CallbackContext context)
     {
-        if(OtherIsOpen()) { return; }
+        if(OtherIsOpen() || !IsOwner) { return; }
         ToggleInteractCanvas();
         
     }
