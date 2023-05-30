@@ -150,7 +150,7 @@ public class TowerInteractUI : MonoBehaviour
 
     public void BuyUpgrade()
     {
-        _towerManager.InteractUpgradeServerRpc();
+        _towerManager.BuyUpgrade();
     }
 
     public void Sell()

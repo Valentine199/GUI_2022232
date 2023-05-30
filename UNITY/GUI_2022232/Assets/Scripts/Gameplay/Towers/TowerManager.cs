@@ -31,7 +31,8 @@ namespace TowerDefense.Towers
 
         private void Start()
         {
-            GetUpgrade();
+            _currentUpgrade = _towerController.FetchTowerUpgrade();
+            OnNewUpgrade?.Invoke(_currentUpgrade);
             _towerController.OnTargetingStyleChanged += TargetingChanged;
             _openCount = 0;
         }
@@ -68,21 +69,21 @@ namespace TowerDefense.Towers
             OnNewUpgrade?.Invoke(_currentUpgrade);
         }
 
-        private void GetUpgrade()
+        public void BuyUpgrade()
         {
-            _currentUpgrade = _towerController.FetchTowerUpgrade();
-            OnNewUpgrade?.Invoke(_currentUpgrade);
+            if (_currentUpgrade == null) { return; }
+
+            InteractUpgradeServerRpc();
         }
+
         public TowerUpgrade GetUpgradeInfo()
         {
             return _currentUpgrade;
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void InteractUpgradeServerRpc()
+        private void InteractUpgradeServerRpc()
         {
-            if (_currentUpgrade == null) { return;}
-
             _currentUpgrade.PurchaseUpgrade(_towerController);
 
             if(_currentUpgrade.IsPurchased)
