@@ -11,15 +11,16 @@ public class AdjustAudio : MonoBehaviour
 
     private void Start()
     {
-        if (!PlayerPrefs.HasKey("volume"))
-        {
-            PlayerPrefs.SetFloat("volume", 0.1f);
-            Load();
-        }
-        else
-        {
-            Load();
-        }
+        Load();
+        //if (!PlayerPrefs.HasKey("volume"))
+        //{
+        //    PlayerPrefs.SetFloat("volume", 0.1f);
+        //    Load();
+        //}
+        //else
+        //{
+        //    Load();
+        //}
     }
     public void ChangeVolume()
     {

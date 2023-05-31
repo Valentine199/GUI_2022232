@@ -18,7 +18,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private GameObject cam;
         [SerializeField] private float UpperLimit = -40f;
         [SerializeField] private float BottomLimit = 70f;
-        [SerializeField] private float MouseSensitivity = 21.9f;
+        [SerializeField] public float MouseSensitivity = 21.9f;
         [SerializeField] private float JumpFactor = 260f;
         [SerializeField] private float DistanceToGround = 0.85f;
         [SerializeField] private float AirResistance = 0.8f;
@@ -134,18 +134,37 @@ namespace TowerDefense.Gameplay.Core
             checkMovement = false;
             _playerRigidbody.position = new Vector3(20.5f,0,-30);                        
             checkMovement = true;
-            //WeaponHolderSync(); 
+            //WeaponHolderSync();             
+            LoadPlayerPrefs();
+        }
+
+        private void LoadPlayerPrefs()
+        {
             if (!PlayerPrefs.HasKey("volume"))
             {
                 PlayerPrefs.SetFloat("volume", 0.1f);
-                Load();
+                LoadAudio();
             }
             else
             {
-                Load();
+                LoadAudio();
+            }
+            if (!PlayerPrefs.HasKey("sensitivity"))
+            {
+                PlayerPrefs.SetFloat("sensitivity", 10f);
+                LoadSensitivity();
+            }
+            else
+            {
+                LoadSensitivity();
             }
         }
-       
+
+        private void LoadSensitivity()
+        {
+            MouseSensitivity = PlayerPrefs.GetFloat("sensitivity");
+        }
+
         private void FixedUpdate()
         {           
             SampleGround();
@@ -321,7 +340,7 @@ namespace TowerDefense.Gameplay.Core
             _animator.SetBool(_fallingHash, !_grounded);
             _animator.SetBool(_groundHash, _grounded);
         }
-        void Load()
+        void LoadAudio()
         {
             AudioListener.volume = PlayerPrefs.GetFloat("volume");
         }

@@ -10,8 +10,9 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
 
-public class GunSystem : NetworkBehaviour
+public class GunSystem : NetworkBehaviour,ISoundPlayer
 {
+
     [SerializeField] GameObject character;
     //Gun stats
     [SerializeField] int damage;
@@ -42,6 +43,11 @@ public class GunSystem : NetworkBehaviour
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] GameObject bulletHoleGraphic;
+
+    public event Action PlayInitSound;
+    public event Action PlayAmbiance;
+    public event Action StopAmbiance;
+    public event Action PlayEndSound;
 
     private void Awake()
     {
@@ -83,6 +89,7 @@ public class GunSystem : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
         {
+            PlayEndSound?.Invoke();
             Reload();
         }
 
@@ -95,9 +102,9 @@ public class GunSystem : NetworkBehaviour
     }
 
     private void Shoot()
-    {
+    {        
         readyToShoot = false;
-
+        PlayInitSound?.Invoke();
         //Spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);

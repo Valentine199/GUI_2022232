@@ -1,23 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.InteropServices.WindowsRuntime;
+using TowerDefense.Gameplay.Core;
 using Unity.Netcode;
 using UnityEngine;
 
 public class WeaponSwitching : NetworkBehaviour
 {
     public int selectedWeapon = 0;
+    [SerializeField] GameObject character;
+    bool canSwitch = true;
 
 
     void Start()
     {
         selectedWeapon = 0;
         SelectWeapon();
+        character.GetComponent<PlayerController>().CamFreeze += CanSwitch;
     }
 
-    
+    private void CanSwitch()
+    {
+        canSwitch = !canSwitch;
+    }
+
     void Update()
     {
+        if (!canSwitch) return;
         if (!IsOwner) return;
 
         int prev = selectedWeapon;
