@@ -18,7 +18,7 @@ public class SFXManager : NetworkBehaviour
         _audioSource = GetComponent<AudioSource>();
 
         ISoundPlayer soundRequester = GetComponent<ISoundPlayer>();
-        soundRequester.PlayInitSound += PlayInitSound;
+        soundRequester.PlayInitSound += PlayInitSoundServerRpc;
         soundRequester.PlayAmbiance += PlayAmbiance;
         soundRequester.StopAmbiance += StopAllSound;
         soundRequester.PlayEndSound += PlayDeadSound;
@@ -27,7 +27,7 @@ public class SFXManager : NetworkBehaviour
     private void OnDisable()
     {
         ISoundPlayer soundRequester = GetComponent<ISoundPlayer>();
-        soundRequester.PlayInitSound -= PlayInitSound;
+        soundRequester.PlayInitSound -= PlayInitSoundServerRpc;
         soundRequester.PlayAmbiance -= PlayAmbiance;
         soundRequester.StopAmbiance -= StopAllSound;
         soundRequester.PlayEndSound -= PlayDeadSound;
@@ -36,12 +36,19 @@ public class SFXManager : NetworkBehaviour
     }
 
     //caller functions
-    private void PlayInitSound()
+    [ServerRpc(RequireOwnership = false)]
+    private void PlayInitSoundServerRpc()
     {
         if(_initSound == null) { return; }
+        PlayInitSoundClientRpc();
+    }
+
+    [ClientRpc]
+    private void PlayInitSoundClientRpc()
+    {
+        _multipleSongs = false;
         StartCoroutine(PlaySound(_initSound));
 
-        _multipleSongs = false;
         PlayAmbiance();
     }
 

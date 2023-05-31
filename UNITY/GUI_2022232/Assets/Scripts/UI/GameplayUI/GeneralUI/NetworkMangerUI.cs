@@ -16,18 +16,21 @@ public class NetworkMangerUI : MonoBehaviour
 
     private void Awake()
     {
-        //UnityTransport unity = networkManager.GetComponent<UnityTransport>();
+        UnityTransport unity = networkManager.GetComponent<UnityTransport>();
         //unity.ConnectionData.Address = ipAddress.text;
         this.enabled = false;
-        serverBtn.onClick.AddListener(() => {   
+        serverBtn.onClick.AddListener(() => {
+            unity.ConnectionData.Address = ipAddress.text;
             NetworkManager.Singleton.StartServer();           
         });
 
         clientBtn.onClick.AddListener(() => {
+            unity.ConnectionData.Address = ipAddress.text;
             NetworkManager.Singleton.StartClient();
         });
 
         hostBtn.onClick.AddListener(() => {
+            unity.ConnectionData.Address = ipAddress.text;
             NetworkManager.Singleton.StartHost();
         });
     }
