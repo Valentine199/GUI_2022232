@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class SetPlayerNames : NetworkBehaviour
 {
+    //NetworkVariable<string>[] variables;
     [SerializeField] TMP_Text playerName;
     [SerializeField] TMP_InputField nameInput;
     public void SetNames()
