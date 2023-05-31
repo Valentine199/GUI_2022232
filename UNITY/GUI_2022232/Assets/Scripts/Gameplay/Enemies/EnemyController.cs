@@ -131,7 +131,10 @@ namespace TowerDefense.Gameplay.Enemies
             {
                 foreach (GameObject effect in ActiveEffects)
                 {
+                    NetworkObject psNetwork = effect.GetComponent<NetworkObject>();
+                    psNetwork.Despawn();
                     Destroy(effect);
+                    //Destroy(effect);
                 }
             }
             ActiveEffects.Clear();
