@@ -164,7 +164,6 @@ namespace TowerDefense.Gameplay.Enemies
         private void MoveEnemiesServerRpc()
         {
             float speed = _enemyProperties.MoveSpeed * Time.fixedDeltaTime;
-            Debug.Log(speed);
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);
 
             if (PercentToNextWaypoint <= PERCENT_THRESHOLD || (100.0f - PercentToNextWaypoint) <= PERCENT_THRESHOLD)
