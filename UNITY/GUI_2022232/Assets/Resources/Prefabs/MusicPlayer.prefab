@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9184059900651968011}
   - component: {fileID: 4367775297624472676}
   m_Layer: 0
-  m_Name: ChillState
+  m_Name: MusicPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5910627826015446380
 MonoBehaviour:
