@@ -31,6 +31,8 @@ public class SFXManager : NetworkBehaviour
         soundRequester.PlayAmbiance -= PlayAmbiance;
         soundRequester.StopAmbiance -= StopAllSound;
         soundRequester.PlayEndSound -= PlayDeadSound;
+
+        _audioSource.clip = null;
     }
 
     //caller functions
