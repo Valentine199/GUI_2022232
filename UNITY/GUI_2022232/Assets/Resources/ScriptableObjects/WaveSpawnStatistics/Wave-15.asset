@@ -24,12 +24,12 @@ MonoBehaviour:
   - _enemyType: 2
     _amountInGroup: 12
     _timeBetweenEnemies: 0.7
-    _initialSpawnDelay: 15
+    _initialSpawnDelay: 13
   - _enemyType: 3
     _amountInGroup: 10
     _timeBetweenEnemies: 1.2
-    _initialSpawnDelay: 20
+    _initialSpawnDelay: 15
   - _enemyType: 4
     _amountInGroup: 5
     _timeBetweenEnemies: 1.7
-    _initialSpawnDelay: 21
+    _initialSpawnDelay: 18
