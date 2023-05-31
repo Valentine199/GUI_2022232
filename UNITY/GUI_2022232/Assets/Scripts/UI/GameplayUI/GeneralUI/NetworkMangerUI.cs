@@ -16,8 +16,8 @@ public class NetworkMangerUI : MonoBehaviour
 
     private void Awake()
     {
-        UnityTransport unity = networkManager.GetComponent<UnityTransport>();
-        unity.ConnectionData.Address = ipAddress.text;
+        //UnityTransport unity = networkManager.GetComponent<UnityTransport>();
+        //unity.ConnectionData.Address = ipAddress.text;
         this.enabled = false;
         serverBtn.onClick.AddListener(() => {   
             NetworkManager.Singleton.StartServer();           
