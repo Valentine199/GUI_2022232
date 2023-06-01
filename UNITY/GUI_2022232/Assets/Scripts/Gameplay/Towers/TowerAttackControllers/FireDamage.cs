@@ -46,13 +46,13 @@ public class FireDamage : TowerDamage
             psNetwork.Despawn();
             Destroy(ps);
         }
-        //if (ps != null)
-        //{
-        //    NetworkObject psNetwork = ps.GetComponent<NetworkObject>();
-        //    psNetwork.Despawn();
-        //    Destroy(ps);
-        //}
-        
+        else if (ps != null)
+        {
+            NetworkObject psNetwork = ps.GetComponent<NetworkObject>();
+            psNetwork.Despawn();
+            Destroy(ps);
+        }
+
     }
     public override void DoDamage(EnemyController enemy)
     {
