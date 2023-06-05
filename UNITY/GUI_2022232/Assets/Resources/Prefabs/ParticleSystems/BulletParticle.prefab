@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3684229372614375186}
   - component: {fileID: 2255962286183198185}
   - component: {fileID: 6080985139702002593}
-  m_Layer: 8
+  - component: {fileID: 2258194620461338343}
+  m_Layer: 9
   m_Name: BulletParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3684229372614375186
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4841,3 +4842,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08f241778abc034db569c55451ea9fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2258194620461338343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992624520800305239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fccfcb54f9e7d14a93f506d4f5aad59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ps: {fileID: 3684229372614375186}
+  _mats:
+  - {fileID: 2100000, guid: d798d1a75aee3394d9a1f29b44e6fb6a, type: 2}
+  - {fileID: 2100000, guid: d5725434577917846ac1bf3db7c24c3b, type: 2}
+  - {fileID: 2100000, guid: 3db97cec15cd2ed4d853d865989762fb, type: 2}
+  - {fileID: 2100000, guid: 1eb041fc45f5ad04a8ef1601c4d7dc31, type: 2}
+  - {fileID: 2100000, guid: e84f7d1fb8d58cf4abbe980b30866834, type: 2}
