@@ -105,27 +105,16 @@ public class GunSystem : NetworkBehaviour,ISoundPlayer
     {        
         readyToShoot = false;
         PlayInitSound?.Invoke();
+
         //Spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
-        Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
-
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
-        {
-            //Debug.Log(rayHit.collider.name);
-
-            if ((whatIsEnemy.value & (1 << rayHit.collider.gameObject.layer)) > 0)
-            {
-                if (rayHit.collider.gameObject.TryGetComponent<EnemyController>(out EnemyController enemy))
-                {
-                    enemy.HitEnemy();
-                }
-                //rayHit.collider.GetComponent<Enemys>().TakeDamage(damage);
-            }
-        }
-
+        Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
+        Vector3 cameraPosition = fpsCam.transform.position;
+        ShootServerRpc(cameraPosition, direction);
+        
         Destroy(Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0)), 0.1f);
         BulletHoleServerRPC(rayHit.point);
         //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
@@ -142,6 +131,30 @@ public class GunSystem : NetworkBehaviour,ISoundPlayer
         if (bulletsShot > 0 && bulletsLeft > 0)
         {
             Invoke("Shoot", timeBetweenShots);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ShootServerRpc(Vector3 cameraPosition, Vector3 direction)
+    {
+        ShootClientRpc(cameraPosition, direction);
+    }
+
+    [ClientRpc]
+    private void ShootClientRpc(Vector3 cameraPosition, Vector3 direction)
+    {
+        if (Physics.Raycast(cameraPosition, direction, out rayHit, range))
+        {
+            //Debug.Log(rayHit.collider.name);
+
+            if ((whatIsEnemy.value & (1 << rayHit.collider.gameObject.layer)) > 0)
+            {
+                if (rayHit.collider.gameObject.TryGetComponent<EnemyController>(out EnemyController enemy))
+                {
+                    enemy.HitEnemy();
+                }
+                //rayHit.collider.GetComponent<Enemys>().TakeDamage(damage);
+            }
         }
     }
 
