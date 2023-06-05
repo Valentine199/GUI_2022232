@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0f2898d379d8645a739ce90ea7b053, type: 3}
   m_Name: FreezeEffect
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Slow
   DamageOverTime: 0
-  SpeedReduction: 0
+  SpeedReduction: 2
   TickSpeed: 0
-  Duration: 0
-  ParticleEffect: {fileID: 0}
+  Duration: 5
+  ParticleEffect: {fileID: 1416702955784289883, guid: f35cc548d25cf1048bec20a86d9c8815,
+    type: 3}

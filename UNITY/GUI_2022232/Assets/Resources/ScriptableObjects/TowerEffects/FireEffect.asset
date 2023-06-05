@@ -17,5 +17,5 @@ MonoBehaviour:
   SpeedReduction: 0
   TickSpeed: 1
   Duration: 4
-  ParticleEffect: {fileID: 1416702955784289883, guid: b748ff954261edf4d9232e55debbbd83,
+  ParticleEffect: {fileID: 1416702955784289883, guid: 0a5e393bcd48f8e4cb3a8c5260326d3a,
     type: 3}
