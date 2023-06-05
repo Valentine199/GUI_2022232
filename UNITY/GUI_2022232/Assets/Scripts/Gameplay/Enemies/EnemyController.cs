@@ -30,6 +30,14 @@ namespace TowerDefense.Gameplay.Enemies
             }
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        public void HitEnemyServerRpc()
+        {
+            --_healthRemaining;
+            if (_healthRemaining <= 0)
+                BurstEnemy();
+        }
+
         public NetworkObject GetEnemyNetworkObject()
         {
             if (this.TryGetComponent<NetworkObject>(out NetworkObject enemyNetwork))
@@ -38,14 +46,6 @@ namespace TowerDefense.Gameplay.Enemies
             }
 
             return null;
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void HitEnemyServerRpc()
-        {
-            --_healthRemaining;
-            if (_healthRemaining <= 0)
-                BurstEnemy();
         }
 
         public static EnemyController CompareFirst(EnemyController e1, EnemyController e2)
@@ -158,7 +158,7 @@ namespace TowerDefense.Gameplay.Enemies
 
         private void MoveEnemies()
         {
-            if (!IsServer) 
+            if (!IsServer)
                 return;
             MoveEnemiesServerRpc();
         }
@@ -227,7 +227,7 @@ namespace TowerDefense.Gameplay.Enemies
 
         public void AddActiveEffect(GameObject effect)
         {
-            if(!IsServer) { return; }
+            if (!IsServer) { return; }
             ActiveEffects.Add(effect);
         }
 
@@ -236,7 +236,7 @@ namespace TowerDefense.Gameplay.Enemies
             if (IsServer && ActiveEffects.Contains(effect))
             {
                 ActiveEffects.Remove(effect);
-            }            
+            }
         }
 
         public void SetOnFire()
