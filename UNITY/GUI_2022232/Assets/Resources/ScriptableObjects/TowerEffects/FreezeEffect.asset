@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0f2898d379d8645a739ce90ea7b053, type: 3}
+  m_Name: FreezeEffect
+  m_EditorClassIdentifier: 
+  Name: Slow
+  DamageOverTime: 0
+  SpeedReduction: 2
+  TickSpeed: 1
+  Duration: 5
+  ParticleEffect: {fileID: 1416702955784289883, guid: f35cc548d25cf1048bec20a86d9c8815,
+    type: 3}

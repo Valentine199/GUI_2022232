@@ -114,7 +114,7 @@ namespace TowerDefense.Gameplay.Enemies
             set => _path = value;
         }
 
-        public bool IsFrozen => _isFrozen;
+        public bool IsFrozen { get { return _isFrozen; } set { _isFrozen = value; } }
         public bool IsOnFire => _isOnFire;
 
         private void FixedUpdate()
