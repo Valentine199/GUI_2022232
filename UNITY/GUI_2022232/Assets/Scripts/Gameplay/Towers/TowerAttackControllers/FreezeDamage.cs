@@ -32,7 +32,8 @@ public class FreezeDamage : TowerDamage
         float startTime = Time.time;
         float currentTime = Time.time;
 
-        enemy.EnemyProperties.MoveSpeed -= EffectProperties.SpeedReduction;
+        //enemy.EnemyProperties.MoveSpeed -= EffectProperties.SpeedReduction;
+        enemy.CurrentMoveSpeed -= EffectProperties.SpeedReduction;
 
         while ((currentTime - startTime) < EffectProperties.Duration && enemy.HealthRemaining > 0)
         {
@@ -43,7 +44,7 @@ public class FreezeDamage : TowerDamage
         if (enemy.HealthRemaining > 0)
         {
             enemy.RemoveActiveEffect(ps);
-            enemy.EnemyProperties.MoveSpeed += EffectProperties.SpeedReduction;
+            enemy.CurrentMoveSpeed += EffectProperties.SpeedReduction;
             enemy.IsFrozen = false;
             NetworkObject psNetwork = ps.GetComponent<NetworkObject>();
             psNetwork.Despawn();

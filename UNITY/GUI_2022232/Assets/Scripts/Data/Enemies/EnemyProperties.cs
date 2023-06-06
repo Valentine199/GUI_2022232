@@ -23,7 +23,7 @@ namespace TowerDefense.Data.Enemies
         public float MoveSpeed
         {
             get => _moveSpeed;
-            set => Mathf.Max(value, 2.0f);
+            set => _moveSpeed = value;
         }
 
         public List<EnemyProperties> EnemiesToSpawnWhenKilled

@@ -17,8 +17,11 @@ namespace TowerDefense.Gameplay.Enemies
         {
             _enemyProperties = enemyProperties;
             _healthRemaining = _enemyProperties.Health;
+            CurrentMoveSpeed = _enemyProperties.MoveSpeed;
             _targetWaypointIndex = targetWaypointIndex;
             SetTargetWaypointPosition();
+
+
 
         }
 
@@ -166,7 +169,7 @@ namespace TowerDefense.Gameplay.Enemies
         [ServerRpc]
         private void MoveEnemiesServerRpc()
         {
-            float speed = _enemyProperties.MoveSpeed * Time.fixedDeltaTime;
+            float speed = CurrentMoveSpeed * Time.fixedDeltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, speed);
 
             if (PercentToNextWaypoint <= PERCENT_THRESHOLD || (100.0f - PercentToNextWaypoint) <= PERCENT_THRESHOLD)
@@ -189,7 +192,7 @@ namespace TowerDefense.Gameplay.Enemies
             if (_targetWaypointPosition - transform.position != Vector3.zero)
             {
                 var targetRot = Quaternion.LookRotation(_targetWaypointPosition - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, _enemyProperties.MoveSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, CurrentMoveSpeed * Time.deltaTime);
             }
         }
 
@@ -218,6 +221,7 @@ namespace TowerDefense.Gameplay.Enemies
 
         private int _targetWaypointIndex;
         private int _healthRemaining;
+        public float CurrentMoveSpeed { get; set; }
         public int HealthRemaining { get { return this._healthRemaining; } }
         public List<GameObject> ActiveEffects { get; private set; } = new List<GameObject>();
         private bool _isFrozen;
