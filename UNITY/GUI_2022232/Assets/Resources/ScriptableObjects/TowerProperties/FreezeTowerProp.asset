@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66ea40025700fba4f917e80a90354636, type: 3}
-  m_Name: FireTowerProp
+  m_Name: FreezeTowerProp
   m_EditorClassIdentifier: 
-  TowerName: Millboard Vulcano
+  TowerName: "\xCDs"
   TowerRange: 70
-  TowerDamage: 2
+  TowerDamage: 5
   TowerFiringRate: 1
   TowerBulletSpeed: 60
-  TowerCost: 500
-  TowerModel: {fileID: 589559089697168934, guid: e6f99d14b3537c744898227550330ce9,
-    type: 3}
-  TowerPicture: {fileID: 21300000, guid: ebff2d6bf3ba86b4296a208333c1b57c, type: 3}
-  TowerObject: {fileID: 7099451243035808599, guid: 3f66860ed5b95ca48be6d9fd66964ea2,
-    type: 3}
-  DefaultTowerTargetingStyle: 2
-  Effect: {fileID: 11400000, guid: ca85b15fc4a6c7d47b606ce5964e2cd2, type: 2}
+  TowerCost: 400
+  TowerModel: {fileID: 0}
+  TowerPicture: {fileID: 0}
+  TowerObject: {fileID: 0}
+  DefaultTowerTargetingStyle: 0
+  Effect: {fileID: 11400000, guid: 01837145129f4c54d82267ef6f93a430, type: 2}
   TowerUpgradeOptions:
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
-  BulletTypeEnum: 1
+  - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
+  BulletTypeEnum: 2
