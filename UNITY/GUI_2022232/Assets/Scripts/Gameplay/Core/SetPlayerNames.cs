@@ -2,38 +2,55 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
 public class SetPlayerNames : NetworkBehaviour
 {
-    //NetworkVariable<string>[] variables;
     [SerializeField] TMP_Text playerName;
-    [SerializeField] TMP_InputField nameInput;
-    public void SetNames()
-    {
-        SetNamesServerRpc();
+    [SerializeField] TMP_InputField playerNameInput;
+
+    //NetworkVariable<string> playerName = new NetworkVariable<string>();
+    //string namex;
+
+    //static SetPlayerNames instance;
+    //protected SetPlayerNames() { }
+    //public static SetPlayerNames Instance()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = new SetPlayerNames();
+    //    }
+    //    return instance;
+    //}
+    //public void AddPlayer(string name)
+    //{
+    //    playerName.Value = name;
+    //}
+
+    //public override void OnNetworkSpawn()
+    //{   
+    //    NetworkObject networkObject = GetComponent<NetworkObject>();
+    //    AddPlayerServerRpc(namex,networkObject);
+    //}   
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AddPlayerServerRpc(string name)
+    {        
+        AddPlayerClientRpc(name);
     }
-    [ServerRpc(RequireOwnership =false)]
-    private void SetNamesServerRpc()
-    {
-        SetNamesClientRpc();
-    }
+
     [ClientRpc]
-    private void SetNamesClientRpc()
+    private void AddPlayerClientRpc(string name)
     {
-        playerName.text = nameInput.text;
+        playerName.text = name;
+        //if (!IsOwner) return;
+        //((GameObject)networkObject).GetComponent<SetPlayerNames>().SetName();    
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SyncName()
     {
-        //nameInput.text = "GGGGGGGGGG";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        AddPlayerServerRpc(playerNameInput.text);
     }
 }
