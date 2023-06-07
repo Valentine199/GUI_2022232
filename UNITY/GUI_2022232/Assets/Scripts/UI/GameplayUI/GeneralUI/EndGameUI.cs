@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TowerDefense.Gameplay.Core;
+using Unity.Netcode;
 using UnityEngine;
 
-public class EndGameUI : MonoBehaviour
+public class EndGameUI : NetworkBehaviour
 {
     [SerializeField] GameObject endGameCanvas;
     GameController gameController;
@@ -14,6 +15,7 @@ public class EndGameUI : MonoBehaviour
     }
     void ToogleEndGameCanvas()
     {
+        if(!IsOwner) { return; }
 
         endGameCanvas.SetActive(true);
 
