@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66ea40025700fba4f917e80a90354636, type: 3}
-  m_Name: BasicTower
+  m_Name: PoisonTowerProp
   m_EditorClassIdentifier: 
-  TowerName: Gumball Machine
-  TowerRange: 30
-  TowerDamage: 10
-  TowerFiringRate: 0.5
+  TowerName: Waste tower
+  TowerRange: 60
+  TowerDamage: 1
+  TowerFiringRate: 1
   TowerBulletSpeed: 60
-  TowerCost: 300
-  TowerModel: {fileID: 6013129910860680078, guid: 9f28ce10a416a0b469970b60986cc100,
-    type: 3}
-  TowerPicture: {fileID: 21300000, guid: bbd7ce14ab5599046b569d4ab8bea75c, type: 3}
-  TowerObject: {fileID: 5677185180100384282, guid: 92e3c6e17309e4a42b5f0966574aaa5d,
-    type: 3}
-  DefaultTowerTargetingStyle: 0
-  Effect: {fileID: 0}
+  TowerCost: 600
+  TowerModel: {fileID: 0}
+  TowerPicture: {fileID: 0}
+  TowerObject: {fileID: 0}
+  DefaultTowerTargetingStyle: 4
+  Effect: {fileID: 11400000, guid: 01837145129f4c54d82267ef6f93a430, type: 2}
   TowerUpgradeOptions:
-  - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   - {fileID: 11400000, guid: cc15a98754c8b344490382e273869897, type: 2}
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
-  BulletTypeEnum: 0
+  - {fileID: 11400000, guid: cc15a98754c8b344490382e273869897, type: 2}
+  BulletTypeEnum: 3

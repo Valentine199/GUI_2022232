@@ -10,7 +10,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
 {
     public class TowerShooting : NetworkBehaviour
     {
-        private TowerEnums.TargetingStyle _targetingStyle;
+        [SerializeField] private TowerEnums.TargetingStyle _targetingStyle;
         [SerializeField]
         [Tooltip("Logical, only neccessery for the model")]
         private Transform _head;
@@ -42,7 +42,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
         public void TargetingStyleChanged()
         {
             _targetingStyle = _towerController.TargetingStyle;
-            GetTarget();
+            GetTargetServerRpc();
         }
 
         private void Start()
@@ -53,6 +53,12 @@ namespace TowerDefense.Towers.TowerAttackControllers
                 _towerController.OnTargetingStyleChanged += TargetingStyleChanged;
             }
 
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void GetTargetServerRpc()
+        {
+            GetTarget();
         }
 
         [ServerRpc(RequireOwnership = false)]
