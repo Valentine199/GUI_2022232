@@ -18,11 +18,13 @@ MonoBehaviour:
   TowerFiringRate: 1
   TowerBulletSpeed: 60
   TowerCost: 400
-  TowerModel: {fileID: 0}
-  TowerPicture: {fileID: 0}
-  TowerObject: {fileID: 0}
+  TowerModel: {fileID: 5487263345221042367, guid: e675be44fa6557b48b8bd6bea2a9fbb6,
+    type: 3}
+  TowerPicture: {fileID: 21300000, guid: 882dfbb16568d96438cacb1c19ce4d6b, type: 3}
+  TowerObject: {fileID: 5487263345221042367, guid: ef3a2a8cfc6d76542a13a893fa988942,
+    type: 3}
   DefaultTowerTargetingStyle: 0
-  Effect: {fileID: 11400000, guid: 01837145129f4c54d82267ef6f93a430, type: 2}
+  Effect: {fileID: 11400000, guid: 659f658c156020e40849610887d00c4a, type: 2}
   TowerUpgradeOptions:
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
   - {fileID: 11400000, guid: b9478e15560cbd34b933a4e4da4e8661, type: 2}
