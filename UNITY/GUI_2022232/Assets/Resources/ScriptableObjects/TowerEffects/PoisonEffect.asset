@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0f2898d379d8645a739ce90ea7b053, type: 3}
+  m_Name: PoisonEffect
+  m_EditorClassIdentifier: 
+  Name: Rot
+  DamageOverTime: 1
+  SpeedReduction: 1
+  TickSpeed: 1
+  Duration: 3
+  ParticleEffect: {fileID: 1416702955784289883, guid: 95343d248de739349a9e8f0a2af1c655,
+    type: 3}
