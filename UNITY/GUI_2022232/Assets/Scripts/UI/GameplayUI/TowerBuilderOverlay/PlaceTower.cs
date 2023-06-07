@@ -49,6 +49,7 @@ public class PlaceTower : NetworkBehaviour
             _towerModel.transform.position = hit.point;
 
             _isPlaceable = (_placeableMask.value & (1 << hit.collider.gameObject.layer)) > 0;
+
             if (_isPlaceable)
             {
                 ChangeColor(_validMaterial);
@@ -103,8 +104,16 @@ public class PlaceTower : NetworkBehaviour
         }
         else
         {
-            Debug.Log("Not enough money.");
+            ShowWarningClientRpc();
         }
+    }
+
+    [ClientRpc]
+    private void ShowWarningClientRpc()
+    {
+        if(!IsOwner) { return; }
+
+        OnCantplaceBuilding?.Invoke("You don't have enough money!");
     }
 
 
@@ -145,6 +154,7 @@ public class PlaceTower : NetworkBehaviour
     private GameObject _towerModel = null;
     private TowerProperties _towerToPlace = null;
     private bool _isPlaceable = false;
+    public event Action<string> OnCantplaceBuilding;
     [SerializeField] private LayerMask _placeableMask = new LayerMask();
     private bool _isDrawing = false;
     //Input actions 
