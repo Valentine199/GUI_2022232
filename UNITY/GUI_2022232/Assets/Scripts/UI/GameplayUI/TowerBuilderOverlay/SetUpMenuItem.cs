@@ -9,7 +9,7 @@ public class SetUpMenuItem : MonoBehaviour
     {
         HandleOnClick script =  gameObject.GetComponent<HandleOnClick>();
 
-        _ItemName.text = script.MyTower.TowerName;
+        _ItemName.text = script.MyTower.TowerName +"\r\n"+ script.MyTower.TowerCost+ "$";
 
         Image image = GetComponent<Image>();
 
