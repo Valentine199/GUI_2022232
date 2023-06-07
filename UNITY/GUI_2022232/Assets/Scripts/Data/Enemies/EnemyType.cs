@@ -6,7 +6,7 @@ namespace TowerDefense.Data.Enemies
 {
     public enum EnemyType
     {
-        egg,
+        lemon,
         tomato,
         corn,
         cabbage,

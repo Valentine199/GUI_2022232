@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16290ae0c129b6b4bb9f28d138e34e83, type: 3}
-  m_Name: Egg
+  m_Name: Lemon
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7643578420151505821, guid: e655afe3a305b224991ccec596eea63f, type: 3}
+  prefab: {fileID: 1346716100374921420, guid: a8f9eb822ffd4794792dd24b1682f22f, type: 3}
   _health: 1
   _moneyWhenKilled: 1
   _canBeFrozen: 0
