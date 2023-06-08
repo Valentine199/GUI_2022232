@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: PoisonTowerProp
   m_EditorClassIdentifier: 
   TowerName: Waste tower
-  TowerRange: 60
+  TowerRange: 30
   TowerDamage: 1
   TowerFiringRate: 1
   TowerBulletSpeed: 60
   TowerCost: 600
-  TowerModel: {fileID: 0}
-  TowerPicture: {fileID: 0}
-  TowerObject: {fileID: 0}
+  TowerModel: {fileID: 8542479065420924150, guid: 0ab3bb89bc6e2ed46ba0c91c38edb0e5,
+    type: 3}
+  TowerPicture: {fileID: 21300000, guid: d7b9d0820f293984a9ea49859968f49e, type: 3}
+  TowerObject: {fileID: 8542479065420924150, guid: 3ecb1b65aabec554cae501c6b150385a,
+    type: 3}
   DefaultTowerTargetingStyle: 4
   Effect: {fileID: 11400000, guid: 01837145129f4c54d82267ef6f93a430, type: 2}
   TowerUpgradeOptions:
