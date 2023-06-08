@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5309561add2854547b158ebd443dae96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _properties: {fileID: 11400000, guid: 79c1e6cefa9caf0459f69720ddbbbc09, type: 2}
+  _properties: {fileID: 11400000, guid: dffc30dd2621dbd478de0b7c1cef022c, type: 2}
   _enemyDetector: {fileID: 9113213849648398137}
   _towerShooting: {fileID: 6478062780109916044}
   _particleController: {fileID: 7926549939038947888}
@@ -862,6 +862,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4155541710342899213}
     m_Modifications:
+    - target: {fileID: -596603355955778219, guid: 795ce2e254f63ca40961e5de035af27c,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 7187943004634285927, guid: 795ce2e254f63ca40961e5de035af27c,
         type: 3}
       propertyPath: m_Name

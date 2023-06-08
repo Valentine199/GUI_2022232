@@ -18,30 +18,30 @@ MonoBehaviour:
     _timeBetweenEnemies: 1.3
     _initialSpawnDelay: 0
   - _enemyType: 1
-    _amountInGroup: 20
+    _amountInGroup: 10
     _timeBetweenEnemies: 0.6
-    _initialSpawnDelay: 0
+    _initialSpawnDelay: 3
   - _enemyType: 2
-    _amountInGroup: 60
+    _amountInGroup: 20
     _timeBetweenEnemies: 0.9
-    _initialSpawnDelay: 0
+    _initialSpawnDelay: 5
   - _enemyType: 3
-    _amountInGroup: 30
+    _amountInGroup: 10
     _timeBetweenEnemies: 1.6
-    _initialSpawnDelay: 0
+    _initialSpawnDelay: 7
   - _enemyType: 4
-    _amountInGroup: 20
+    _amountInGroup: 15
     _timeBetweenEnemies: 2
-    _initialSpawnDelay: 1
+    _initialSpawnDelay: 9
   - _enemyType: 5
-    _amountInGroup: 20
+    _amountInGroup: 13
     _timeBetweenEnemies: 1.5
-    _initialSpawnDelay: 0
+    _initialSpawnDelay: 11
   - _enemyType: 6
     _amountInGroup: 20
     _timeBetweenEnemies: 0.8
-    _initialSpawnDelay: 0
+    _initialSpawnDelay: 13
   - _enemyType: 7
-    _amountInGroup: 8
+    _amountInGroup: 10
     _timeBetweenEnemies: 2.3
-    _initialSpawnDelay: 0
+    _initialSpawnDelay: 15
