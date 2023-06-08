@@ -98,6 +98,15 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Wave"",
+                    ""type"": ""Button"",
+                    ""id"": ""12e5e2df-fd3d-497d-9d58-77bd8df0ebfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""action"": ""PlaceBuild"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee62114c-7254-492e-9d4e-2b86d96c35a8"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Wave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         m_Player_Build = m_Player.FindAction("Build", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_PlaceBuild = m_Player.FindAction("PlaceBuild", throwIfNotFound: true);
+        m_Player_Wave = m_Player.FindAction("Wave", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Build;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_PlaceBuild;
+    private readonly InputAction m_Player_Wave;
     public struct PlayerActions
     {
         private @PlayerControlls m_Wrapper;
@@ -329,6 +351,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         public InputAction @Build => m_Wrapper.m_Player_Build;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @PlaceBuild => m_Wrapper.m_Player_PlaceBuild;
+        public InputAction @Wave => m_Wrapper.m_Player_Wave;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +385,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @PlaceBuild.started += instance.OnPlaceBuild;
             @PlaceBuild.performed += instance.OnPlaceBuild;
             @PlaceBuild.canceled += instance.OnPlaceBuild;
+            @Wave.started += instance.OnWave;
+            @Wave.performed += instance.OnWave;
+            @Wave.canceled += instance.OnWave;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -390,6 +416,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @PlaceBuild.started -= instance.OnPlaceBuild;
             @PlaceBuild.performed -= instance.OnPlaceBuild;
             @PlaceBuild.canceled -= instance.OnPlaceBuild;
+            @Wave.started -= instance.OnWave;
+            @Wave.performed -= instance.OnWave;
+            @Wave.canceled -= instance.OnWave;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -417,5 +446,6 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         void OnBuild(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPlaceBuild(InputAction.CallbackContext context);
+        void OnWave(InputAction.CallbackContext context);
     }
 }
