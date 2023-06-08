@@ -88,14 +88,14 @@ namespace TowerDefense.Gameplay.Core
             //if (!IsOwner) return;
             _buildCanvas.OnBuildingsCanvasToggled += ToggleFreezeCam;
             _InteractCanvas.OnUpgradeCanvasToggled += ToggleFreezeCam;
-    
+            
         }
 
         private void OnDisable()
         {
             //if (!IsOwner) return;
             _buildCanvas.OnBuildingsCanvasToggled -= ToggleFreezeCam;
-            _InteractCanvas.OnUpgradeCanvasToggled -= ToggleFreezeCam;
+            _InteractCanvas.OnUpgradeCanvasToggled -= ToggleFreezeCam;            
         }
 
         private void Start()
@@ -206,7 +206,6 @@ namespace TowerDefense.Gameplay.Core
             if (!IsOwner) return;
             _cameraFreezed = !_cameraFreezed;
             CamFreeze?.Invoke();
-
         }
         public void UnStuck()
         {
