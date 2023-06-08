@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: c0cd3d75263ce374eb638d33a1d2fbe6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Skylandic.unity
     guid: c9d6289a0665c71428cc88f2aef4b0fe
   - enabled: 1
