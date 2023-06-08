@@ -24,6 +24,8 @@ namespace TowerDefense.Gameplay.Core
 
         public bool Crouch {get; private set;}
 
+        public bool Wave { get; private set; }
+
 
         private InputActionMap _currentMap;
 
@@ -37,6 +39,8 @@ namespace TowerDefense.Gameplay.Core
 
         private InputAction _crouchAction;
 
+        private InputAction _waveAction;
+
         private void Awake()
         {
             //if (!IsOwner) return;
@@ -47,18 +51,21 @@ namespace TowerDefense.Gameplay.Core
             _runAction = _currentMap.FindAction("Run");
             _jumpAction = _currentMap.FindAction("Jump");
             _crouchAction = _currentMap.FindAction("Crouch");
+            _waveAction = _currentMap.FindAction("Wave");
 
             _moveAction.performed += onMove;
             _lookAction.performed += onLook;
             _runAction.performed += onRun;
             _jumpAction.performed += onJump;
             _crouchAction.started += onCrouch;
+            _waveAction.started += OnWave;
 
             _moveAction.canceled += onMove;
             _lookAction.canceled += onLook;
             _runAction.canceled += onRun;
             _jumpAction.canceled += onJump;
             _crouchAction.canceled += onCrouch;
+            _waveAction.canceled += OnWave;
 
             //_playerControlls = new PlayerControlls();
         }
@@ -88,6 +95,11 @@ namespace TowerDefense.Gameplay.Core
         private void onCrouch(InputAction.CallbackContext context)
         {
             Crouch = context.ReadValueAsButton();
+        }
+
+        private void OnWave(InputAction.CallbackContext context)
+        {
+            Wave = context.ReadValueAsButton();
         }
 
         //public Vector2 GetMouseDelta()

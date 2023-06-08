@@ -60,6 +60,10 @@ namespace TowerDefense.Gameplay.Core
 
         private float _xRotation;
 
+        private int _waveHash;
+
+
+
 
         private const float _walkSpeed = 3f;
 
@@ -109,6 +113,7 @@ namespace TowerDefense.Gameplay.Core
             _fallingHash = Animator.StringToHash("Falling");
             _zVelHash = Animator.StringToHash("Z_Velocity");
             _crouchVelHash = Animator.StringToHash("Crouch");
+            _waveHash = Animator.StringToHash("Wave");
             
             //PlayerCamera.Instance.FollowPlayer(transform.Find("PlayerCameraRoot"));
             //CinemachineVirtualCamera virtualcam = GameObject.Find("Main Camera").GetComponent<CinemachineVirtualCamera>();
@@ -171,6 +176,7 @@ namespace TowerDefense.Gameplay.Core
             Move();
             HandleJump();
             HandleCrouch();
+            HandleWave();
             Checkmovement();
             WeaponHolderSync();
         }
@@ -287,6 +293,13 @@ namespace TowerDefense.Gameplay.Core
             if (!IsOwner) return;
             
             _animator.SetBool(_crouchVelHash, _inputManager.Crouch);
+        }
+
+        private void HandleWave()
+        {
+            if (!IsOwner) return;
+
+            _animator.SetBool(_waveHash, _inputManager.Wave);
         }
 
         private void HandleJump()
