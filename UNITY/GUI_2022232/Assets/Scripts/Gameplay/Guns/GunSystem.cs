@@ -43,6 +43,7 @@ public class GunSystem : NetworkBehaviour,ISoundPlayer
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] GameObject bulletHoleGraphic;
+    Animator animator;
 
     public event Action PlayInitSound;
     public event Action PlayAmbiance;
@@ -59,6 +60,7 @@ public class GunSystem : NetworkBehaviour,ISoundPlayer
     {
         weaponGameObject.Add(muzzleFlash);
         weaponGameObject.Add(bulletHoleGraphic);
+        animator = GetComponent<Animator>();
     }
     private void CanShoot()
     {
@@ -105,7 +107,7 @@ public class GunSystem : NetworkBehaviour,ISoundPlayer
     {        
         readyToShoot = false;
         PlayInitSound?.Invoke();
-
+        StartCoroutine(StartRecoil());
         //Spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
@@ -199,5 +201,12 @@ public class GunSystem : NetworkBehaviour,ISoundPlayer
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    IEnumerator StartRecoil()
+    {
+        animator.Play("Recoil");
+        yield return new WaitForSeconds(0.2f);
+        animator.Play("New State");
     }
 }
