@@ -8793,6 +8793,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character_FREE Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2848898086878090011, guid: 60770bdb4dc667c45bea53db0339dc05,
         type: 3}
       propertyPath: m_IsActive
@@ -8965,6 +8970,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6667645771278076008}
+    - targetCorrespondingSourceObject: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1544940390648112664}
     - targetCorrespondingSourceObject: {fileID: 1223947089, guid: 60770bdb4dc667c45bea53db0339dc05,
         type: 3}
       insertIndex: -1
@@ -9299,6 +9308,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: {fileID: 5544501840666498437}
   playerNameInput: {fileID: 8351414915295672774}
+--- !u!114 &1544940390648112664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303115634917129618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79599007cd3f774e8453cf2d2810f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 4423132989707494283}
+  Weapons: {fileID: 4297644313804093071}
 --- !u!1 &3849003532783860400 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1223947089, guid: 60770bdb4dc667c45bea53db0339dc05,

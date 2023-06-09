@@ -29,6 +29,7 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private TowerInteractUI _InteractCanvas;
 
         [SerializeField] private CinemachineExtender cinemachineExtender;
+        private GameObject _virtualCamera;
 
         private GameController _gameController;
 
@@ -141,6 +142,13 @@ namespace TowerDefense.Gameplay.Core
             checkMovement = true;
             //WeaponHolderSync();             
             LoadPlayerPrefs();
+            _virtualCamera = GameObject.Find("Virtual Camera");
+            if (_virtualCamera!=null)
+            {
+                CinemachineVirtualCamera xd = _virtualCamera.GetComponent<CinemachineVirtualCamera>();
+                xd.Follow = transform;
+                xd.LookAt = Camera;
+            }
         }
 
         private void LoadPlayerPrefs()
