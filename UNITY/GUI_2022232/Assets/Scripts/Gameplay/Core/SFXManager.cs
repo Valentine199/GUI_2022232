@@ -59,7 +59,7 @@ public class SFXManager : NetworkBehaviour
         if(_ambianceSound.Length > 1)
         {
             _multipleSongs = true;
-            SyncedSoundServerRpc();
+            PlayManySongs();
             //StartCoroutine(PlayMultipleSounds());
         }
         else
@@ -95,12 +95,12 @@ public class SFXManager : NetworkBehaviour
 
         if(_multipleSongs)
         {
-            SyncedSoundServerRpc();
+            PlayManySongs();
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void SyncedSoundServerRpc()
+    //[ServerRpc(RequireOwnership = false)]
+    private void PlayManySongs()
     {
         int r = UnityEngine.Random.Range(0, _ambianceSound.Length);
         AudioClip nextSong = _ambianceSound[r];
@@ -109,11 +109,11 @@ public class SFXManager : NetworkBehaviour
         //SyncedSoundClientRpc(r);
     }
 
-    [ClientRpc]
-    private void SyncedSoundClientRpc(int i)
-    {
+    //[ClientRpc]
+    //private void SyncedSoundClientRpc(int i)
+    //{
         
-    }
+    //}
 
     private IEnumerator PlaySoundOnLoop(AudioClip audio)
     {
