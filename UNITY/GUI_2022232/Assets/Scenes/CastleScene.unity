@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.080263846, g: 0.099656865, b: 0.3010566, a: 1}
+  m_IndirectSpecularColor: {r: 0.08033525, g: 0.09973304, b: 0.3011408, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13944,6 +13944,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df62ddfcfbfac2d4b837326f1aa3936a, type: 3}
+--- !u!1 &447575372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2018735348520515291, guid: 2504e0e70750e4a4aa93108ab89af44a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1890204842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &453327561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25253,6 +25259,11 @@ MonoBehaviour:
     - Override: 0
       Prefab: {fileID: 1416702955784289883, guid: 95343d248de739349a9e8f0a2af1c655,
         type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 447575372}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
