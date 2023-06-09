@@ -197,7 +197,7 @@ namespace TowerDefense.Gameplay.Core
         }
         void Checkmovement()
         {
-            if (!IsOwner) return;
+            //if (!IsOwner) return;
             if (checkMovement) return; 
             //Debug.Log("GG");
             //Debug.Log(Math.Abs((prevposx + prevposz) - (transform.position.x + transform.position.z)));
