@@ -18,11 +18,12 @@ public class DisableUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) 
-        { 
+        if (Cameras == null) return;
+        if (Input.GetKeyDown(KeyCode.K))
+        {
             UI.SetActive(!UI.activeSelf);
             Weapons.SetActive(!Weapons.activeSelf);
-            Cameras.SetActive(!Cameras.activeSelf);
+            Cameras.SetActive(!Cameras.activeSelf);            
         }
     }
 }
