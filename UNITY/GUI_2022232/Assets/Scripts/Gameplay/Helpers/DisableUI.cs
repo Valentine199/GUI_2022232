@@ -11,8 +11,8 @@ public class DisableUI : MonoBehaviour
     void Start()
     {
         Cameras = GameObject.Find("Cameras");
-        
-        Cameras.SetActive(false);
+        if (Cameras != null ) Cameras.SetActive(false);
+        //Cameras.SetActive(false);
     }
 
     // Update is called once per frame
