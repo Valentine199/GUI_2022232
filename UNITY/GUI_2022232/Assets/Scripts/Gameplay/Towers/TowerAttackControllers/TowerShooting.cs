@@ -206,7 +206,7 @@ namespace TowerDefense.Towers.TowerAttackControllers
 
         private void TargetEnemy()
         {
-            if (IsClient) { return; }
+            if (!IsClient) { return; }
 
             _head.LookAt(_targetTransform);
             _origin.LookAt(_targetTransform);
