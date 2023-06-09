@@ -9020,7 +9020,7 @@ MonoBehaviour:
   BottomLimit: 70
   MouseSensitivity: 7
   JumpFactor: 260
-  DistanceToGround: 0.9
+  DistanceToGround: 1
   AirResistance: 0.8
   jumpDelay: 1
   GroundCheck:
