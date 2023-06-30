@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class DisableUI : MonoBehaviour
+public class DisableUI : NetworkBehaviour
 {
     [SerializeField] GameObject UI;
     [SerializeField] GameObject Weapons;
@@ -11,7 +12,7 @@ public class DisableUI : MonoBehaviour
     void Start()
     {
         Cameras = GameObject.Find("Cameras");
-        if (Cameras != null ) Cameras.SetActive(false);
+        //Cameras.SetActive(false);
         //Cameras.SetActive(false);
     }
 
@@ -19,11 +20,19 @@ public class DisableUI : MonoBehaviour
     void Update()
     {
         if (Cameras == null) return;
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (!IsOwner) return;
+            UI.SetActive(true);
+            Weapons.SetActive(true);
+            Cameras.SetActive(false);            
+        }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            UI.SetActive(!UI.activeSelf);
-            Weapons.SetActive(!Weapons.activeSelf);
-            Cameras.SetActive(!Cameras.activeSelf);            
+            if (!IsOwner) return;
+            UI.SetActive(false);
+            Weapons.SetActive(false);
+            Cameras.SetActive(true);
         }
     }
 }

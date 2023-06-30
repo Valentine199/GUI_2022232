@@ -27,9 +27,12 @@ namespace TowerDefense.Gameplay.Core
         [SerializeField] private GameObject WeaponHolder;
         [SerializeField] private HandlePlaceCanvas _buildCanvas;
         [SerializeField] private TowerInteractUI _InteractCanvas;
+        [SerializeField] private Transform Head;
 
         [SerializeField] private CinemachineExtender cinemachineExtender;
         private GameObject _virtualCamera;
+
+        private GameObject[] camplayer;
 
         private GameController _gameController;
 
@@ -142,12 +145,28 @@ namespace TowerDefense.Gameplay.Core
             checkMovement = true;
             //WeaponHolderSync();             
             LoadPlayerPrefs();
+            
             _virtualCamera = GameObject.Find("Virtual Camera");
+            camplayer = GameObject.FindGameObjectsWithTag("Player");
+            //camplayer = GameObject.Find("HumanMale_Character_FREE Variant");
+
+            //_virtualCamera = camplayer.Find("Virtual Camera");
+            //Debug.Log(_virtualCamera.name);
+
             if (_virtualCamera!=null)
             {
-                CinemachineVirtualCamera xd = _virtualCamera.GetComponent<CinemachineVirtualCamera>();
-                xd.Follow = transform;
-                xd.LookAt = Camera;
+                if (camplayer==null)
+                {
+                    CinemachineVirtualCamera lul = _virtualCamera.GetComponent<CinemachineVirtualCamera>();
+                    lul.Follow = transform;
+                    lul.LookAt = Camera;
+                }
+                else
+                {
+                    CinemachineVirtualCamera xd = _virtualCamera.GetComponent<CinemachineVirtualCamera>();
+                    xd.Follow = camplayer[0].transform;
+                    xd.LookAt = camplayer[0].transform;
+                }                
             }
         }
 

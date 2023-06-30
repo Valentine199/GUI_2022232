@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38141b3e1a2abdd4bb9a9d6767054a15, type: 3}
   m_Name: StartGameStatistics
   m_EditorClassIdentifier: 
-  _waves: 0
-  _money: 5000
+  _waves: 22
+  _money: 100000
   _lives: 300
   _sellTowerMultiplier: 0.75
   _maxGameStats: {fileID: 0}
